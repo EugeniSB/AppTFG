@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">AlphaTest</string>
+    <string name="signUpTitle"><u>Enter your credentials:</u></string>
+    <string name="editProfileTitle"><u>Edit Profile:</u></string>
+
+</resources>
