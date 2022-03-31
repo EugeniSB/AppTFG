@@ -31,7 +31,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    private fun profile(email: String){
+    private fun  contacts(email: String){
 
         val contactsButton = findViewById<Button>(R.id.mycontactsButton)
 
@@ -43,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun contacts(email: String){
+    private fun profile(email: String){
 
         val profileIcon = findViewById<ImageView>(R.id.profileIcon)
 

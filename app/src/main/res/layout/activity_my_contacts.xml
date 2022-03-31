@@ -5,15 +5,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#A5A499"
-    tools:context=".MyContactsActivity">
-
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="389dp"
-        android:layout_height="46dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="11dp"
-        tools:layout_editor_absoluteY="16dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".MyContactsActivity"/>
