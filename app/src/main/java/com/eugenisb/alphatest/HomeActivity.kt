@@ -26,11 +26,24 @@ class HomeActivity : AppCompatActivity() {
 
         logoff()
         profile(email ?:"")
+        contacts(email ?: "")
 
     }
 
 
     private fun profile(email: String){
+
+        val contactsButton = findViewById<Button>(R.id.mycontactsButton)
+
+        contactsButton.setOnClickListener {
+            val contactsIntent = Intent(this, MyContactsActivity::class.java).apply {
+                putExtra("email", email)
+            }
+            startActivity(contactsIntent)
+        }
+    }
+
+    private fun contacts(email: String){
 
         val profileIcon = findViewById<ImageView>(R.id.profileIcon)
 
@@ -41,7 +54,6 @@ class HomeActivity : AppCompatActivity() {
             startActivity(profileIntent)
         }
     }
-
 
     private fun logoff(){
 

@@ -8,7 +8,7 @@
     tools:context=".SignUpActivity">
 
     <LinearLayout
-        android:layout_width="383dp"
+        android:layout_width="0dp"
         android:layout_height="398dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"

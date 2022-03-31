@@ -63,9 +63,9 @@ class ProfileActivity : AppCompatActivity() {
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
             findViewById<ImageView>(R.id.profileImage).setImageBitmap(bitmap)
 
-        }.addOnFailureListener {
+        }/*.addOnFailureListener {
             Toast.makeText(this, "Error Retrieving Profile Image", Toast.LENGTH_SHORT).show()
-        }
+        }*/
 
     }
 
