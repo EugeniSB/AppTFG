@@ -1,19 +1,89 @@
 package com.eugenisb.alphatest
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.widget.SearchView
+import android.util.Log
+import android.widget.Button
+import android.widget.TextView
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MyContactsActivity : AppCompatActivity() {
 
-    var displayedList:MutableList<String> = ArrayList()
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_contacts)
+
+        title = "Contacts"
+
+        val bundle = intent.extras
+        val email = bundle?.getString("email")
+
+
+        /*
+        val usersMap = mutableMapOf<String,String>()
+
+
+        db.collection("users").whereNotEqualTo("username", null).get().addOnSuccessListener {
+            documents -> for (document in documents) {
+                usersMap.put(document.getString("username").toString(),document.id.toString())
+                Log.d("usersMapDocs","${document.getString("username")} : ${document.id.toString()}")
+            }
+        }.addOnFailureListener {
+            Log.w("usersMapDocs","Error getting documents")
+        }
+        */
+
+        ///////////////var usersMap = getUsers()
+
+
+        //Log.d("TestMap2", "Esto no va")
+
+        /////////////////Log.d("usersMapFinal", usersMap["Test2"].toString())
+
+        val addContactsButton = findViewById<Button>(R.id.addcontactsButton)
+        addContactsButton.setOnClickListener {
+            //val usernames = usersMap.keys.toTypedArray()
+
+            val addContactsIntent = Intent(this, AddContactActivity::class.java).apply {
+                putExtra("email", email)
+                /////////////putExtra("usernames", usersMap)
+            }
+            startActivity(addContactsIntent)
+            //findViewById<TextView>(R.id.testtextView).setText(usersMap["Test2"] as String)
+            //findViewById<TextView>(R.id.testtextView2).setText(usernames[1] as String)
+
+
+
+        }
     }
 
+    /*
+    private fun getUsers() : MutableMap<String,String>{
+
+        val usersMap = hashMapOf<String,String>()
+
+        db.collection("users").whereNotEqualTo("username", null).get().addOnSuccessListener {
+                documents -> for (document in documents) {
+            usersMap[document.getString("username").toString()] = document.id.toString()
+            Log.d("usersMapDocs","${document.getString("username")} : ${document.id.toString()}")
+        }
+
+        }.addOnFailureListener {
+            Log.w("usersMapDocs","Error getting documents")
+        }
+
+        return usersMap
+
+    }
+    */
+
+
+
+
+    /*
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         menuInflater.inflate(R.menu.searchbar,menu)
@@ -35,6 +105,6 @@ class MyContactsActivity : AppCompatActivity() {
 
         return super.onCreateOptionsMenu(menu)
     }
-
+    */
 }
 

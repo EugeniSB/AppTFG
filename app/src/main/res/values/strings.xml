@@ -3,4 +3,13 @@
     <string name="signUpTitle"><u>Enter your credentials:</u></string>
     <string name="editProfileTitle"><u>Edit Profile:</u></string>
 
+    <string-array name="countreies_array">
+        <item>Spain</item>
+        <item>United States</item>
+        <item>Belgium</item>
+        <item>France</item>
+        <item>Italy</item>
+    </string-array>
+
+
 </resources>

@@ -14,7 +14,7 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
         title = "Log in"
-        val test = 1
+
         val loginButton = findViewById<Button>(R.id.loginButton)
 
         signup()
