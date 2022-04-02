@@ -11,6 +11,7 @@ class AddContactActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     private lateinit var adapter: ArrayAdapter<*>
+    //private lateinit var adapter: MyCustomAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,7 @@ class AddContactActivity : AppCompatActivity() {
         getUsernames(){
             val usersMap = it
             val keys = usersMap?.keys.toTypedArray()
+            //val usernames = keys.toList()
             val usernames = keys.toList()
             adapterFun(usernames)
         }
@@ -37,30 +39,16 @@ class AddContactActivity : AppCompatActivity() {
         adapter = ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1,
             usernames ?: emptyList())
 
+        //adapter = MyCustomAdapter(usernames,this)
+
         var usersList = findViewById<ListView>(R.id.listViewUsers)
+
 
         usersList.adapter = adapter
         usersList.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             Toast.makeText(applicationContext, parent?.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show()
         }
         usersList.emptyView = findViewById<TextView>(R.id.emptytextView)
-    }
-
-    private fun getUsernames(myCallback: (MutableMap<String,String>) -> Unit) {
-
-        val usersMap = mutableMapOf<String,String>()
-
-        db.collection("users").whereNotEqualTo("username", null).get().addOnSuccessListener {
-                documents -> for (document in documents) {
-            usersMap[document.getString("username").toString()] = document.id.toString()
-            Log.d("usersMapDocs","${document.getString("username")} : ${document.id.toString()}")
-        }
-            myCallback(usersMap)
-        }.addOnFailureListener {
-            Log.w("usersMapDocs","Error getting documents")
-        }
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -80,5 +68,21 @@ class AddContactActivity : AppCompatActivity() {
             }
         })
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun getUsernames(myCallback: (MutableMap<String,String>) -> Unit) {
+
+        val usersMap = mutableMapOf<String,String>()
+
+        db.collection("users").whereNotEqualTo("username", null).get().addOnSuccessListener {
+                documents -> for (document in documents) {
+            usersMap[document.getString("username").toString()] = document.id.toString()
+            Log.d("usersMapDocs","${document.getString("username")} : ${document.id.toString()}")
+        }
+            myCallback(usersMap)
+        }.addOnFailureListener {
+            Log.w("usersMapDocs","Error getting documents")
+        }
+
     }
 }
