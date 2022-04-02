@@ -10,8 +10,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 class AddContactActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
-    private lateinit var adapter: ArrayAdapter<*>
-    //private lateinit var adapter: MyCustomAdapter
+    //private lateinit var adapter: ArrayAdapter<*>
+    private lateinit var adapter: SearchableAdapter
+    private lateinit var userEmail: String
+    private lateinit var userUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,25 +23,27 @@ class AddContactActivity : AppCompatActivity() {
 
         val bundle = intent.extras
         val email = bundle?.getString("email")
+        userUsername = ""
+
+        userEmail = email!!
         //val usernames = bundle?.getStringArrayList("usernames")
         //////val usernamesMap = bundle?.getSerializable("usernames")
-
 
         getUsernames(){
             val usersMap = it
             val keys = usersMap?.keys.toTypedArray()
             //val usernames = keys.toList()
             val usernames = keys.toList()
-            adapterFun(usernames)
+            adapterFun(usernames, usersMap)
         }
 
     }
 
-    private fun adapterFun(usernames: List<String>) {
-        adapter = ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1,
-            usernames ?: emptyList())
+    private fun adapterFun(usernames: List<String>, usersMap: MutableMap<String,String>) {
+        /*adapter = ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1,
+            usernames ?: emptyList())*/
 
-        //adapter = MyCustomAdapter(usernames,this)
+        adapter = SearchableAdapter(this,usernames, usersMap,userEmail)
 
         var usersList = findViewById<ListView>(R.id.listViewUsers)
 
@@ -74,11 +78,16 @@ class AddContactActivity : AppCompatActivity() {
 
         val usersMap = mutableMapOf<String,String>()
 
+        db.collection("users").document(userEmail).get().addOnSuccessListener {
+            userUsername = (it.get("username") as String)
+        }
+
         db.collection("users").whereNotEqualTo("username", null).get().addOnSuccessListener {
                 documents -> for (document in documents) {
             usersMap[document.getString("username").toString()] = document.id.toString()
             Log.d("usersMapDocs","${document.getString("username")} : ${document.id.toString()}")
         }
+            usersMap.remove(userUsername)
             myCallback(usersMap)
         }.addOnFailureListener {
             Log.w("usersMapDocs","Error getting documents")
