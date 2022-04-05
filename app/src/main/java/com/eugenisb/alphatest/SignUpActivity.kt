@@ -49,14 +49,14 @@ class SignUpActivity : AppCompatActivity() {
             val email = findViewById<EditText>(R.id.emailEditText).text.toString()
             val name = findViewById<EditText>(R.id.fullnameEditText).text.toString()
             val username = findViewById<EditText>(R.id.usernameEditText).text.toString()
-            val phone = findViewById<EditText>(R.id.editTextPhone).text.toString()
+            //val phone = findViewById<EditText>(R.id.editTextPhone).text.toString()
             val password = findViewById<EditText>(R.id.passEditText).text.toString()
 
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                 if(it.isSuccessful) {
 
                     db.collection("users").document(email).set(
-                        hashMapOf("name" to name, "username" to username, "phone" to phone)
+                        hashMapOf("name" to name, "username" to username/*, "phone" to phone*/)
                     )
                     val homeIntent = Intent(this, HomeActivity::class.java).apply {
                         putExtra("email", email)
@@ -121,7 +121,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun validatePhoneNumber() : Boolean{
-        val phoneNum = findViewById<EditText>(R.id.editTextPhone).text.toString()
+        /*val phoneNum = findViewById<EditText>(R.id.editTextPhone).text.toString()
 
         if(phoneNum.isNotEmpty() && Patterns.PHONE.matcher(phoneNum).matches())
             return true
@@ -132,7 +132,8 @@ class SignUpActivity : AppCompatActivity() {
             alertPhoneNum.setPositiveButton("Okay", null)
             alertPhoneNum.show()
             return false
-        }
+        }*/
+        return true
     }
 
     private fun validatePassword(): Boolean{

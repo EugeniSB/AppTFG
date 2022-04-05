@@ -49,7 +49,7 @@ class ProfileActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.fullnameTextView).setText(it.get("name") as String)
             findViewById<TextView>(R.id.usernameTextView).setText(it.get("username") as String)
             findViewById<TextView>(R.id.emailTextView).setText(email)
-            findViewById<TextView>(R.id.phoneTextView).setText(it.get("phone") as String)
+            //findViewById<TextView>(R.id.phoneTextView).setText(it.get("phone") as String)
         }
 
         Thread.sleep(900)

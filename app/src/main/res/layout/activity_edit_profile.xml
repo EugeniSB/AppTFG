@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A5A499"
+    android:background="#FFFFFF"
     tools:context=".EditProfileActivity">
 
     <LinearLayout
@@ -55,19 +55,6 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="10dp" />
-
-        <EditText
-            android:id="@+id/phoneEditProfileEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Phone number"
-            android:inputType="phone" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginBottom="5dp" />
 
         <TableRow
             android:layout_width="match_parent"

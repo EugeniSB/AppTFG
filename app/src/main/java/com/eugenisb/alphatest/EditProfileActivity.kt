@@ -77,7 +77,7 @@ class EditProfileActivity : AppCompatActivity() {
         db.collection("users").document(email).get().addOnSuccessListener {
             findViewById<EditText>(R.id.fullnameEditProfileEditText).setText(it.get("name") as String)
             findViewById<EditText>(R.id.usernameEditProfileEditText).setText(it.get("username") as String)
-            findViewById<EditText>(R.id.phoneEditProfileEditText).setText(it.get("phone") as String)
+            //findViewById<EditText>(R.id.phoneEditProfileEditText).setText(it.get("phone") as String)
         }
 
         val imgReference = storage.getReference().child("images/profile_pics/Profile_picture_of: " + email)
@@ -97,14 +97,14 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun editUser(email: String){
 
-        if(validateFullName() && validateUsername() && validatePhoneNumber()) {
+        if(validateFullName() && validateUsername() /*&& validatePhoneNumber()*/) {
 
             val name = findViewById<EditText>(R.id.fullnameEditProfileEditText).text.toString()
             val username = findViewById<EditText>(R.id.usernameEditProfileEditText).text.toString()
-            val phone = findViewById<EditText>(R.id.phoneEditProfileEditText).text.toString()
+            //val phone = findViewById<EditText>(R.id.phoneEditProfileEditText).text.toString()
 
             db.collection("users").document(email).set(
-                hashMapOf("name" to name, "username" to username, "phone" to phone)
+                hashMapOf("name" to name, "username" to username/*, "phone" to phone*/)
             )
 
             if(imageUpdated){
@@ -158,7 +158,7 @@ class EditProfileActivity : AppCompatActivity() {
 
 
     private fun validatePhoneNumber() : Boolean{
-        val phoneNum = findViewById<EditText>(R.id.phoneEditProfileEditText).text.toString()
+        /*val phoneNum = findViewById<EditText>(R.id.phoneEditProfileEditText).text.toString()
 
         if(phoneNum.isNotEmpty() && Patterns.PHONE.matcher(phoneNum).matches())
             return true
@@ -169,7 +169,8 @@ class EditProfileActivity : AppCompatActivity() {
             alertPhoneNum.setPositiveButton("Okay", null)
             alertPhoneNum.show()
             return false
-        }
+        }*/
+        return true
     }
 
 }

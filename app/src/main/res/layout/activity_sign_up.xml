@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A5A499"
+    android:background="#FFFFFF"
     tools:context=".SignUpActivity">
 
     <LinearLayout
@@ -69,18 +69,6 @@
             android:layout_height="10dp" />
 
         <EditText
-            android:id="@+id/editTextPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Phone number"
-            android:inputType="phone" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
-        <EditText
             android:id="@+id/passEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,7 +78,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="28dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
