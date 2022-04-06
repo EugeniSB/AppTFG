@@ -30,14 +30,14 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
     private LayoutInflater mInflater;
     private ItemFilter mFilter = new ItemFilter();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private String userEmail;
+    private String userId;
     private Map usersMap;
 
-    public SearchableAdapter(Context context, List<String> data, Map usersMap, String userEmail) {
+    public SearchableAdapter(Context context, List<String> data, Map usersMap, String userId) {
         this.filteredData = data ;
         this.originalData = data ;
         this.usersMap = usersMap;
-        this.userEmail = userEmail;
+        this.userId = userId;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -101,8 +101,8 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
 
     public void sendRequest(String stringUserClicked){
 
-        String stringEmailClicked = (String) usersMap.get(stringUserClicked);
-        Log.d(TAG, stringEmailClicked);
+        String stringUserIdClicked = (String) usersMap.get(stringUserClicked);
+        Log.d(TAG, stringUserIdClicked);
 
     }
 

@@ -19,7 +19,7 @@ class MyContactsActivity : AppCompatActivity() {
         title = "Contacts"
 
         val bundle = intent.extras
-        val email = bundle?.getString("email")
+        val userId = bundle?.getString("userId")
 
 
         /*
@@ -48,7 +48,7 @@ class MyContactsActivity : AppCompatActivity() {
             //val usernames = usersMap.keys.toTypedArray()
 
             val addContactsIntent = Intent(this, AddContactActivity::class.java).apply {
-                putExtra("email", email)
+                putExtra("userId", userId)
                 /////////////putExtra("usernames", usersMap)
             }
             startActivity(addContactsIntent)

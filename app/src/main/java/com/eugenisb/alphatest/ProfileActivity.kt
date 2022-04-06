@@ -23,14 +23,14 @@ class ProfileActivity : AppCompatActivity() {
         title = "Profile"
 
         val bundle = intent.extras
-        val email = bundle?.getString("email")
+        val userId = bundle?.getString("userId")
 
-        getUser(email ?: "")
+        getUser(userId ?: "")
 
         val backArrow = findViewById<ImageView>(R.id.backArrowProfile)
         backArrow.setOnClickListener {
             val homeIntent = Intent(this, HomeActivity::class.java).apply {
-                putExtra("email", email)
+                putExtra("userId", userId)
             }
             startActivity(homeIntent)
             //onBackPressed()
@@ -38,25 +38,25 @@ class ProfileActivity : AppCompatActivity() {
 
         val editProfile = findViewById<ImageView>(R.id.editprofileImage)
         editProfile.setOnClickListener {
-            editProfile(email ?: "")
+            editProfile(userId ?: "")
         }
 
     }
 
-    private fun getUser(email: String){
+    private fun getUser(userId: String){
 
-        db.collection("users").document(email).get().addOnSuccessListener {
+        db.collection("users").document(userId).get().addOnSuccessListener {
             findViewById<TextView>(R.id.fullnameTextView).setText(it.get("name") as String)
             findViewById<TextView>(R.id.usernameTextView).setText(it.get("username") as String)
-            findViewById<TextView>(R.id.emailTextView).setText(email)
+            findViewById<TextView>(R.id.emailTextView).setText(it.get("email") as String)
             //findViewById<TextView>(R.id.phoneTextView).setText(it.get("phone") as String)
         }
 
         Thread.sleep(900)
 
-        val imgReference = storageReference.child("images/profile_pics/Profile_picture_of: " + email)
+        val imgReference = storageReference.child("images/profile_pics/Profile_picture_of: " + userId)
 
-        val localFile = File.createTempFile("profile_pic", email)
+        val localFile = File.createTempFile("profile_pic", userId)
 
         imgReference.getFile(localFile).addOnSuccessListener {
             //Toast.makeText(this, "Profile Image Retrieved", Toast.LENGTH_SHORT).show()
@@ -69,10 +69,10 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
-    private fun editProfile(email: String) {
+    private fun editProfile(userId: String) {
 
         val editProfileIntent = Intent(this, EditProfileActivity::class.java).apply {
-            putExtra("email", email)
+            putExtra("userId", userId)
         }
         startActivity(editProfileIntent)
     }

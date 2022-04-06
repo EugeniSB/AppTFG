@@ -10,8 +10,12 @@ import android.widget.*
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.tasks.await
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import java.io.File
 import java.net.URI
 
@@ -26,12 +30,19 @@ class EditProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
+
         title = "EditProfile"
 
         val bundle = intent.extras
-        val email = bundle?.getString("email")
+        val userId = bundle?.getString("userId")
+        getUser(userId ?: "")
+        var username = ""
+        var email = ""
 
-        getUser(email ?: "")
+        lifecycleScope.launch {
+            username = getUsername(userId ?: "")
+            email = getEmail(userId ?: "")
+        }
 
         val cancelButton = findViewById<Button>(R.id.cancelEditProfileButton)
         cancelButton.setOnClickListener {
@@ -40,7 +51,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         val editButton = findViewById<Button>(R.id.acceptEditProfileButton)
         editButton.setOnClickListener {
-            editUser(email ?: "")
+            editUser(userId ?: "", username, email)
         }
 
         val getImage = registerForActivityResult(
@@ -56,7 +67,6 @@ class EditProfileActivity : AppCompatActivity() {
                 /*
                 storageReference.putFile(it).addOnSuccessListener {
                     Toast.makeText(this, "Successfuly uploaded image",Toast.LENGTH_SHORT).show()
-
                 }.addOnFailureListener {
                     Toast.makeText(this, "Upload failed",Toast.LENGTH_SHORT).show()
                 }*/
@@ -71,18 +81,18 @@ class EditProfileActivity : AppCompatActivity() {
 
     }
 
+    private fun getUser(userId: String) {
 
-    private fun getUser(email: String){
 
-        db.collection("users").document(email).get().addOnSuccessListener {
+        db.collection("users").document(userId).get().addOnSuccessListener {
             findViewById<EditText>(R.id.fullnameEditProfileEditText).setText(it.get("name") as String)
             findViewById<EditText>(R.id.usernameEditProfileEditText).setText(it.get("username") as String)
             //findViewById<EditText>(R.id.phoneEditProfileEditText).setText(it.get("phone") as String)
         }
 
-        val imgReference = storage.getReference().child("images/profile_pics/Profile_picture_of: " + email)
+        val imgReference = storage.getReference().child("images/profile_pics/Profile_picture_of: " + userId)
 
-        val localFile = File.createTempFile("profile_pic", email)
+        val localFile = File.createTempFile("profile_pic", userId)
 
         imgReference.getFile(localFile).addOnSuccessListener {
             //Toast.makeText(this, "Profile Image Retrieved", Toast.LENGTH_SHORT).show()
@@ -95,34 +105,61 @@ class EditProfileActivity : AppCompatActivity() {
 
     }
 
-    private fun editUser(email: String){
+    private suspend fun getUsernameSnapshot(userId: String): DocumentSnapshot{
+        return db.collection("users").document(userId).get().await()
+    }
+
+    private suspend fun getUsername(userId: String): String{
+        val userDoc = getUsernameSnapshot(userId)
+        return userDoc.getString("username")!!
+    }
+
+    private suspend fun getEmail(userId: String): String{
+        var snap = db.collection("users").document(userId).get().await()
+        return snap.getString("email")!!
+    }
+
+
+    private fun editUser(userId: String, username: String,email: String){
 
         if(validateFullName() && validateUsername() /*&& validatePhoneNumber()*/) {
 
             val name = findViewById<EditText>(R.id.fullnameEditProfileEditText).text.toString()
-            val username = findViewById<EditText>(R.id.usernameEditProfileEditText).text.toString()
+            val newUsername = findViewById<EditText>(R.id.usernameEditProfileEditText).text.toString()
+
             //val phone = findViewById<EditText>(R.id.phoneEditProfileEditText).text.toString()
 
-            db.collection("users").document(email).set(
-                hashMapOf("name" to name, "username" to username/*, "phone" to phone*/)
-            )
+            db.collection("users").whereEqualTo("username", newUsername).get().addOnSuccessListener{
+                if(it.isEmpty || username == newUsername){
+                    db.collection("users").document(userId).set(
+                        hashMapOf("name" to name, "username" to newUsername, "email" to email/*, "phone" to phone*/)
+                    )
 
-            if(imageUpdated){
-                val imageName = "Profile_picture_of: " + email
-                val storageReference = storage.getReference("images/profile_pics/$imageName")
+                    if(imageUpdated){
+                        val imageName = "Profile_picture_of: " + userId
+                        val storageReference = storage.getReference("images/profile_pics/$imageName")
 
-                storageReference.putFile(URIimage).addOnSuccessListener {
-                    Toast.makeText(this, "Successfuly uploaded image", Toast.LENGTH_SHORT).show()
+                        storageReference.putFile(URIimage).addOnSuccessListener {
+                            Toast.makeText(this, "Successfuly uploaded image", Toast.LENGTH_SHORT).show()
 
-                }.addOnFailureListener {
-                    Toast.makeText(this, "Upload failed", Toast.LENGTH_SHORT).show()
+                        }.addOnFailureListener {
+                            Toast.makeText(this, "Upload failed", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    val profileIntent = Intent(this, ProfileActivity::class.java).apply {
+                        putExtra("userId", userId)
+                    }
+                    startActivity(profileIntent)
+                }else{
+                    val alertUsernameAlreadyExists = AlertDialog.Builder(this)
+                    alertUsernameAlreadyExists.setTitle("Username error")
+                    alertUsernameAlreadyExists.setMessage("Username already exists")
+                    alertUsernameAlreadyExists.setPositiveButton("Okay", null)
+                    alertUsernameAlreadyExists.show()
                 }
             }
 
-            val profileIntent = Intent(this, ProfileActivity::class.java).apply {
-                putExtra("email", email)
-            }
-            startActivity(profileIntent)
         }
     }
 
@@ -159,7 +196,6 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun validatePhoneNumber() : Boolean{
         /*val phoneNum = findViewById<EditText>(R.id.phoneEditProfileEditText).text.toString()
-
         if(phoneNum.isNotEmpty() && Patterns.PHONE.matcher(phoneNum).matches())
             return true
         else{

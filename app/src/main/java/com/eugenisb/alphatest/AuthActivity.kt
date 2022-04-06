@@ -8,8 +8,12 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class AuthActivity : AppCompatActivity() {
+
+    private val db = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
@@ -40,14 +44,18 @@ class AuthActivity : AppCompatActivity() {
 
         if(email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             if (password.isNotEmpty()) {
-
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password).addOnCompleteListener {
 
                     if (it.isSuccessful){
-                        val loginIntent = Intent(this, HomeActivity::class.java).apply {
-                            putExtra("email", email)
+                        db.collection("users").whereEqualTo("email", email).get().addOnSuccessListener {
+                            docs ->
+                            for(doc in docs) {
+                                val homeIntent = Intent(this, HomeActivity::class.java).apply {
+                                    putExtra("userId",doc.id)
+                                }
+                                startActivity(homeIntent)
+                            }
                         }
-                        startActivity(loginIntent)
                     }
                     else {
                         val alertPassword = AlertDialog.Builder(this)

@@ -52,22 +52,42 @@ class SignUpActivity : AppCompatActivity() {
             //val phone = findViewById<EditText>(R.id.editTextPhone).text.toString()
             val password = findViewById<EditText>(R.id.passEditText).text.toString()
 
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-                if(it.isSuccessful) {
 
-                    db.collection("users").document(email).set(
-                        hashMapOf("name" to name, "username" to username/*, "phone" to phone*/)
+            db.collection("users").whereEqualTo("username", username).get().addOnSuccessListener{
+                if(it.isEmpty){
+
+                    val ref = db.collection("users").document()
+
+                    val user = hashMapOf(
+                        "email" to email,
+                        "name" to name,
+                        "username" to name
                     )
-                    val homeIntent = Intent(this, HomeActivity::class.java).apply {
-                        putExtra("email", email)
+
+                    val userId = ref.id
+
+                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                        if(it.isSuccessful) {
+                            db.collection("users").document(userId).set(user)
+                            val homeIntent = Intent(this, HomeActivity::class.java).apply {
+                                putExtra("userId", userId)
+                            }
+                            startActivity(homeIntent)
+                        } else {
+                            val alertSignup = AlertDialog.Builder(this)
+                            alertSignup.setTitle("Sign up error")
+                            alertSignup.setMessage(it.exception?.message)
+                            alertSignup.setPositiveButton("Okay", null)
+                            alertSignup.show()
+                        }
                     }
-                    startActivity(homeIntent)
-                } else {
-                    val alertFullname = AlertDialog.Builder(this)
-                    alertFullname.setTitle("Sign up error")
-                    alertFullname.setMessage(it.exception?.message)
-                    alertFullname.setPositiveButton("Okay", null)
-                    alertFullname.show()
+                }
+                else{
+                    val alertUsernameAlreadyExists = AlertDialog.Builder(this)
+                    alertUsernameAlreadyExists.setTitle("Username error")
+                    alertUsernameAlreadyExists.setMessage("Username already exists")
+                    alertUsernameAlreadyExists.setPositiveButton("Okay", null)
+                    alertUsernameAlreadyExists.show()
                 }
             }
         }
@@ -93,15 +113,15 @@ class SignUpActivity : AppCompatActivity() {
     private fun validateUsername(): Boolean{
         val username = findViewById<EditText>(R.id.usernameEditText).text.toString()
 
-        if(username.isNotEmpty()){
-            return true
+        return if(username.isNotEmpty()){
+            true
         }else{
             val alertFullname = AlertDialog.Builder(this)
             alertFullname.setTitle("Error username")
             alertFullname.setMessage("Username can not be empty, please try again")
             alertFullname.setPositiveButton("Okay", null)
             alertFullname.show()
-            return false
+            false
         }
     }
 

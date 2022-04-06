@@ -22,36 +22,35 @@ class HomeActivity : AppCompatActivity() {
         title = "Home"
 
         val bundle = intent.extras
-        val email = bundle?.getString("email")
+        val userId = bundle?.getString("userId")
 
         logoff()
-        profile(email ?:"")
-        contacts(email ?: "")
+        profile(userId ?: "")
+        contacts(userId ?: "")
 
     }
 
-
-    private fun  contacts(email: String){
-
-        val contactsButton = findViewById<Button>(R.id.mycontactsButton)
-
-        contactsButton.setOnClickListener {
-            val contactsIntent = Intent(this, MyContactsActivity::class.java).apply {
-                putExtra("email", email)
-            }
-            startActivity(contactsIntent)
-        }
-    }
-
-    private fun profile(email: String){
+    private fun profile(userId: String){
 
         val profileIcon = findViewById<ImageView>(R.id.profileIcon)
 
         profileIcon.setOnClickListener {
             val profileIntent = Intent(this, ProfileActivity::class.java).apply {
-                putExtra("email", email)
+                putExtra("userId", userId)
             }
             startActivity(profileIntent)
+        }
+    }
+
+    private fun  contacts(userId: String){
+
+        val contactsButton = findViewById<Button>(R.id.mycontactsButton)
+
+        contactsButton.setOnClickListener {
+            val contactsIntent = Intent(this, MyContactsActivity::class.java).apply {
+                putExtra("userId", userId)
+            }
+            startActivity(contactsIntent)
         }
     }
 
