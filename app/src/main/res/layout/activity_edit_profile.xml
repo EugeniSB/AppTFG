@@ -8,8 +8,9 @@
     tools:context=".EditProfileActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="0dp"
-        android:layout_height="484dp"
+        android:layout_height="240dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
@@ -18,12 +19,12 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.219">
+        app:layout_constraintVertical_bias="0.177">
 
         <TextView
             android:id="@+id/titleEditProfile"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
+            android:layout_height="61dp"
             android:fontFamily="sans-serif"
             android:text="@string/editProfileTitle"
             android:textAllCaps="false"
@@ -95,33 +96,56 @@
             android:layout_width="match_parent"
             android:layout_height="25dp" />
 
-        <ImageView
-            android:id="@+id/editprofileAvatar"
-            android:layout_width="match_parent"
-            android:layout_height="145dp"
-            app:srcCompat="@drawable/profile" />
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/editprofileAvatar"
+        android:layout_width="172dp"
+        android:layout_height="152dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="0.112"
+        app:srcCompat="@drawable/profile" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleAvatarEditProfile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:civ_border_width="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editprofileAvatar"
+        app:layout_constraintEnd_toEndOf="@+id/editprofileAvatar"
+        app:layout_constraintStart_toStartOf="@+id/editprofileAvatar"
+        app:layout_constraintTop_toTopOf="@+id/editprofileAvatar" />150dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="323dp"
+        android:layout_height="51dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/editprofileAvatar"
+        app:layout_constraintVertical_bias="0.115">
+
+        <Button
+            android:id="@+id/cancelEditProfileButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#8C1D1D"
+            android:text="Cancel" />
 
-            <Button
-                android:id="@+id/cancelEditProfileButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:backgroundTint="#8C1D1D"
-                android:text="Cancel" />
-
-            <Button
-                android:id="@+id/acceptEditProfileButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="#373434"
-                android:text="Edit" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/acceptEditProfileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#373434"
+            android:text="Edit" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

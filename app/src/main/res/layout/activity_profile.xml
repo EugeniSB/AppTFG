@@ -14,10 +14,32 @@
         tools:layout_editor_absoluteX="204dp"
         tools:layout_editor_absoluteY="121dp">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleProfileImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:civ_border_width="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+            app:layout_constraintEnd_toEndOf="@+id/profileImage"
+            app:layout_constraintStart_toStartOf="@+id/profileImage"
+            app:layout_constraintTop_toTopOf="@+id/profileImage" />
+
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="161dp"
+            android:layout_height="142dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.932"
+            app:srcCompat="@drawable/profile" />
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
-            android:layout_height="472dp"
+            android:layout_height="395dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:orientation="vertical"
@@ -26,14 +48,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.411">
-
-            <ImageView
-                android:id="@+id/profileImage"
-                android:layout_width="match_parent"
-                android:layout_height="119dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/profile" />
+            app:layout_constraintVertical_bias="0.82">
 
             <TextView
                 android:id="@+id/fullnameTextView"
@@ -67,9 +82,9 @@
 
                 <TextView
                     android:id="@+id/preEmailTextView"
-                    android:layout_width="248dp"
+                    android:layout_width="87dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Email:"
@@ -77,9 +92,10 @@
 
                 <TextView
                     android:id="@+id/emailTextView"
-                    android:layout_width="199dp"
+                    android:layout_width="227dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:paddingLeft="5dp"
                     android:text="UsersEmail"
                     android:textSize="16sp" />
 
@@ -90,7 +106,7 @@
                 android:layout_height="11dp" />
 
             <ImageView
-                android:id="@+id/editprofileImage"
+                android:id="@+id/editprofileIcon"
                 android:layout_width="58dp"
                 android:layout_height="61dp"
                 android:layout_gravity="center"
@@ -126,7 +142,6 @@
                     android:id="@+id/opinionsButton"
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
-                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:backgroundTint="#373434"
                     android:text="Opinions" />

@@ -64,16 +64,15 @@ class SignUpActivity : AppCompatActivity() {
                         "username" to name
                     )
 
-                    val userId = ref.id
-
                     FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                         if(it.isSuccessful) {
-                            db.collection("users").document(userId).set(user)
-                            val homeIntent = Intent(this, HomeActivity::class.java).apply {
-                                putExtra("userId", userId)
-                            }
+                            val userId = it.result.user?.uid
+                            db.collection("users").document(userId!!).set(user)
+                            val homeIntent = Intent(this, HomeActivity::class.java)
+                            homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(homeIntent)
-                        } else {
+                        }
+                        else {
                             val alertSignup = AlertDialog.Builder(this)
                             alertSignup.setTitle("Sign up error")
                             alertSignup.setMessage(it.exception?.message)

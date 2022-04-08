@@ -25,6 +25,9 @@ class AuthActivity : AppCompatActivity() {
         loginButton.setOnClickListener{
             login()
         }
+
+
+
     }
 
     private fun signup(){
@@ -50,9 +53,8 @@ class AuthActivity : AppCompatActivity() {
                         db.collection("users").whereEqualTo("email", email).get().addOnSuccessListener {
                             docs ->
                             for(doc in docs) {
-                                val homeIntent = Intent(this, HomeActivity::class.java).apply {
-                                    putExtra("userId",doc.id)
-                                }
+                                val homeIntent = Intent(this, HomeActivity::class.java)
+                                homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 startActivity(homeIntent)
                             }
                         }
@@ -60,7 +62,7 @@ class AuthActivity : AppCompatActivity() {
                     else {
                         val alertPassword = AlertDialog.Builder(this)
                         alertPassword.setTitle("Error log in")
-                        alertPassword.setMessage("Incorrect email or password, please try again")
+                        alertPassword.setMessage(it.exception?.message)
                         alertPassword.setPositiveButton("Okay", null)
                         alertPassword.show()
                     }

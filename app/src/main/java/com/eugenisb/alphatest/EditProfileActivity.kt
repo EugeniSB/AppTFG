@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import java.io.File
 import java.net.URI
@@ -34,7 +35,8 @@ class EditProfileActivity : AppCompatActivity() {
         title = "EditProfile"
 
         val bundle = intent.extras
-        val userId = bundle?.getString("userId")
+        //val userId = bundle?.getString("userId")
+        val userId = verifyUserLoggedIn()
         getUser(userId ?: "")
         var username = ""
         var email = ""
@@ -58,7 +60,7 @@ class EditProfileActivity : AppCompatActivity() {
             ActivityResultContracts.GetContent(),
             ActivityResultCallback {
 
-                findViewById<ImageView>(R.id.editprofileAvatar).setImageURI(it)
+                findViewById<ImageView>(R.id.circleAvatarEditProfile).setImageURI(it)
                 URIimage = it
                 imageUpdated = true
 
@@ -78,11 +80,19 @@ class EditProfileActivity : AppCompatActivity() {
             getImage.launch("image/*")
         }
 
+    }
 
+    private fun verifyUserLoggedIn() : String{
+        val uid = FirebaseAuth.getInstance().uid ?: ""
+        if(uid == null){
+            val intentAuth = Intent(this, AuthActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intentAuth)
+        }
+        return uid
     }
 
     private fun getUser(userId: String) {
-
 
         db.collection("users").document(userId).get().addOnSuccessListener {
             findViewById<EditText>(R.id.fullnameEditProfileEditText).setText(it.get("name") as String)
@@ -97,7 +107,7 @@ class EditProfileActivity : AppCompatActivity() {
         imgReference.getFile(localFile).addOnSuccessListener {
             //Toast.makeText(this, "Profile Image Retrieved", Toast.LENGTH_SHORT).show()
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-            findViewById<ImageView>(R.id.editprofileAvatar).setImageBitmap(bitmap)
+            findViewById<ImageView>(R.id.circleAvatarEditProfile).setImageBitmap(bitmap)
 
         }/*.addOnFailureListener {
             Toast.makeText(this, "Error Retrieving Profile Image", Toast.LENGTH_SHORT).show()

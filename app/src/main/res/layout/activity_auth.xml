@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#AAA7A7"
     tools:context=".AuthActivity">
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="355dp"
+        android:layout_height="438dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -26,56 +26,67 @@
             android:layout_width="match_parent"
             android:layout_height="167dp"
             android:layout_marginBottom="20dp"
+            android:src="@drawable/circle"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
-            android:src="@drawable/circle"
             tools:visibility="visible" />
 
         <EditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="43dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/round_edittext"
             android:ems="10"
             android:hint="Email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:paddingLeft="15dp"
+            android:textColorHint="#A9393838" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/passEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="43dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_edittext"
             android:ems="10"
             android:hint="Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:paddingLeft="15dp"
+            android:textColorHint="#A9393838" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="31dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/signupButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:backgroundTint="#373434"
-                android:text="Sign up" />
+                android:background="@drawable/round_button"
+                android:text="Sign up"
+                android:textColor="@color/white" />
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/loginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="#373434"
-                android:text="Log in" />
+                android:text="Log in"
+                android:background="@drawable/round_button"
+                android:textColor="@color/white"/>
+
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

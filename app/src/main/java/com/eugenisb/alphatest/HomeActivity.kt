@@ -21,13 +21,22 @@ class HomeActivity : AppCompatActivity() {
 
         title = "Home"
 
-        val bundle = intent.extras
-        val userId = bundle?.getString("userId")
+        val userId = verifyUserLoggedIn()
 
         logoff()
         profile(userId ?: "")
         contacts(userId ?: "")
 
+    }
+
+    private fun verifyUserLoggedIn() : String{
+        val uid = FirebaseAuth.getInstance().uid ?: ""
+        if(uid == null){
+            val intentAuth = Intent(this, AuthActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intentAuth)
+        }
+        return uid
     }
 
     private fun profile(userId: String){

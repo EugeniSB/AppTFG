@@ -16,10 +16,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.ktx.Firebase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,13 +34,15 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
     private ItemFilter mFilter = new ItemFilter();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String userId;
+    private String username;
     private Map usersMap;
 
-    public SearchableAdapter(Context context, List<String> data, Map usersMap, String userId) {
+    public SearchableAdapter(Context context, List<String> data, Map usersMap, String username) {
         this.filteredData = data ;
         this.originalData = data ;
         this.usersMap = usersMap;
-        this.userId = userId;
+        this.userId = FirebaseAuth.getInstance().getUid();
+        this.username = username;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -102,8 +107,11 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
     public void sendRequest(String stringUserClicked){
 
         String stringUserIdClicked = (String) usersMap.get(stringUserClicked);
-        Log.d(TAG, stringUserIdClicked);
 
+        db.collection("users").document(stringUserIdClicked).update(
+                "usersRequests." + userId, username);
+        db.collection("users").document(userId).update(
+                "userRequestsSent." + stringUserIdClicked, stringUserClicked);
     }
 
     static class ViewHolder {
