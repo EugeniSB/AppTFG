@@ -33,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.932"
+            app:layout_constraintVertical_bias="0.877"
             app:srcCompat="@drawable/profile" />
 
         <LinearLayout
@@ -48,7 +48,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.82">
+            app:layout_constraintVertical_bias="0.818">
 
             <TextView
                 android:id="@+id/fullnameTextView"
@@ -149,18 +149,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/backArrowProfile"
-            android:layout_width="34dp"
-            android:layout_height="33dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.042"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.022"
-            app:srcCompat="?attr/actionModeCloseDrawable" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,8 +61,10 @@ class SignUpActivity : AppCompatActivity() {
                     val user = hashMapOf(
                         "email" to email,
                         "name" to name,
-                        "username" to name
-                    )
+                        "username" to name,
+                        "contacts" to mapOf<String,String>(),
+                        "userRequestsSent" to mapOf<String,String>()
+                     )
 
                     FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                         if(it.isSuccessful) {

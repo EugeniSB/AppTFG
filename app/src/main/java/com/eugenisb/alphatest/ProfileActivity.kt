@@ -24,20 +24,9 @@ class ProfileActivity : AppCompatActivity() {
 
         title = "Profile"
 
-        val bundle = intent.extras
         val userId = verifyUserLoggedIn()
 
-        getUser(userId ?: "")
-
-        val backArrow = findViewById<ImageView>(R.id.backArrowProfile)
-
-        backArrow.setOnClickListener {
-            val homeIntent = Intent(this, HomeActivity::class.java).apply {
-                putExtra("userId", userId)
-            }
-            startActivity(homeIntent)
-            //onBackPressed()
-        }
+        getUser(userId)
 
         val editProfile = findViewById<ImageView>(R.id.editprofileIcon)
         editProfile.setOnClickListener {
@@ -62,7 +51,6 @@ class ProfileActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.fullnameTextView).setText(it.get("name") as String)
             findViewById<TextView>(R.id.usernameTextView).setText(it.get("username") as String)
             findViewById<TextView>(R.id.emailTextView).setText(it.get("email") as String)
-            //findViewById<TextView>(R.id.phoneTextView).setText(it.get("phone") as String)
         }
 
         Thread.sleep(1100)

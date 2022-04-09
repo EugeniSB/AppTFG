@@ -37,7 +37,7 @@ class EditProfileActivity : AppCompatActivity() {
         val bundle = intent.extras
         //val userId = bundle?.getString("userId")
         val userId = verifyUserLoggedIn()
-        getUser(userId ?: "")
+        getUser(userId)
         var username = ""
         var email = ""
 

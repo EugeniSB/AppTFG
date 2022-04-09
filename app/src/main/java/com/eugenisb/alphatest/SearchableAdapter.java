@@ -108,10 +108,17 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
 
         String stringUserIdClicked = (String) usersMap.get(stringUserClicked);
 
+        /*
         db.collection("users").document(stringUserIdClicked).update(
                 "usersRequests." + userId, username);
         db.collection("users").document(userId).update(
                 "userRequestsSent." + stringUserIdClicked, stringUserClicked);
+         */
+
+        db.collection("users").document(stringUserIdClicked).update(
+                "contacts." + userId, username);
+        db.collection("users").document(userId).update(
+                "contacts." + stringUserIdClicked, stringUserClicked);
     }
 
     static class ViewHolder {

@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.android.synthetic.main.activity_add_contact.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.nio.MappedByteBuffer
@@ -21,9 +22,8 @@ import java.util.*
 class AddContactActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
-    //private lateinit var adapter: ArrayAdapter<*>
     private lateinit var adapter: SearchableAdapter
-    //private lateinit var userId: String
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +52,6 @@ class AddContactActivity : AppCompatActivity() {
             val usernames = keys.toMutableList()
             adapterFun(usernames, usersMap, username)
         }
-
     }
 
     private fun verifyUserLoggedIn() : Boolean{
@@ -92,7 +91,9 @@ class AddContactActivity : AppCompatActivity() {
 
     private suspend fun getUsersAddedSnapshot(userId: String): Map<String,String> {
         val userDoc = getUsernameSnapshot(userId)
-        return userDoc.get("userRequestsSent") as Map<String, String>
+        val requests = userDoc.get("userRequestsSent") as Map<String, String>
+        val contacts = userDoc.get("contacts") as Map<String, String>
+        return requests + contacts
     }
 
 
