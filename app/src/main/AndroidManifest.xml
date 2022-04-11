@@ -9,6 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphaTest">
+
+        <activity
+            android:name=".ContactRequests"
+            android:exported="false">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".AddContactActivity" />
+        </activity>
+
         <activity
             android:name=".HomeActivity"
             android:exported="true">
@@ -18,24 +27,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".AddContactActivity"
-            android:exported="false" />
+            android:exported="false">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MyContactsActivity" />
+        </activity>
+
         <activity
             android:name=".MyContactsActivity"
-            android:exported="false" />
+            android:exported="false" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
+
+
         <activity
             android:name=".EditProfileActivity"
             android:exported="false" />
+
         <activity
             android:name=".ProfileActivity"
-            android:exported="false" >
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeActivity"/>
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
         </activity>
+
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
+
         <activity
             android:name=".AuthActivity"
             android:exported="true">
@@ -45,6 +70,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -12,31 +12,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SearchableAdapter extends BaseAdapter implements Filterable {
+public class RequestsAdapter extends BaseAdapter implements Filterable {
 
     private List<String>originalData = null;
     private List<String>filteredData = null;
     private LayoutInflater mInflater;
-    private ItemFilter mFilter = new ItemFilter();
+    private RequestsAdapter.ItemFilter mFilter = new RequestsAdapter.ItemFilter();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String userId;
     private String username;
     private Map usersMap;
 
-    public SearchableAdapter(Context context, List<String> data, Map usersMap, String username) {
+    public RequestsAdapter(Context context, List<String> data, Map usersMap, String username, String userId) {
         this.filteredData = data ;
         this.originalData = data ;
         this.usersMap = usersMap;
-        this.userId = FirebaseAuth.getInstance().getUid();
+        this.userId = userId;
         this.username = username;
         mInflater = LayoutInflater.from(context);
     }
+
 
     public int getCount() {
         return filteredData.size();
@@ -51,60 +54,90 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        // A ViewHolder keeps references to children views to avoid unnecessary calls
-        // to findViewById() on each row.
-        ViewHolder holder;
 
-        // When convertView is not null, we can reuse it directly, there is no need
-        // to reinflate it. We only inflate a new View when the convertView supplied
-        // by ListView is null.
+        RequestsAdapter.ViewHolder holder;
+
+
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.add_contact_item, null);
-            // Creates a ViewHolder and store references to the two children views
-            // we want to bind data to.
-            holder = new ViewHolder();
-            holder.text = (TextView) convertView.findViewById(R.id.list_item_string);
+            convertView = mInflater.inflate(R.layout.contact_request_item, null);
 
-            // Bind the data efficiently with the holder.
+            holder = new RequestsAdapter.ViewHolder();
+            holder.text = (TextView) convertView.findViewById(R.id.request_list_item_string);
+
 
             convertView.setTag(holder);
         } else {
-            // Get the ViewHolder back to get fast access to the TextView
-            // and the ImageView.
-            holder = (ViewHolder) convertView.getTag();
+
+            holder = (RequestsAdapter.ViewHolder) convertView.getTag();
         }
 
-        Button addBtn = (Button)convertView.findViewById(R.id.add_btn);
-        TextView usernameClicked = (TextView)convertView.findViewById(R.id.list_item_string);
+        Button acceptBtn = (Button)convertView.findViewById(R.id.accept_btn);
+        Button declineBtn = (Button)convertView.findViewById(R.id.decline_btn);
+        TextView usernameClicked = (TextView)convertView.findViewById(R.id.request_list_item_string);
 
-        addBtn.setOnClickListener(new View.OnClickListener(){
+
+        acceptBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //do something
                 String stringUserClicked = usernameClicked.getText().toString();
-                Toast.makeText(addBtn.getContext(), "Contact request sent to " + stringUserClicked, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(acceptBtn.getContext(), "Contact request sent to " + stringUserClicked, Toast.LENGTH_SHORT).show();
                 originalData.remove(stringUserClicked);
                 filteredData.remove(stringUserClicked);
                 notifyDataSetChanged();
-                sendRequest(stringUserClicked);
+                acceptRequest(stringUserClicked);
             }
         });
 
-        // If weren't re-ordering this you could rely on what you set last time
+        declineBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                String stringUserClicked = usernameClicked.getText().toString();
+                //Toast.makeText(declineBtn.getContext(), "Contact request sent to " + stringUserClicked, Toast.LENGTH_SHORT).show();
+                originalData.remove(stringUserClicked);
+                filteredData.remove(stringUserClicked);
+                notifyDataSetChanged();
+                declineRequest(stringUserClicked);
+            }
+        });
+
         holder.text.setText(filteredData.get(position));
 
         return convertView;
     }
 
-    public void sendRequest(String stringUserClicked){
+    public void acceptRequest(String stringUserClicked){
 
         String stringUserIdClicked = (String) usersMap.get(stringUserClicked);
 
+        db.collection("users").document(stringUserIdClicked).update(
+                "contacts." + userId, username);
+        db.collection("users").document(userId).update(
+                "contacts." + stringUserIdClicked, stringUserClicked);
 
         db.collection("users").document(stringUserIdClicked).update(
-                "contactRequests." + userId, username);
+                "contactRequestsSent." + userId, FieldValue.delete());
         db.collection("users").document(userId).update(
-                "contactRequestsSent." + stringUserIdClicked, stringUserClicked);
+                "contactRequestsSent." + stringUserIdClicked, FieldValue.delete());
+
+        db.collection("users").document(stringUserIdClicked).update(
+                "contactRequests." + userId, FieldValue.delete());
+        db.collection("users").document(userId).update(
+                "contactRequests." + stringUserIdClicked, FieldValue.delete());
+    }
+
+    public void declineRequest(String stringUserClicked){
+
+        String stringUserIdClicked = (String) usersMap.get(stringUserClicked);
+
+        db.collection("users").document(stringUserIdClicked).update(
+                "contactRequestsSent." + userId, FieldValue.delete());
+        db.collection("users").document(userId).update(
+                "contactRequestsSent." + stringUserIdClicked, FieldValue.delete());
+
+        db.collection("users").document(stringUserIdClicked).update(
+                "contactRequests." + userId, FieldValue.delete());
+        db.collection("users").document(userId).update(
+                "contactRequests." + stringUserIdClicked, FieldValue.delete());
 
     }
 

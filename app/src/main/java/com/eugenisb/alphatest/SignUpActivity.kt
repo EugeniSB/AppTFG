@@ -63,7 +63,8 @@ class SignUpActivity : AppCompatActivity() {
                         "name" to name,
                         "username" to name,
                         "contacts" to mapOf<String,String>(),
-                        "userRequestsSent" to mapOf<String,String>()
+                        "contactRequestsSent" to mapOf<String,String>(),
+                        "contactRequests" to mapOf<String,String>()
                      )
 
                     FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener {

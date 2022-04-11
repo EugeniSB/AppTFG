@@ -38,18 +38,6 @@ class HomeActivity : AppCompatActivity() {
         val userId = verifyUserLoggedIn()
 
         contacts(userId)
-        addContactsProvisonal(userId)
-
-        val addContactsButton = findViewById<Button>(R.id.addContactsButton)
-        addContactsButton.setOnClickListener {
-
-            val addContactsIntent = Intent(this, AddContactActivity::class.java).apply {
-                putExtra("userId", userId)
-
-            }
-            startActivity(addContactsIntent)
-
-        }
 
     }
 
@@ -96,13 +84,4 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun addContactsProvisonal(userId: String) {
-
-        addContactsButton.setOnClickListener {
-            val addContactsIntent = Intent(this, AddContactActivity::class.java).apply {
-                putExtra("userId", userId)
-            }
-            startActivity(addContactsIntent)
-        }
-    }
 }

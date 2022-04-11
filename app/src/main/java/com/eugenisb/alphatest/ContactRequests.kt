@@ -1,59 +1,44 @@
 package com.eugenisb.alphatest
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.widget.*
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.activity_add_contact.*
+import kotlinx.android.synthetic.main.activity_contact_requests.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.nio.MappedByteBuffer
-import java.util.*
 
-class AddContactActivity : AppCompatActivity() {
+class ContactRequests : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
-    private lateinit var adapter: SearchableAdapter
+    private lateinit var adapter: RequestsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_contact)
+        setContentView(R.layout.activity_contact_requests)
 
-        title = "Add contact"
+
+        title = "Contact Requests"
 
         val logged = verifyUserLoggedIn()
-        var userId = ""
-        var username = ""
-        var usersMap = mutableMapOf<String,String>()
-        var usersAddedMap = mapOf<String,String>()
 
+        var userId = ""
 
         if(logged){
             userId = FirebaseAuth.getInstance().uid!!
         }
 
         lifecycleScope.launch {
-            username = getUsername(userId)
-            usersMap = getUsernames(username)
-            usersAddedMap = getUsersAddedSnapshot(userId)
-            usersMap.keys.removeAll(usersAddedMap.values)
-            val keys = usersMap.keys.toTypedArray()
-            val usernames = keys.toMutableList()
-            adapterFun(usernames, usersMap, username)
-        }
-
-        contactRequestsbutton.setOnClickListener {
-            val contactRequestsIntent = Intent(this, ContactRequests::class.java)
-            startActivity(contactRequestsIntent)
+            var username = getUsername(userId)
+            var requestsMap = getUsersRequestsSnapshot(userId)
+            var requestsMapReversed = requestsMap.entries.associate { (k,v)-> v to k }
+            adapterFun(requestsMapReversed as MutableMap<String, String>, username, userId)
         }
 
     }
@@ -79,37 +64,20 @@ class AddContactActivity : AppCompatActivity() {
         return userDoc.getString("username")!!
     }
 
-    private suspend fun getUsersSnapshot(username: String): QuerySnapshot {
-        return db.collection("users").whereNotEqualTo("username", username).get().await()
-    }
-
-    private suspend fun getUsernames(username: String): MutableMap<String,String>{
-        val usersDoc = getUsersSnapshot(username)
-        val usersMap = mutableMapOf<String,String>()
-
-        for(document in usersDoc.documents){
-            usersMap[document.getString("username").toString()] = document.id
-        }
-        return usersMap
-    }
-
-    private suspend fun getUsersAddedSnapshot(userId: String): Map<String,String> {
+    private suspend fun getUsersRequestsSnapshot(userId: String): Map<String,String> {
         val userDoc = getUserSnapshot(userId)
-        val requests = userDoc.get("contactRequestsSent") as Map<String, String>
-        val contacts = userDoc.get("contacts") as Map<String, String>
-        return requests + contacts
+        return userDoc.get("contactRequests") as MutableMap<String, String>
     }
 
+    private fun adapterFun(usersMap: MutableMap<String,String>, username: String, userId: String) {
 
-    private fun adapterFun(usernames: List<String>, usersMap: MutableMap<String,String>, username: String) {
+        adapter = RequestsAdapter(this,usersMap.keys.toMutableList(), usersMap, username, userId)
 
-        adapter = SearchableAdapter(this,usernames, usersMap, username)
-
-        listViewUsers.adapter = adapter
-        listViewUsers.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+        listViewRequests.adapter = adapter
+        listViewRequests.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             Toast.makeText(applicationContext, parent?.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show()
         }
-        listViewUsers.emptyView = emptytextView
+        listViewRequests.emptyView = noRequestsTextView
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -117,7 +85,7 @@ class AddContactActivity : AppCompatActivity() {
 
         val search = menu?.findItem(R.id.nav_search)
         val searchView = search?.actionView as SearchView
-        searchView.queryHint = "Search users by username"
+        searchView.queryHint = "Search for contact requests"
 
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {

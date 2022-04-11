@@ -141,9 +141,8 @@ class EditProfileActivity : AppCompatActivity() {
 
             db.collection("users").whereEqualTo("username", newUsername).get().addOnSuccessListener{
                 if(it.isEmpty || username == newUsername){
-                    db.collection("users").document(userId).set(
-                        hashMapOf("name" to name, "username" to newUsername, "email" to email/*, "phone" to phone*/)
-                    )
+                    db.collection("users").document(userId).update("name",name)
+                    db.collection("users").document(userId).update("username",newUsername)
 
                     if(imageUpdated){
                         val imageName = "Profile_picture_of: " + userId
