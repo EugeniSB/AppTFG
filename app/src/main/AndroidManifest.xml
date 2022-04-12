@@ -9,17 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphaTest">
-
         <activity
-            android:name=".ContactRequests"
+            android:name=".contacts.ContactChatLogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".contacts.ContactProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".contacts.ContactRequests"
             android:exported="false">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".AddContactActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".contacts.AddContactActivity" />
         </activity>
-
         <activity
-            android:name=".HomeActivity"
+            android:name=".profileAndHome.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,42 +31,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".AddContactActivity"
-            android:exported="false">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MyContactsActivity" />
-        </activity>
-
-        <activity
-            android:name=".MyContactsActivity"
-            android:exported="false" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeActivity" />
-        </activity>
-
-
-        <activity
-            android:name=".EditProfileActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ProfileActivity"
+            android:name=".contacts.AddContactActivity"
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeActivity" />
+                android:value=".contacts.MyContactsActivity" />
         </activity>
-
         <activity
-            android:name=".SignUpActivity"
+            android:name=".contacts.MyContactsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".profileAndHome.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".profileAndHome.EditProfileActivity"
             android:exported="false" />
-
         <activity
-            android:name=".AuthActivity"
+            android:name=".profileAndHome.ProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".profileAndHome.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".auth.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".auth.AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,7 +67,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

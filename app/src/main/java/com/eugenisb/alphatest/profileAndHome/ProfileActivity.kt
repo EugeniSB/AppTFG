@@ -1,4 +1,4 @@
-package com.eugenisb.alphatest
+package com.eugenisb.alphatest.profileAndHome
 
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -7,7 +7,8 @@ import kotlinx.android.synthetic.main.activity_profile.*
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import com.eugenisb.alphatest.R
+import com.eugenisb.alphatest.auth.AuthActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -24,25 +25,29 @@ class ProfileActivity : AppCompatActivity() {
 
         title = "Profile"
 
-        val userId = verifyUserLoggedIn()
+        verifyUserLoggedIn()
+        val userId = FirebaseAuth.getInstance().uid
 
-        getUser(userId)
+        if(userId != null){
+            getUser(userId)
+        }
 
         val editProfile = findViewById<ImageView>(R.id.editprofileIcon)
         editProfile.setOnClickListener {
-            editProfile(userId ?: "")
+            if(userId != null){
+                editProfile(userId)
+            }
         }
 
     }
 
-    private fun verifyUserLoggedIn() : String{
-        val uid = FirebaseAuth.getInstance().uid ?: ""
+    private fun verifyUserLoggedIn(){
+        val uid = FirebaseAuth.getInstance().uid
         if(uid == null){
             val intentAuth = Intent(this, AuthActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intentAuth)
         }
-        return uid
     }
 
     private fun getUser(userId: String){

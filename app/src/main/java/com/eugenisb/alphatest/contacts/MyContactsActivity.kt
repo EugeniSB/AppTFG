@@ -1,12 +1,11 @@
-package com.eugenisb.alphatest
+package com.eugenisb.alphatest.contacts
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
+import com.eugenisb.alphatest.auth.AuthActivity
+import com.eugenisb.alphatest.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -14,7 +13,6 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_my_contacts.*
 import kotlinx.android.synthetic.main.my_contacts_item.view.*
 
@@ -69,19 +67,24 @@ class MyContactsActivity : AppCompatActivity() {
 
     private fun getContacts(userId: String) {
 
-        val ref = db.collection("users").document(userId).get().addOnSuccessListener {
+        db.collection("users").document(userId).get().addOnSuccessListener {
             document -> Log.d("User","Users contacts: " + document.data?.get("contacts"))
             val adapter = GroupAdapter<GroupieViewHolder>()
             val usersMap = document.data?.get("contacts") as Map<String,String>
             for (key in usersMap.keys){
-                //val user = Contact()
                     if(usersMap[key] != null){
                         adapter.add(ContactItem(key,usersMap[key]!!))
                     }
             }
+            adapter.setOnItemClickListener{ item,view ->
+                val contactItem = item as ContactItem
 
+                val intentChatLog = Intent(view.context, ContactChatLogActivity::class.java)
+                intentChatLog.putExtra("contactId",item.userId)
+                intentChatLog.putExtra("contactUsername",item.username)
+                startActivity(intentChatLog)
+            }
             contactsRecyclerView.adapter = adapter
-
         }
 
 
@@ -97,8 +100,5 @@ class MyContactsActivity : AppCompatActivity() {
         return uid
     }
 
-    class Contact(val uid: String, val username: String){
-        constructor() : this("","")
-    }
 }
 

@@ -1,26 +1,20 @@
-package com.eugenisb.alphatest
+package com.eugenisb.alphatest.profileAndHome
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.Color.parseColor
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.appcompat.app.ActionBar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_home.*
-import android.graphics.Color.parseColor
-import android.text.Html
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
+import com.eugenisb.alphatest.R
+import com.eugenisb.alphatest.auth.AuthActivity
+import com.eugenisb.alphatest.contacts.MyContactsActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -58,11 +52,11 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
-            R.id.home_profile->{
+            R.id.home_profile ->{
                 val profileIntent = Intent(this, ProfileActivity::class.java)
                 startActivity(profileIntent)
             }
-            R.id.home_sign_out->{
+            R.id.home_sign_out ->{
                 FirebaseAuth.getInstance().signOut()
                 val intentAuth = Intent(this, AuthActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)

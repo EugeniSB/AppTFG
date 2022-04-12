@@ -1,14 +1,13 @@
-package com.eugenisb.alphatest
+package com.eugenisb.alphatest.contacts
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.widget.*
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.tasks.Task
+import com.eugenisb.alphatest.auth.AuthActivity
+import com.eugenisb.alphatest.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,8 +15,6 @@ import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.activity_add_contact.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.nio.MappedByteBuffer
-import java.util.*
 
 class AddContactActivity : AppCompatActivity() {
 
@@ -103,7 +100,12 @@ class AddContactActivity : AppCompatActivity() {
 
     private fun adapterFun(usernames: List<String>, usersMap: MutableMap<String,String>, username: String) {
 
-        adapter = SearchableAdapter(this,usernames, usersMap, username)
+        adapter = SearchableAdapter(
+            this,
+            usernames,
+            usersMap,
+            username
+        )
 
         listViewUsers.adapter = adapter
         listViewUsers.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->

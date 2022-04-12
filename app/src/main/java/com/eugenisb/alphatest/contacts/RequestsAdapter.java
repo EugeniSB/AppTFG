@@ -1,4 +1,4 @@
-package com.eugenisb.alphatest;
+package com.eugenisb.alphatest.contacts;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,14 +9,12 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.eugenisb.alphatest.R;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

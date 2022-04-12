@@ -1,11 +1,10 @@
-package com.eugenisb.alphatest
+package com.eugenisb.alphatest.profileAndHome
 
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Patterns
 import android.widget.*
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,10 +14,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
 import androidx.lifecycle.lifecycleScope
+import com.eugenisb.alphatest.R
+import com.eugenisb.alphatest.auth.AuthActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import java.io.File
-import java.net.URI
 
 class EditProfileActivity : AppCompatActivity() {
 
