@@ -28,15 +28,6 @@ class MyContactsActivity : AppCompatActivity() {
 
         val userId = verifyUserLoggedIn()
 
-        /*
-        val adapter = GroupAdapter<GroupieViewHolder>()
-
-        adapter.add(ContactItem())
-        adapter.add(ContactItem())
-        adapter.add(ContactItem())
-
-        contactsRecyclerView.adapter=adapter*/
-
         getContacts(userId)
         addContactsfloatingActionButton.setOnClickListener {
             val addContactsIntent = Intent(this, AddContactActivity::class.java).apply {
@@ -52,7 +43,7 @@ class MyContactsActivity : AppCompatActivity() {
 
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
             viewHolder.itemView.contactTextView.text = username
-            val imgReference = FirebaseStorage.getInstance().getReference().child(
+            FirebaseStorage.getInstance().reference.child(
                 "images/profile_pics/Profile_picture_of: " + userId).downloadUrl.addOnSuccessListener {
                 Picasso.get().load(it).into(viewHolder.itemView.contactImageView)
             }.addOnFailureListener {

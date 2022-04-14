@@ -24,9 +24,12 @@
         <ImageView
             android:id="@+id/appIconImage"
             android:layout_width="match_parent"
-            android:layout_height="167dp"
+            android:layout_height="220dp"
             android:layout_marginBottom="20dp"
-            android:src="@drawable/circle"
+            android:maxWidth="100dp"
+            android:maxHeight="100dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/iconprototype"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             tools:visibility="visible" />

@@ -59,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
             R.id.home_sign_out ->{
                 FirebaseAuth.getInstance().signOut()
                 val intentAuth = Intent(this, AuthActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intentAuth.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intentAuth)
             }
         }
