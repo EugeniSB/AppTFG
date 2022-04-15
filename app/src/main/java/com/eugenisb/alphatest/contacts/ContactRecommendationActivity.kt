@@ -1,10 +1,13 @@
 package com.eugenisb.alphatest.contacts
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.eugenisb.alphatest.R
+import com.eugenisb.alphatest.profileAndHome.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_contact_chat_log.*
 import kotlinx.android.synthetic.main.activity_contact_recommendation.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,15 +24,16 @@ class ContactRecommendationActivity : AppCompatActivity() {
 
         title = "Recommend Contact"
         val contactId = intent.extras?.getString("contactId")
+        val contactUsername = intent.extras?.getString("contactUsername")
 
         finishContactRecommendationButton.setOnClickListener {
-            if(contactId != null) {
-                createRecommendation(contactId)
+            if(contactId != null && contactUsername != null) {
+                createRecommendation(contactId,contactUsername)
             }
         }
     }
 
-    private fun createRecommendation(contactId: String) {
+    private fun createRecommendation(contactId: String, contactUsername: String) {
 
         val movieName = movieNameEditText.text.toString()
         val movieComment = movieCommentMultiline.text.toString()
@@ -52,7 +56,18 @@ class ContactRecommendationActivity : AppCompatActivity() {
                 "Date" to time
             )
 
-            db.collection("recommendations").add(recommendation)
+            db.collection("user-recommendations").document(userId).collection(contactId).add(recommendation)
+            db.collection("user-recommendations").document(contactId).collection(userId).add(recommendation)
+
+            /*
+            val chatIntent = Intent(this, ContactChatLogActivity::class.java)
+            chatIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            chatIntent.putExtra("contactId", contactId)
+            chatIntent.putExtra("contactUsername", contactUsername)
+            startActivity(chatIntent)
+
+             */
+            onBackPressed()
 
         }
 

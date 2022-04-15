@@ -12,6 +12,7 @@ import com.eugenisb.alphatest.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
@@ -25,9 +26,9 @@ import kotlinx.android.synthetic.main.my_contacts_item.view.*
 class ContactChatLogActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
-    val adapter = GroupAdapter<GroupieViewHolder>()
-    var contactId : String? = null
-    var userId : String? = null
+    private val adapter = GroupAdapter<GroupieViewHolder>()
+    private var contactId : String? = null
+    private var userId : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,13 +50,19 @@ class ContactChatLogActivity : AppCompatActivity() {
             val recommendContactIntent = Intent(this,
                 ContactRecommendationActivity::class.java)
             recommendContactIntent.putExtra("contactId",contactId)
+            recommendContactIntent.putExtra("contactUsername",contactUsername)
             startActivity(recommendContactIntent)
         }
 
     }
 
     private fun listenForMessages(){
-        val ref = db.collection("recommendations")
+        val ref = db.collection("user-recommendations/$userId/$contactId").orderBy("Date",
+            Query.Direction.ASCENDING)
+
+        contactChatLogRecyclerView.postDelayed({
+            contactChatLogRecyclerView.scrollToPosition(adapter.itemCount - 1)
+        }, 1000)
 
         ref.addSnapshotListener { value, error ->
             if (error != null){
@@ -80,6 +87,7 @@ class ContactChatLogActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 
     class ChatFromItem(val movieName: String, val movieComment: String, val userId: String): Item<GroupieViewHolder>(){

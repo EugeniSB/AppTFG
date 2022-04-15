@@ -26,9 +26,12 @@ class MyContactsActivity : AppCompatActivity() {
 
         title = "Contacts"
 
-        val userId = verifyUserLoggedIn()
+        verifyUserLoggedIn()
+        val userId = FirebaseAuth.getInstance().uid
 
-        getContacts(userId)
+        if(userId != null){
+            getContacts(userId)
+        }
         addContactsfloatingActionButton.setOnClickListener {
             val addContactsIntent = Intent(this, AddContactActivity::class.java).apply {
                 putExtra("userId", userId)
@@ -81,14 +84,13 @@ class MyContactsActivity : AppCompatActivity() {
 
     }
 
-    private fun verifyUserLoggedIn() : String{
-        val uid = FirebaseAuth.getInstance().uid ?: ""
+    private fun verifyUserLoggedIn(){
+        val uid = FirebaseAuth.getInstance().uid
         if(uid == null){
             val intentAuth = Intent(this, AuthActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intentAuth)
         }
-        return uid
     }
 
 }
