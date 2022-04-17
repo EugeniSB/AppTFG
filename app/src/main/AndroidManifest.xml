@@ -10,14 +10,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphaTest">
         <activity
-            android:name=".contacts.ContactRecommendationActivity"
+            android:name=".groups.CreateGroupMembersActivity"
             android:exported="false" />
+        <activity
+            android:name=".groups.MyGroupsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".contacts.ContactRecommendationActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".contacts.MyContactsActivity" />
+        </activity>
         <activity
             android:name=".contacts.ContactChatLogActivity"
-            android:exported="false" />
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".contacts.MyContactsActivity" />
+        </activity>
         <activity
             android:name=".contacts.ContactProfileActivity"
-            android:exported="false" />
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".contacts.MyContactsActivity" />
+        </activity>
         <activity
             android:name=".contacts.ContactRequests"
             android:exported="false">
@@ -50,7 +68,11 @@
         </activity>
         <activity
             android:name=".profileAndHome.EditProfileActivity"
-            android:exported="false" />
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".profileAndHome.ProfileActivity" />
+        </activity>
         <activity
             android:name=".profileAndHome.ProfileActivity"
             android:exported="false">
@@ -63,8 +85,7 @@
             android:exported="false" />
         <activity
             android:name=".auth.AuthActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>

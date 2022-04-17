@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#AAA7A7"
     tools:context=".profileAndHome.EditProfileActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
-        android:layout_height="240dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
@@ -28,34 +28,40 @@
             android:fontFamily="sans-serif"
             android:text="@string/editProfileTitle"
             android:textAllCaps="false"
+            android:textColor="#373434"
             android:textSize="24sp"
             android:textStyle="bold"
-
             android:typeface="normal" />
 
         <EditText
             android:id="@+id/fullnameEditProfileEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext"
             android:ems="10"
             android:hint="Full name"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:textColorHint="#A9393838" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="25dp" />
 
         <EditText
             android:id="@+id/usernameEditProfileEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext"
             android:ems="10"
             android:hint="Username"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:textColorHint="#A9393838" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="30dp" />
 
         <TableRow
             android:layout_width="match_parent"
@@ -74,10 +80,12 @@
 
             <android.widget.Button
                 android:id="@+id/uploadImageProfileButton"
-                android:layout_width="143dp"
-                android:layout_height="34dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/outlinedbutton"
                 android:backgroundTint="@null"
+                android:elegantTextHeight="false"
+                android:foregroundGravity="top"
                 android:paddingTop="15dp"
                 android:text="Upload Image"
                 android:textAlignment="center"
@@ -122,8 +130,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="323dp"
-        android:layout_height="51dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
@@ -131,21 +140,23 @@
         app:layout_constraintTop_toBottomOf="@+id/editprofileAvatar"
         app:layout_constraintVertical_bias="0.115">
 
-        <Button
+        <android.widget.Button
             android:id="@+id/cancelEditProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:backgroundTint="#8C1D1D"
-            android:text="Cancel" />
+            android:background="@drawable/round_red_button"
+            android:text="Cancel"
+            android:textColor="@color/white" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/acceptEditProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="#373434"
-            android:text="Edit" />
+            android:background="@drawable/round_button"
+            android:text="Edit"
+            android:textColor="@color/white" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

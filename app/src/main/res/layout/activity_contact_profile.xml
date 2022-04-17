@@ -70,6 +70,7 @@
                 android:layout_height="28dp"
                 android:gravity="center|center_horizontal|center_vertical"
                 android:text="Username"
+                android:textColor="#070707"
                 android:textSize="16sp" />
 
             <Space
@@ -88,7 +89,8 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Email:"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="#070707"/>
 
                 <TextView
                     android:id="@+id/contactEmailTextView"
@@ -97,7 +99,8 @@
                     android:layout_marginLeft="5dp"
                     android:paddingLeft="5dp"
                     android:text="UsersEmail"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="#070707"/>
 
             </TableRow>
 
@@ -121,22 +124,24 @@
                 android:layout_height="67dp"
                 android:orientation="horizontal">
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/contactListsButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#373434"
-                    android:text="Contact lists" />
+                    android:background="@drawable/round_button"
+                    android:text="Contact lists"
+                    android:textColor="@color/white" />
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/contactOpinionsButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#373434"
-                    android:text="Contact opinions" />
+                    android:background="@drawable/round_button"
+                    android:text="Contact opinions"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 

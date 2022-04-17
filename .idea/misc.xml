@@ -9,18 +9,22 @@
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/drawable/outlinedbutton.xml" value="0.1275" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/drawable/round_button.xml" value="0.1275" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/drawable/round_edittext.xml" value="0.1275" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/drawable/round_red_button.xml" value="0.117" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/drawable/textview_border.xml" value="0.102" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_add_contact.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_auth.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_contact_chat_log.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_contact_profile.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_contact_recommendation.xml" value="0.2228310502283105" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_contact_recommendation.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_contact_requests.xml" value="0.2" />
-        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_edit_profile.xml" value="0.2" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_create_group_members.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_edit_profile.xml" value="0.4" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_home.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_my_contacts.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_profile.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_sign_up.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/add_contact_item.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_my_groups.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_profile.xml" value="0.264" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_sign_up.xml" value="0.17180616740088106" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/add_contact_item.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/chat_from_row.xml" value="0.4" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/chat_to_row.xml" value="0.2" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/contact_request_item.xml" value="0.264" />

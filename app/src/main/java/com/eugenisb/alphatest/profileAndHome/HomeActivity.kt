@@ -15,6 +15,8 @@ import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.auth.AuthActivity
 import com.eugenisb.alphatest.contacts.MyContactsActivity
+import com.eugenisb.alphatest.groups.MyGroupsActivity
+import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
@@ -24,25 +26,28 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFFFF")))
-        supportActionBar/* or getSupportActionBar() */!!.title = HtmlCompat.fromHtml("<font color=\"black\"> Home </font>", FROM_HTML_MODE_LEGACY);
-        supportActionBar!!.elevation = 0f
-        //title = "Home"
+        //supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFFFF")))
+        //supportActionBar/* or getSupportActionBar() */!!.title = HtmlCompat.fromHtml("<font color=\"black\"> Home </font>", FROM_HTML_MODE_LEGACY);
+        //supportActionBar!!.elevation = 0f
+        title = "Home"
+        verifyUserLoggedIn()
+        val userId = FirebaseAuth.getInstance().uid
 
-        val userId = verifyUserLoggedIn()
+        if(userId != null){
+            contacts(userId)
+            groups(userId)
+        }
 
-        contacts(userId)
 
     }
 
-    private fun verifyUserLoggedIn() : String{
-        val uid = FirebaseAuth.getInstance().uid ?: ""
+    private fun verifyUserLoggedIn(){
+        val uid = FirebaseAuth.getInstance().uid
         if(uid == null){
             val intentAuth = Intent(this, AuthActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intentAuth)
         }
-        return uid
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -75,6 +80,16 @@ class HomeActivity : AppCompatActivity() {
                 putExtra("userId", userId)
             }
             startActivity(contactsIntent)
+        }
+    }
+
+    private fun  groups(userId: String){
+
+        mygroupsButton.setOnClickListener {
+            val groupsIntent = Intent(this, MyGroupsActivity::class.java).apply {
+                putExtra("userId", userId)
+            }
+            startActivity(groupsIntent)
         }
     }
 

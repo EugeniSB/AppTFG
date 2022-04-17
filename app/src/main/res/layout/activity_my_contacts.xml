@@ -30,9 +30,11 @@
         app:layout_constraintStart_toStartOf="@+id/contactsRecyclerView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/add_contact"
+        app:srcCompat="@drawable/add_contact2"
+        app:tint="@color/white"
         android:scaleX="1.2"
         android:scaleY="1.2"
         app:maxImageSize="35dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

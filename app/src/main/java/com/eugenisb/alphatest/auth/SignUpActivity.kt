@@ -3,6 +3,8 @@ package com.eugenisb.alphatest.auth
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText

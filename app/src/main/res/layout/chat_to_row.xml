@@ -27,14 +27,16 @@
             android:maxWidth="200dp"
             android:text="MOVIE NAME"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="#373434"/>
 
         <TextView
             android:id="@+id/toCommentTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxWidth="200dp"
-            android:text="Movie comment" />
+            android:text="Movie comment"
+            android:textColor="#373434"/>
     </LinearLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
