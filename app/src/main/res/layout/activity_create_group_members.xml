@@ -6,4 +6,94 @@
     android:layout_height="match_parent"
     tools:context=".groups.CreateGroupMembersActivity">
 
+    <TextView
+        android:id="@+id/contactsGrouptextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Contacts:"
+        android:textSize="22dp"
+        android:textColor="#373434"
+        app:layout_constraintBottom_toTopOf="@+id/groupAddContactRecyclerView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groupAddContactRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="32dp"
+        android:layout_weight="1"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/contactsAddedGroupTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groupAddedRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="230dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="124dp"
+        android:layout_weight="1"
+        android:background="@drawable/textview_border"
+        android:padding="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/contactsAddedGroupTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="Group contacts:"
+        android:textColor="#373434"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/groupAddedRecyclerView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/groupAddedRecyclerView"
+        app:layout_constraintStart_toStartOf="@+id/groupAddedRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/groupAddedRecyclerView">
+
+        <android.widget.Button
+            android:id="@+id/cancelGroupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_red_button"
+            android:text="Cancel"
+            android:textColor="@color/white" />
+
+        <android.widget.Button
+            android:id="@+id/nextGroupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/round_button"
+            android:text="Next"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -94,6 +94,7 @@ class AddContactActivity : AppCompatActivity() {
         val userDoc = getUserSnapshot(userId)
         val requests = userDoc.get("contactRequestsSent") as Map<String, String>
         val contacts = userDoc.get("contacts") as Map<String, String>
+        //////////////////AFEGIR LES PETICIONS DE CONTACTE REBUDES////////////
         return requests + contacts
     }
 

@@ -81,7 +81,6 @@ class MyContactsActivity : AppCompatActivity() {
             contactsRecyclerView.adapter = adapter
         }
 
-
     }
 
     private fun verifyUserLoggedIn(){
