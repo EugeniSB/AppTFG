@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".groups.CreateGroupNameActivity">
+
+    <TextView
+        android:id="@+id/groupNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Group Name:"
+        android:textColor="#373434"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/groupNameEditText"
+        app:layout_constraintEnd_toEndOf="@+id/groupNameEditText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/groupNameEditText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/groupNameEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:ems="10"
+        android:hint="Enter group name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/groupAdded2RecyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/groupAdded2RecyclerView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/groupAdded2RecyclerView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/groupAvatartextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:text="Group Avatar"
+        android:textColor="#8F333232"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="@+id/divider" />
+
+    <ImageButton
+        android:id="@+id/uploadGroupImageButton"
+        android:layout_width="130dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/groupNameEditText"
+        app:srcCompat="@drawable/upload_button" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="72dp"
+        android:background="#494545"
+        app:layout_constraintEnd_toEndOf="@+id/groupNameEditText"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/groupNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/groupNameEditText" />
+
+    <ImageView
+        android:id="@+id/groupAvatar"
+        android:layout_width="146dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/groupAdded2RecyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/groupAdded2RecyclerView"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/groupAdded2RecyclerView"
+        app:layout_constraintTop_toTopOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.16"
+        app:srcCompat="@drawable/profile" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleAvatarGroup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:civ_border_width="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/groupAvatar"
+        app:layout_constraintEnd_toEndOf="@+id/groupAvatar"
+        app:layout_constraintStart_toStartOf="@+id/groupAvatar"
+        app:layout_constraintTop_toTopOf="@+id/groupAvatar" />
+
+    <TextView
+        android:id="@+id/contactsAddedGroupTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="8dp"
+        android:text="Group contacts:"
+        android:textColor="#373434"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/groupAdded2RecyclerView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groupAdded2RecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="90dp"
+        android:layout_weight="1"
+        android:background="@drawable/textview_border"
+        android:padding="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/groupAdded2RecyclerView"
+        app:layout_constraintStart_toStartOf="@+id/groupAdded2RecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/groupAdded2RecyclerView">
+
+        <android.widget.Button
+            android:id="@+id/backGroupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_red_button"
+            android:text="Back"
+            android:textColor="@color/white" />
+
+        <android.widget.Button
+            android:id="@+id/createGroupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/round_button"
+            android:text="Create group"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

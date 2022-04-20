@@ -64,14 +64,6 @@ class EditProfileActivity : AppCompatActivity() {
                 URIimage = it
                 imageUpdated = true
 
-                //val imageName = "Profile_picture_of: " + email
-                //val storageReference = storage.getReference("images/profile_pics/$imageName")
-                /*
-                storageReference.putFile(it).addOnSuccessListener {
-                    Toast.makeText(this, "Successfuly uploaded image",Toast.LENGTH_SHORT).show()
-                }.addOnFailureListener {
-                    Toast.makeText(this, "Upload failed",Toast.LENGTH_SHORT).show()
-                }*/
             }
         )
 

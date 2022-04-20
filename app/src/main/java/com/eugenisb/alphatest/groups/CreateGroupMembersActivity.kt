@@ -42,6 +42,18 @@ class CreateGroupMembersActivity : AppCompatActivity() {
             getContacts(userId)
         }
 
+        nextGroupButton.setOnClickListener {
+            if(usersGroupMap.isNotEmpty()){
+                val nextGroupIntent = Intent(this, CreateGroupNameActivity::class.java).apply {
+                    putExtra("usersGroupMap", usersGroupMap as HashMap<String,String>)
+                }
+                startActivity(nextGroupIntent)
+            }
+        }
+
+        cancelGroupButton.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     inner class GroupContactItem(val userId: String, val username: String): Item<GroupieViewHolder>(){

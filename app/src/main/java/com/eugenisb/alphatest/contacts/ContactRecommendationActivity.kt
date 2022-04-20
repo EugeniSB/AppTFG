@@ -22,9 +22,10 @@ class ContactRecommendationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_recommendation)
 
-        title = "Recommend Contact"
         val contactId = intent.extras?.getString("contactId")
         val contactUsername = intent.extras?.getString("contactUsername")
+
+        title = "Recommend to $contactUsername"
 
         finishContactRecommendationButton.setOnClickListener {
             if(contactId != null && contactUsername != null) {

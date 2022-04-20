@@ -10,6 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphaTest">
         <activity
+            android:name=".groups.GroupRecommendationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".groups.GroupChatLogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".groups.CreateGroupNameActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
             android:name=".groups.CreateGroupMembersActivity"
             android:exported="false" />
         <activity
