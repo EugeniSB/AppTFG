@@ -3,6 +3,7 @@ package com.eugenisb.alphatest.contacts
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.profileAndHome.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -22,8 +23,11 @@ class ContactRecommendationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_recommendation)
 
+        val movieName = intent.extras?.getString("movieName")
         val contactId = intent.extras?.getString("contactId")
         val contactUsername = intent.extras?.getString("contactUsername")
+
+        movieNameEditText.text = movieName
 
         title = "Recommend to $contactUsername"
 
@@ -60,15 +64,15 @@ class ContactRecommendationActivity : AppCompatActivity() {
             db.collection("user-recommendations").document(userId).collection(contactId).add(recommendation)
             db.collection("user-recommendations").document(contactId).collection(userId).add(recommendation)
 
-            /*
+
             val chatIntent = Intent(this, ContactChatLogActivity::class.java)
-            chatIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            //chatIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             chatIntent.putExtra("contactId", contactId)
             chatIntent.putExtra("contactUsername", contactUsername)
             startActivity(chatIntent)
 
-             */
-            onBackPressed()
+
+            //onBackPressed()
 
         }
 

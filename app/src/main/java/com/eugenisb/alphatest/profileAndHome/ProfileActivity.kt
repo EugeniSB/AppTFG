@@ -25,6 +25,7 @@ class ProfileActivity : AppCompatActivity() {
 
         title = "Profile"
 
+
         verifyUserLoggedIn()
         val userId = FirebaseAuth.getInstance().uid
 

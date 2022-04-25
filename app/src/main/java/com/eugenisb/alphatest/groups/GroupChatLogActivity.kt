@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.eugenisb.alphatest.R
+import com.eugenisb.alphatest.SearchMovieAPIActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
@@ -44,9 +45,12 @@ class GroupChatLogActivity : AppCompatActivity() {
 
         chatLogGroupRecommendButton.setOnClickListener {
             val recommendGroupIntent = Intent(this,
-                GroupRecommendationActivity::class.java)
-            recommendGroupIntent.putExtra("groupId",groupId)
-            recommendGroupIntent.putExtra("groupName",groupName)
+                SearchMovieAPIActivity::class.java)
+            //recommendGroupIntent.putExtra("groupId",groupId)
+           // recommendGroupIntent.putExtra("groupName",groupName)
+            recommendGroupIntent.putExtra("contactId",groupId)
+            recommendGroupIntent.putExtra("contactUsername",groupName)
+            recommendGroupIntent.putExtra("screen","group")
             startActivity(recommendGroupIntent)
         }
     }

@@ -1,8 +1,10 @@
 package com.eugenisb.alphatest.groups
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.eugenisb.alphatest.R
+import com.eugenisb.alphatest.contacts.ContactChatLogActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_contact_recommendation.*
@@ -16,10 +18,13 @@ class GroupRecommendationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_recommendation)
 
-        val groupId = intent.extras?.getString("groupId")
-        val groupName =  intent.extras?.getString("groupName")
+        val movieName = intent.extras?.getString("movieName")
+        val groupId = intent.extras?.getString("contactId")
+        val groupName =  intent.extras?.getString("contactUsername")
 
         title = "Recommend Group"
+
+        movieNameGroupEditText.setText(movieName)
 
         finishGroupRecommendationButton.setOnClickListener {
             if(groupId != null && groupName != null) {
@@ -51,7 +56,13 @@ class GroupRecommendationActivity : AppCompatActivity() {
             //db.collection("user-recommendations").document(userId).collection(groupId).add(recommendation)
             db.collection("group-recommendations").document(groupId).collection(groupId).add(recommendation)
 
-            onBackPressed()
+            val chatIntent = Intent(this, GroupChatLogActivity::class.java)
+            //chatIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            chatIntent.putExtra("groupId", groupId)
+            chatIntent.putExtra("groupName", groupName)
+            startActivity(chatIntent)
+
+            //onBackPressed()
         }
 
 

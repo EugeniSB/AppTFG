@@ -30,6 +30,7 @@ class HomeActivity : AppCompatActivity() {
         //supportActionBar/* or getSupportActionBar() */!!.title = HtmlCompat.fromHtml("<font color=\"black\"> Home </font>", FROM_HTML_MODE_LEGACY);
         //supportActionBar!!.elevation = 0f
         title = "Home"
+
         verifyUserLoggedIn()
         val userId = FirebaseAuth.getInstance().uid
 

@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.lifecycle.lifecycleScope
 import com.eugenisb.alphatest.auth.AuthActivity
 import com.eugenisb.alphatest.R
+import com.eugenisb.alphatest.adapters.SearchableAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore

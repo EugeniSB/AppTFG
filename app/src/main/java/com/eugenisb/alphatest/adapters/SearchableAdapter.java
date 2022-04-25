@@ -1,4 +1,4 @@
-package com.eugenisb.alphatest.contacts;
+package com.eugenisb.alphatest.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

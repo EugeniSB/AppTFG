@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.eugenisb.alphatest.R
+import com.eugenisb.alphatest.SearchMovieAPIActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
@@ -37,10 +38,11 @@ class ContactChatLogActivity : AppCompatActivity() {
         contactChatLogRecyclerView.adapter = adapter
 
         contactId = intent.extras?.getString("contactId")
+        val contactUsername = intent.extras?.getString("contactUsername")
         //USER LOGGED IN?????
         userId = FirebaseAuth.getInstance().uid
 
-        val contactUsername = intent.extras?.getString("contactUsername")
+
 
         title = contactUsername
 
@@ -48,9 +50,10 @@ class ContactChatLogActivity : AppCompatActivity() {
 
         chatLogContactRecommendButton.setOnClickListener {
             val recommendContactIntent = Intent(this,
-                ContactRecommendationActivity::class.java)
+                SearchMovieAPIActivity::class.java)
             recommendContactIntent.putExtra("contactId",contactId)
             recommendContactIntent.putExtra("contactUsername",contactUsername)
+            recommendContactIntent.putExtra("screen","user")
             startActivity(recommendContactIntent)
         }
 
@@ -137,7 +140,7 @@ class ContactChatLogActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val contactId = intent.extras?.getString("contactId")
+        //val contactId = intent.extras?.getString("contactId")
         val contactUsername = intent.extras?.getString("contactUsername")
         when (item.itemId){
             R.id.contact_profile ->{
