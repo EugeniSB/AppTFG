@@ -19,7 +19,7 @@ class GroupRecommendationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_group_recommendation)
 
         val movieName = intent.extras?.getString("movieName")
-        val groupId = intent.extras?.getString("contactId")
+        val groupId = intent.extras?.getString("groupId")
         val groupName =  intent.extras?.getString("contactUsername")
 
         title = "Recommend Group"

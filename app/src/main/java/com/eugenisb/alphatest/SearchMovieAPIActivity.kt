@@ -23,11 +23,19 @@ class SearchMovieAPIActivity : AppCompatActivity(), OnMovieClickListener {
         setContentView(R.layout.activity_searchmovieapi)
 
 
+        val screen = intent.extras?.getString("screen")!!
+
+        title = "Search movie/series"
+        if(screen == "createList"){
+            title = "Add first movie/series to list"
+        }
+
+
         API_search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
 
-                callAPI(query!!)
+                callAPI(query!!, screen)
 
 
                 return true
@@ -91,14 +99,13 @@ class SearchMovieAPIActivity : AppCompatActivity(), OnMovieClickListener {
 
     }
 
-    private fun callAPI (movieName : String){
+    private fun callAPI (movieName : String, screen: String){
 
 
             val client = OkHttpClient()
 
             val contactId = intent.extras?.getString("contactId") ?: ""
             val contactUsername = intent.extras?.getString("contactUsername") ?: ""
-            val screen = intent.extras?.getString("screen")!!
 
             val request = Request.Builder()
                 .url("https://api.themoviedb.org/3/search/multi?api_key=60494e2f64dd85ff91f57a111d1d7f2e&query=$movieName")//"https://mdblist.p.rapidapi.com/?s=jaws")

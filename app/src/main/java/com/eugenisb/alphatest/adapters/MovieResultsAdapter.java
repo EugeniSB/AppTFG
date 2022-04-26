@@ -20,9 +20,16 @@ import com.eugenisb.alphatest.clases.Results;
 import com.eugenisb.alphatest.contacts.ContactRecommendationActivity;
 import com.eugenisb.alphatest.groups.GroupRecommendationActivity;
 import com.eugenisb.alphatest.listeners.OnMovieClickListener;
+import com.eugenisb.alphatest.lists.MyListsActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.*;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
 
@@ -32,6 +39,7 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     String contactId;
     String contactUsername;
     String screen;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public MovieResultsAdapter(Context context, List<Movies> result_list, OnMovieClickListener listener,
                                String contactId, String contactUsername, String screen) {
@@ -52,7 +60,6 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
 
-        if (result_list.get(position).getVote_count() > 200) {
             if (result_list.get(position).getOriginal_title() != "") {
                 holder.movie_item_title.setText(result_list.get(position).getOriginal_title());
             } else {
@@ -81,20 +88,39 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
                     }else if(screen.equals("group")){
                         Intent recommendIntent = new Intent(context, GroupRecommendationActivity.class);
                         recommendIntent.putExtra("movieName", moviename);
-                        recommendIntent.putExtra("contactId", contactId);
+                        recommendIntent.putExtra("groupId", contactId);
                         recommendIntent.putExtra("contactUsername", contactUsername);
                         context.startActivity(recommendIntent);
 
                     }else if(screen.equals("lists")){
 
-                    }else {
+                    }else if (screen.equals("createList")){
+                        createList(contactUsername,
+                                "https://image.tmdb.org/t/p/original/" + result_list.get(position).getPoster_path(),
+                                moviename);
+                        Intent myListsIntent = new Intent(context, MyListsActivity.class);
+                        context.startActivity(myListsIntent);
+                    }else{
 
                     }
 
                 }
             });
-        }
 
+    }
+
+    private void createList(String listName, String movieImg, String movieName ) {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Map<String,String> lists = new HashMap<>();
+        lists.put(movieName,movieImg);
+
+        Map<String, Object> list = new HashMap<>();
+        list.put("name", listName);
+        list.put("creator", user.getUid());
+        list.put("movies", lists);
+
+        db.collection("lists").add(list);
     }
 
     @Override

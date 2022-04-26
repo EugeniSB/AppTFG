@@ -11,41 +11,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphaTest">
-
+        <activity
+            android:name=".lists.CreateListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".lists.MyListsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".profileAndHome.ProfileActivity" />
+        </activity>
         <activity
             android:name=".SearchMovieAPIActivity"
-            android:exported="true" >
-        </activity>
-
+            android:exported="true" />
         <activity
             android:name=".groups.GroupRecommendationActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".groups.MyGroupsActivity" />
         </activity>
-
         <activity
             android:name=".groups.GroupChatLogActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".groups.MyGroupsActivity" />
         </activity>
-
         <activity
             android:name=".groups.CreateGroupNameActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".groups.CreateGroupMembersActivity"
             android:exported="false" />
-
         <activity
             android:name=".groups.MyGroupsActivity"
             android:exported="false" />
-
         <activity
             android:name=".contacts.ContactRecommendationActivity"
             android:exported="false">
@@ -53,7 +55,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".contacts.MyContactsActivity" />
         </activity>
-
         <activity
             android:name=".contacts.ContactChatLogActivity"
             android:exported="false">
@@ -61,7 +62,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".contacts.MyContactsActivity" />
         </activity>
-
         <activity
             android:name=".contacts.ContactProfileActivity"
             android:exported="false">
@@ -69,7 +69,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".contacts.MyContactsActivity" />
         </activity>
-
         <activity
             android:name=".contacts.ContactRequests"
             android:exported="false">
@@ -77,7 +76,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".contacts.AddContactActivity" />
         </activity>
-
         <activity
             android:name=".profileAndHome.HomeActivity"
             android:exported="true">
@@ -86,9 +84,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".contacts.AddContactActivity"
             android:exported="false">
@@ -96,7 +92,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".contacts.MyContactsActivity" />
         </activity>
-
         <activity
             android:name=".contacts.MyContactsActivity"
             android:exported="false">
@@ -104,7 +99,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".profileAndHome.HomeActivity" />
         </activity>
-
         <activity
             android:name=".profileAndHome.EditProfileActivity"
             android:exported="false">
@@ -112,7 +106,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".profileAndHome.ProfileActivity" />
         </activity>
-
         <activity
             android:name=".profileAndHome.ProfileActivity"
             android:exported="false">
@@ -120,15 +113,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".profileAndHome.HomeActivity" />
         </activity>
-
         <activity
             android:name=".auth.SignUpActivity"
             android:exported="false" />
-
         <activity
             android:name=".auth.AuthActivity"
             android:exported="true" />
-
     </application>
 
 </manifest>

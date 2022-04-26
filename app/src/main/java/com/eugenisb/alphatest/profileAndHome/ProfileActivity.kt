@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.auth.AuthActivity
+import com.eugenisb.alphatest.lists.MyListsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -37,6 +38,12 @@ class ProfileActivity : AppCompatActivity() {
         editProfile.setOnClickListener {
             if(userId != null){
                 editProfile(userId)
+            }
+        }
+
+        mylistsButton.setOnClickListener {
+            if(userId != null){
+                myLists(userId)
             }
         }
 
@@ -83,5 +90,13 @@ class ProfileActivity : AppCompatActivity() {
             putExtra("userId", userId)
         }
         startActivity(editProfileIntent)
+    }
+
+    private fun myLists(userId: String) {
+
+        val myListsIntent = Intent(this, MyListsActivity::class.java).apply {
+            putExtra("userId", userId)
+        }
+        startActivity(myListsIntent)
     }
 }
