@@ -7,23 +7,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.BoolRes;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenisb.alphatest.R;
-import com.eugenisb.alphatest.auth.AuthActivity;
 import com.eugenisb.alphatest.clases.Movies;
-import com.eugenisb.alphatest.clases.Results;
 import com.eugenisb.alphatest.contacts.ContactRecommendationActivity;
 import com.eugenisb.alphatest.groups.GroupRecommendationActivity;
 import com.eugenisb.alphatest.listeners.OnMovieClickListener;
 import com.eugenisb.alphatest.lists.MyListsActivity;
+import com.eugenisb.alphatest.lists.OneOfMyListsActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.*;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
@@ -39,16 +40,19 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     String contactId;
     String contactUsername;
     String screen;
+    Boolean isPublic;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public MovieResultsAdapter(Context context, List<Movies> result_list, OnMovieClickListener listener,
-                               String contactId, String contactUsername, String screen) {
+                               String contactId, String contactUsername, String screen,
+                               Boolean isPublic) {
         this.context = context;
         this.result_list = result_list;
         this.listener = listener;
         this.contactId = contactId;
         this.contactUsername = contactUsername;
         this.screen = screen;
+        this.isPublic = isPublic;
     }
 
     @NonNull
@@ -92,12 +96,18 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
                         recommendIntent.putExtra("contactUsername", contactUsername);
                         context.startActivity(recommendIntent);
 
-                    }else if(screen.equals("lists")){
+                    }else if(screen.equals("list")){
+
+                        addToList(contactId, moviename, "https://image.tmdb.org/t/p/original/" + result_list.get(position).getPoster_path());
+                        Intent myListIntent = new Intent(context, OneOfMyListsActivity.class);
+                        myListIntent.putExtra("listName", contactUsername);
+                        myListIntent.putExtra("listId", contactId);
+                        context.startActivity(myListIntent);
 
                     }else if (screen.equals("createList")){
                         createList(contactUsername,
                                 "https://image.tmdb.org/t/p/original/" + result_list.get(position).getPoster_path(),
-                                moviename);
+                                moviename, isPublic);
                         Intent myListsIntent = new Intent(context, MyListsActivity.class);
                         context.startActivity(myListsIntent);
                     }else{
@@ -109,7 +119,25 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
 
     }
 
-    private void createList(String listName, String movieImg, String movieName ) {
+    private void addToList(String listId, String movieName, String movieImg) {
+
+        db.collection("lists")
+                .document(listId).get().addOnSuccessListener(
+                documentSnapshot -> {
+                    Map<String,String> getMovieList = (Map<String, String>) documentSnapshot.get("movies");
+
+                    if(!getMovieList.keySet().contains(movieName)) {
+                        db.collection("lists").document(listId).update(
+                                "movies." + movieName, movieImg);
+                    }else{
+                        //////PRINTEEAR ERROR DE QUE LA PELI JA ESTA A LA LLISTA O ALGO AIXI
+                    }
+                }
+        );
+
+    }
+
+    private void createList(String listName, String movieImg, String movieName, Boolean isPublic ) {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Map<String,String> lists = new HashMap<>();
@@ -119,6 +147,7 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
         list.put("name", listName);
         list.put("creator", user.getUid());
         list.put("movies", lists);
+        list.put("public", isPublic);
 
         db.collection("lists").add(list);
     }

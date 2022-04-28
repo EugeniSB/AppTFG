@@ -17,7 +17,6 @@ class CreateListActivity : AppCompatActivity() {
         title = "Create list"
         val userId = FirebaseAuth.getInstance().uid
 
-
         nextListbutton.setOnClickListener {
 
             if(listNameEditText.text.isNotEmpty()){
@@ -25,6 +24,8 @@ class CreateListActivity : AppCompatActivity() {
                 searchListIntent.putExtra("screen", "createList")
                 searchListIntent.putExtra("contactUsername", listNameEditText.text.toString())
                 searchListIntent.putExtra("contactId", userId)
+                searchListIntent.putExtra("isChecked", publicListcheckBox.isChecked )
+
                 startActivity(searchListIntent)
             }
 

@@ -12,6 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphaTest">
         <activity
+            android:name=".lists.EditMyListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".lists.OneOfMyListsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".lists.MyListsActivity" />
+        </activity>
+        <activity
             android:name=".lists.CreateListActivity"
             android:exported="false" />
         <activity

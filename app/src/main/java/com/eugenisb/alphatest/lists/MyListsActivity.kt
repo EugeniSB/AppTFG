@@ -3,22 +3,16 @@ package com.eugenisb.alphatest.lists
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.eugenisb.alphatest.R
-import com.eugenisb.alphatest.contacts.ContactChatLogActivity
-import com.eugenisb.alphatest.contacts.MyContactsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import kotlinx.android.synthetic.main.activity_my_contacts.*
 import kotlinx.android.synthetic.main.activity_my_lists.*
-import kotlinx.android.synthetic.main.movie_list_item.view.*
-import kotlinx.android.synthetic.main.my_contacts_item.view.*
 import kotlinx.android.synthetic.main.my_lists_item.view.*
 
 class MyListsActivity : AppCompatActivity() {
@@ -40,12 +34,36 @@ class MyListsActivity : AppCompatActivity() {
         }
     }
 
-    class ListsItem(val listName: String, val listImgURL: String, val listNumberOfMovies: Int): Item<GroupieViewHolder>(){
+    inner class ListsItem(val listName: String, val listImgURL: String, val listNumberOfMovies: Int, val listId: String): Item<GroupieViewHolder>(){
+
 
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
             viewHolder.itemView.myListTextView.text = listName
             viewHolder.itemView.movieNumberTextView.text = "Movies/series: " + listNumberOfMovies.toString()
             Picasso.get().load(listImgURL).into(viewHolder.itemView.myListsImageView)
+
+
+            viewHolder.itemView.myListsImageView.setOnClickListener {
+                val myListItemIntent = Intent(viewHolder.itemView.myListsImageView.context,OneOfMyListsActivity::class.java)
+                myListItemIntent.putExtra("listName", listName)
+                myListItemIntent.putExtra("listId", listId)
+                viewHolder.itemView.myListsImageView.context.startActivity(myListItemIntent)
+            }
+
+            viewHolder.itemView.deleteListImageButton.setOnClickListener {
+
+                ////POSAR AVIS DE QUE ES BORRARA LA LLISTA
+                db.collection("lists").document(listId).delete()
+                getLists(FirebaseAuth.getInstance().uid!!)
+            }
+
+            viewHolder.itemView.editListImageButton.setOnClickListener {
+                val editListItemIntent = Intent(viewHolder.itemView.myListsImageView.context, EditMyListActivity::class.java)
+                editListItemIntent.putExtra("listName", listName)
+                editListItemIntent.putExtra("listId", listId)
+                viewHolder.itemView.myListsImageView.context.startActivity(editListItemIntent)
+            }
+
         }
 
         override fun getLayout(): Int {
@@ -68,18 +86,21 @@ class MyListsActivity : AppCompatActivity() {
                 val listName = document["name"] as String
                 val listImage = getMovieMap[getMovieMap.keys.elementAt(0)] as String
                 val listNumberOfMovies = getMovieMap.keys.size
-                adapter.add(ListsItem(listName,listImage,listNumberOfMovies))
+                adapter.add(ListsItem(listName,listImage,listNumberOfMovies, document.id))
 
                 }
 
-            adapter.setOnItemClickListener{ item,view ->
+            /*adapter.setOnItemClickListener{ item,view ->
                 val contactItem = item as MyContactsActivity.ContactItem
 
                 val intentChatLog = Intent(view.context, ContactChatLogActivity::class.java)
                 intentChatLog.putExtra("contactId",item.userId)
                 intentChatLog.putExtra("contactUsername",item.username)
                 startActivity(intentChatLog)
+
+
             }
+            */
             myListsRecyclerView.adapter = adapter
         }
 

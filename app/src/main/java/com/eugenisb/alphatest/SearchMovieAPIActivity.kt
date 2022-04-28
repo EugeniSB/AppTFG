@@ -106,9 +106,10 @@ class SearchMovieAPIActivity : AppCompatActivity(), OnMovieClickListener {
 
             val contactId = intent.extras?.getString("contactId") ?: ""
             val contactUsername = intent.extras?.getString("contactUsername") ?: ""
+            val isPublic = intent.extras?.getBoolean("isChecked") ?: false
 
             val request = Request.Builder()
-                .url("https://api.themoviedb.org/3/search/multi?api_key=60494e2f64dd85ff91f57a111d1d7f2e&query=$movieName")//"https://mdblist.p.rapidapi.com/?s=jaws")
+                .url("https://api.themoviedb.org/3/search/multi?api_key=60494e2f64dd85ff91f57a111d1d7f2e&query=$movieName")
                 .build()
 
             client.newCall(request).enqueue(object : Callback {
@@ -128,7 +129,7 @@ class SearchMovieAPIActivity : AppCompatActivity(), OnMovieClickListener {
                             else
                                 int += 1
                         }
-                        showResult(movies, contactId, contactUsername, screen)
+                        showResult(movies, contactId, contactUsername, screen, isPublic)
                     }
 
                 }
@@ -141,10 +142,12 @@ class SearchMovieAPIActivity : AppCompatActivity(), OnMovieClickListener {
 
     }
 
-    private fun showResult(results: Results, contactId: String , contactUsername: String, screen: String){
+    private fun showResult(results: Results, contactId: String , contactUsername: String,
+                           screen: String, isPublic: Boolean){
         API_recycler_view.setHasFixedSize(true)
         API_recycler_view.layoutManager = GridLayoutManager(this, 2)
-        adapter = MovieResultsAdapter(this, results.results, this, contactId, contactUsername, screen)
+        adapter = MovieResultsAdapter(this, results.results, this, contactId,
+            contactUsername, screen, isPublic)
         API_recycler_view.adapter = adapter
     }
 
