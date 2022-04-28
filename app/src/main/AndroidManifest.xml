@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphaTest">
         <activity
+            android:name=".lists.OneOfMyContactListsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".lists.ContactListsActivity"
+            android:exported="false" />
+        <activity
             android:name=".lists.EditMyListActivity"
             android:exported="false" />
         <activity

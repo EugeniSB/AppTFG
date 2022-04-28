@@ -1,11 +1,14 @@
 package com.eugenisb.alphatest.contacts
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import com.eugenisb.alphatest.R
+import com.eugenisb.alphatest.lists.ContactListsActivity
+import com.eugenisb.alphatest.lists.CreateListActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_contact_profile.*
@@ -28,6 +31,15 @@ class ContactProfileActivity : AppCompatActivity() {
 
         if (contactId != null){
             getUser(contactId)
+        }
+
+        contactListsButton.setOnClickListener {
+            if (contactId != null){
+                val contactListsIntent = Intent(this, ContactListsActivity::class.java)
+                contactListsIntent.putExtra("contactId", contactId)
+                contactListsIntent.putExtra("contactUsername", contactUsername)
+                startActivity(contactListsIntent)
+            }
         }
 
 
