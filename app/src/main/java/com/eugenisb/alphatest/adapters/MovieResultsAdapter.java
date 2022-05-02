@@ -84,14 +84,14 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
 
                     if(screen.equals("user")){
                         Intent recommendIntent = new Intent(context, ContactRecommendationActivity.class);
-                        recommendIntent.putExtra("movieName", moviename);
+                        recommendIntent.putExtra("movieName", moviename.replace("."," "));
                         recommendIntent.putExtra("contactId", contactId);
                         recommendIntent.putExtra("contactUsername", contactUsername);
                         context.startActivity(recommendIntent);
 
                     }else if(screen.equals("group")){
                         Intent recommendIntent = new Intent(context, GroupRecommendationActivity.class);
-                        recommendIntent.putExtra("movieName", moviename);
+                        recommendIntent.putExtra("movieName", moviename.replace("."," "));
                         recommendIntent.putExtra("groupId", contactId);
                         recommendIntent.putExtra("contactUsername", contactUsername);
                         context.startActivity(recommendIntent);
@@ -126,9 +126,12 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
                 documentSnapshot -> {
                     Map<String,String> getMovieList = (Map<String, String>) documentSnapshot.get("movies");
 
-                    if(!getMovieList.keySet().contains(movieName)) {
+                    String newMovieName = movieName.replace("."," ");
+
+
+                    if(!getMovieList.keySet().contains(newMovieName)) {
                         db.collection("lists").document(listId).update(
-                                "movies." + movieName, movieImg);
+                                "movies." + newMovieName, movieImg);
                     }else{
                         //////PRINTEEAR ERROR DE QUE LA PELI JA ESTA A LA LLISTA O ALGO AIXI
                     }
@@ -141,7 +144,7 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Map<String,String> lists = new HashMap<>();
-        lists.put(movieName,movieImg);
+        lists.put(movieName.replace("."," "),movieImg);
 
         Map<String, Object> list = new HashMap<>();
         list.put("name", listName);

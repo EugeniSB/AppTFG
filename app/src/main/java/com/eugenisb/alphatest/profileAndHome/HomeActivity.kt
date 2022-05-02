@@ -1,21 +1,18 @@
 package com.eugenisb.alphatest.profileAndHome
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import androidx.core.text.HtmlCompat
-import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
-import com.eugenisb.alphatest.R
+import androidx.fragment.app.FragmentPagerAdapter
+import com.eugenisb.alphatest.*
+import com.eugenisb.alphatest.adapters.ViewPagerAdapter
 import com.eugenisb.alphatest.auth.AuthActivity
-import com.eugenisb.alphatest.contacts.MyContactsActivity
-import com.eugenisb.alphatest.groups.MyGroupsActivity
+import com.eugenisb.alphatest.contacts.ContactsFragment
+import com.eugenisb.alphatest.groups.GroupsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -35,10 +32,41 @@ class HomeActivity : AppCompatActivity() {
         val userId = FirebaseAuth.getInstance().uid
 
         if(userId != null){
-            contacts(userId)
-            groups(userId)
+            //contacts(userId)
+            //groups(userId)
         }
 
+        supportActionBar!!.elevation = 0F
+
+        setUpTabs()
+
+
+
+        /*
+        homerecommendButton.setOnClickListener {
+            val profileIntent = Intent(this, FragmentActivity::class.java)
+            startActivity(profileIntent)
+        }
+
+         */
+
+
+    }
+
+    private fun setUpTabs() {
+
+        tabLayout.setupWithViewPager(viewPager)
+
+        var vp = ViewPagerAdapter(
+            supportFragmentManager,
+            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
+
+        vp.addFragment(ContactsFragment(), "Contacts")
+        vp.addFragment(GroupsFragment(), "Groups")
+        viewPager.adapter = vp
+
+        tabLayout.setupWithViewPager(viewPager)
 
     }
 
@@ -72,6 +100,7 @@ class HomeActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    /*
     private fun  contacts(userId: String){
 
         val contactsButton = findViewById<Button>(R.id.mycontactsButton)
@@ -93,5 +122,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(groupsIntent)
         }
     }
+
+     */
 
 }

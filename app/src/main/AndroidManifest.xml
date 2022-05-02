@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphaTest">
+
         <activity
             android:name=".lists.OneOfMyContactListsActivity"
             android:exported="false" />
@@ -45,14 +46,14 @@
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".groups.MyGroupsActivity" />
+                android:value=".profileAndHome.HomeActivity" />
         </activity>
         <activity
             android:name=".groups.GroupChatLogActivity"
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".groups.MyGroupsActivity" />
+                android:value=".profileAndHome.HomeActivity" />
         </activity>
         <activity
             android:name=".groups.CreateGroupNameActivity"
@@ -60,7 +61,13 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".groups.CreateGroupMembersActivity"
-            android:exported="false" />
+            android:exported="false">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".profileAndHome.HomeActivity" />
+        </activity>
+
+
         <activity
             android:name=".groups.MyGroupsActivity"
             android:exported="false" />
@@ -69,21 +76,21 @@
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".contacts.MyContactsActivity" />
+                android:value=".profileAndHome.HomeActivity" />
         </activity>
         <activity
             android:name=".contacts.ContactChatLogActivity"
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".contacts.MyContactsActivity" />
+                android:value=".profileAndHome.HomeActivity" />
         </activity>
         <activity
             android:name=".contacts.ContactProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".contacts.MyContactsActivity" />
+                android:value=".profileAndHome.HomeActivity" />
         </activity>
         <activity
             android:name=".contacts.ContactRequests"
@@ -106,7 +113,7 @@
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".contacts.MyContactsActivity" />
+                android:value=".profileAndHome.HomeActivity" />
         </activity>
         <activity
             android:name=".contacts.MyContactsActivity"

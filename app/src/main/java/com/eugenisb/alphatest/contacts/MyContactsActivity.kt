@@ -32,7 +32,7 @@ class MyContactsActivity : AppCompatActivity() {
         if(userId != null){
             getContacts(userId)
         }
-        addContactsfloatingActionButton.setOnClickListener {
+        addContacts.setOnClickListener {
             val addContactsIntent = Intent(this, AddContactActivity::class.java).apply {
                 putExtra("userId", userId)
 

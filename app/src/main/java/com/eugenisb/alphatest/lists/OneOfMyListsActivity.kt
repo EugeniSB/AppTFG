@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.one_of_my_lists_item.view.*
 class OneOfMyListsActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
-
+    lateinit var adapter : GroupAdapter<GroupieViewHolder>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +39,7 @@ class OneOfMyListsActivity : AppCompatActivity() {
             addToListIntent.putExtra("contactId", listId)
             addToListIntent.putExtra("contactUsername", listName)
             startActivity(addToListIntent)
+            adapter.notifyDataSetChanged()
         }
     }
 
@@ -81,7 +82,7 @@ class OneOfMyListsActivity : AppCompatActivity() {
 
             val listItems = it["movies"] as MutableMap<String,String>
 
-            val adapter = GroupAdapter<GroupieViewHolder>()
+            adapter = GroupAdapter<GroupieViewHolder>()
 
             oneOfMyListsRecyclerView.apply {
                 layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL,false)

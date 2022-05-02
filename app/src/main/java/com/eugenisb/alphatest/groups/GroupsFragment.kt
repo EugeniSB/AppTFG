@@ -1,47 +1,56 @@
 package com.eugenisb.alphatest.groups
 
-import android.content.ContentValues.TAG
+import android.content.ContentValues
 import android.content.Intent
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.auth.AuthActivity
-import com.eugenisb.alphatest.contacts.ContactChatLogActivity
-import com.eugenisb.alphatest.contacts.MyContactsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_my_groups.*
+import kotlinx.android.synthetic.main.fragment_groups.*
 import kotlinx.android.synthetic.main.my_contacts_item.view.*
-import java.net.URI
 
-class MyGroupsActivity : AppCompatActivity() {
+class GroupsFragment : Fragment() {
 
     private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_groups)
-
-        title = "My groups"
 
         verifyUserLoggedIn()
+
         val userId = FirebaseAuth.getInstance().uid
 
-        if(userId != null){
-            getGroups(userId)
-        }
-
-        verifyUserLoggedIn()
+        getGroups(userId!!)
 
     }
 
+    private fun verifyUserLoggedIn(){
+        val uid = FirebaseAuth.getInstance().uid
+        if(uid == null){
+            val intentAuth = Intent(activity, AuthActivity::class.java)
+            intentAuth.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intentAuth)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_groups, container, false)
+    }
 
     class GroupItem(val groupId: String, val groupName: String, val groupImg: String): Item<GroupieViewHolder>(){
 
@@ -64,7 +73,7 @@ class MyGroupsActivity : AppCompatActivity() {
                     var groupName = document.get("name") as String
                     var groupImg = document.get("image") as String
                     adapter.add(GroupItem(groupId,groupName, groupImg))
-                    Log.d(TAG, "MyGroups: $groupName")
+                    Log.d(ContentValues.TAG, "MyGroups: $groupName")
                 }
                 adapter.setOnItemClickListener { item, view ->
                     val groupItem = item as GroupItem
@@ -76,16 +85,17 @@ class MyGroupsActivity : AppCompatActivity() {
                     startActivity(intentGroupChat)
                 }
 
-                groupsRecyclerView.adapter = adapter
-        }
+                fragment2RecyclerView.adapter = adapter
+            }
     }
 
-    private fun verifyUserLoggedIn(){
-        val uid = FirebaseAuth.getInstance().uid
-        if(uid == null){
-            val intentAuth = Intent(this, AuthActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intentAuth)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        createGroupFloatingActionButton.setOnClickListener {
+            val createGroupIntent = Intent(activity,CreateGroupMembersActivity::class.java)
+            createGroupIntent.putExtra("userId", FirebaseAuth.getInstance().uid)
+            startActivity(createGroupIntent)
         }
     }
 
