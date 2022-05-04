@@ -31,6 +31,7 @@ class SearchMovieAPIActivity : AppCompatActivity(), OnMovieClickListener {
         }
 
 
+
         API_search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {

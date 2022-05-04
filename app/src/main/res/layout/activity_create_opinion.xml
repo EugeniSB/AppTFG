@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".opinions.CreateOpinionActivity">
+
+    <TextView
+        android:id="@+id/movieNameOpiniontextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:paddingLeft="8dp"
+        android:paddingEnd="8dp"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opinionImageView" />
+
+    <ImageView
+        android:id="@+id/opinionImageView"
+        android:layout_width="140dp"
+        android:layout_height="185dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <RatingBar
+        android:id="@+id/opinionRatingBar"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:isIndicator="false"
+        android:max="10"
+        android:numStars="10"
+        android:progressBackgroundTint="#515151"
+        android:progressTint="#FFEB3B"
+        android:scaleX="0.9"
+        android:scaleY="0.9"
+        android:stepSize="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieNameOpiniontextView"
+        app:layout_constraintVertical_bias="0.019" />
+
+    <TextView
+        android:id="@+id/ratingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/opinionRatingBar"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="@+id/opinionRatingBar"
+        app:layout_constraintTop_toBottomOf="@+id/opinionRatingBar" />
+
+    <TextView
+        android:id="@+id/opinionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Opinion:"
+        android:textColor="#373434"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/opinionMultiline"
+        app:layout_constraintEnd_toEndOf="@+id/opinionMultiline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/opinionMultiline" />
+
+    <EditText
+        android:id="@+id/opinionMultiline"
+        android:layout_width="325dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Write your opinion here..."
+        android:inputType="textMultiLine"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingTextView"
+        app:layout_constraintVertical_bias="0.036" />
+
+    <CheckBox
+        android:id="@+id/publicOpinionCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Public"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opinionMultiline"
+        app:buttonTint = "#4CAF50"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/publicOpinionCheckBox"
+        app:layout_constraintVertical_bias="0.115">
+
+        <android.widget.Button
+            android:id="@+id/cancelOpinionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_red_button"
+            android:text="Cancel"
+            android:textColor="@color/white" />
+
+        <android.widget.Button
+            android:id="@+id/createOpinionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/round_button"
+            android:text="Create opinion"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

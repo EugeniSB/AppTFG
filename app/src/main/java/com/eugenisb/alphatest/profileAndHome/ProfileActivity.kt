@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.auth.AuthActivity
 import com.eugenisb.alphatest.lists.MyListsActivity
+import com.eugenisb.alphatest.opinions.MyOpinionsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -41,13 +42,20 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
 
-        mylistsButton.setOnClickListener {
+        myListsButton.setOnClickListener {
             if(userId != null){
                 myLists(userId)
             }
         }
 
+        myOpinionsButton.setOnClickListener {
+            if(userId != null){
+                myOpinions(userId)
+            }
+        }
+
     }
+
 
     private fun verifyUserLoggedIn(){
         val uid = FirebaseAuth.getInstance().uid
@@ -98,5 +106,13 @@ class ProfileActivity : AppCompatActivity() {
             putExtra("userId", userId)
         }
         startActivity(myListsIntent)
+    }
+
+    private fun myOpinions(userId: String) {
+
+        val myOpinionsIntent = Intent(this, MyOpinionsActivity::class.java).apply {
+            putExtra("userId", userId)
+        }
+        startActivity(myOpinionsIntent)
     }
 }

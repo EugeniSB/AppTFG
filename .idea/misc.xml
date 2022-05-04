@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/drawable-anydpi/ic_edit.xml" value="0.1" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/drawable/ic_baseline_playlist_add_24.xml" value="0.1" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1275" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1275" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/drawable/outlinedbutton.xml" value="0.1275" />
@@ -22,6 +23,7 @@
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_create_group_members.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_create_group_name.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_create_list.xml" value="0.2" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_create_opinion.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_edit_my_list.xml" value="0.17777777777777778" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_edit_profile.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_fragment.xml" value="0.1" />
@@ -31,6 +33,7 @@
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_my_contacts.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_my_groups.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_my_lists.xml" value="0.16" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_my_opinions.xml" value="0.1" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_one_of_my_contact_lists.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_one_of_my_lists.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_profile.xml" value="0.264" />
@@ -57,6 +60,7 @@
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/one_of_my_lists_item.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/menu/contact_chat_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/menu/home_menu.xml" value="0.1" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/menu/mylists_menu.xml" value="0.18888888888888888" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/menu/nav_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/menu/searchbar.xml" value="1.7428571428571429" />
         <entry key="..\:/Users/Trabajo/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_expandable_list_item_1.xml" value="0.12360688956433637" />

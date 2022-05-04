@@ -20,6 +20,7 @@ import com.eugenisb.alphatest.groups.GroupRecommendationActivity;
 import com.eugenisb.alphatest.listeners.OnMovieClickListener;
 import com.eugenisb.alphatest.lists.MyListsActivity;
 import com.eugenisb.alphatest.lists.OneOfMyListsActivity;
+import com.eugenisb.alphatest.opinions.CreateOpinionActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -110,8 +111,12 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
                                 moviename, isPublic);
                         Intent myListsIntent = new Intent(context, MyListsActivity.class);
                         context.startActivity(myListsIntent);
-                    }else{
-
+                    }else if (screen.equals("opinion")){
+                        Intent createOpinionIntent = new Intent(context, CreateOpinionActivity.class);
+                        createOpinionIntent.putExtra("movieName", moviename);
+                        createOpinionIntent.putExtra("moviePoster", "https://image.tmdb.org/t/p/original/" +
+                                result_list.get(position).getPoster_path());
+                        context.startActivity(createOpinionIntent);
                     }
 
                 }
