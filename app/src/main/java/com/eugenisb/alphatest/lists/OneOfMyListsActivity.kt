@@ -39,7 +39,6 @@ class OneOfMyListsActivity : AppCompatActivity() {
             addToListIntent.putExtra("contactId", listId)
             addToListIntent.putExtra("contactUsername", listName)
             startActivity(addToListIntent)
-            adapter.notifyDataSetChanged()
         }
     }
 

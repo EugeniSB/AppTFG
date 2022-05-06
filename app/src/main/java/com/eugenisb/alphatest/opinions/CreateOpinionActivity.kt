@@ -1,6 +1,7 @@
 package com.eugenisb.alphatest.opinions
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.eugenisb.alphatest.R
@@ -30,6 +31,7 @@ class CreateOpinionActivity : AppCompatActivity() {
 
         cancelOpinionButton.setOnClickListener {
             val profileIntent = Intent(this, ProfileActivity::class.java)
+            profileIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(profileIntent)
         }
 
@@ -58,6 +60,7 @@ class CreateOpinionActivity : AppCompatActivity() {
 
 
         val myOpinionsIntent = Intent(this, MyOpinionsActivity::class.java)
+        myOpinionsIntent.flags = FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(myOpinionsIntent)
     }
 

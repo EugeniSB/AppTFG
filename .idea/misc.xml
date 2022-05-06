@@ -25,6 +25,7 @@
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_create_list.xml" value="0.2" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_create_opinion.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_edit_my_list.xml" value="0.17777777777777778" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_edit_opinion.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_edit_profile.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_fragment.xml" value="0.1" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_group_chat_log.xml" value="0.13125" />
@@ -56,8 +57,10 @@
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/movie_list_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/my_contacts_item.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/my_lists_item.xml" value="0.264" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/my_opinions_item.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/one_of_my_contacts_lists_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/one_of_my_lists_item.xml" value="0.264" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/testpopup.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/menu/contact_chat_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/menu/home_menu.xml" value="0.1" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/menu/mylists_menu.xml" value="0.18888888888888888" />
