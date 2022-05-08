@@ -4,15 +4,12 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.lists.ContactListsActivity
-import com.eugenisb.alphatest.lists.CreateListActivity
+import com.eugenisb.alphatest.opinions.ContactOpinionsActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_contact_profile.*
-import kotlinx.android.synthetic.main.activity_profile.*
 import java.io.File
 
 class ContactProfileActivity : AppCompatActivity() {
@@ -39,6 +36,15 @@ class ContactProfileActivity : AppCompatActivity() {
                 contactListsIntent.putExtra("contactId", contactId)
                 contactListsIntent.putExtra("contactUsername", contactUsername)
                 startActivity(contactListsIntent)
+            }
+        }
+
+        contactOpinionsButton.setOnClickListener {
+            if (contactId != null){
+                val contactOpinionsIntent = Intent(this, ContactOpinionsActivity::class.java)
+                contactOpinionsIntent.putExtra("contactId", contactId)
+                contactOpinionsIntent.putExtra("contactUsername", contactUsername)
+                startActivity(contactOpinionsIntent)
             }
         }
 

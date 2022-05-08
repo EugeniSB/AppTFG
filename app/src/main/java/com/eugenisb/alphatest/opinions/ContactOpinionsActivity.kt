@@ -1,15 +1,15 @@
 package com.eugenisb.alphatest.opinions
 
-import android.content.Intent
+
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.PopupWindow
 import com.eugenisb.alphatest.R
-import com.eugenisb.alphatest.SearchMovieAPIActivity
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_my_opinions.*
 import kotlinx.android.synthetic.main.my_opinions_item.view.*
 import kotlinx.android.synthetic.main.opinion_popup.view.*
 
-class MyOpinionsActivity : AppCompatActivity() {
+class ContactOpinionsActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     lateinit var adapter : GroupAdapter<GroupieViewHolder>
@@ -32,30 +32,14 @@ class MyOpinionsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_opinions)
 
-        title = "My opinions"
+        val contactId = intent.extras?.getString("contactId")
+        val contactUsername = intent.extras?.getString("contactUsername")
 
-        val userId = FirebaseAuth.getInstance().uid
+        title = contactUsername + " opinions"
 
-        getOpinions(userId)
+        if(contactId != null)
+            getOpinions(contactId)
 
-    }
-
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.mylists_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
-            R.id.create_list ->{
-                val createOpIntent = Intent(this, SearchMovieAPIActivity::class.java)
-                createOpIntent.putExtra("screen", "opinion")
-                createOpIntent.putExtra("contactId", FirebaseAuth.getInstance().uid)
-                startActivity(createOpIntent)
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     inner class OpinionsItem(val movieName: String, val movieImgURL: String, val movieOpinion: String,
@@ -68,23 +52,6 @@ class MyOpinionsActivity : AppCompatActivity() {
             viewHolder.itemView.myOpinionRating.text = "$movieRating/10"
             Picasso.get().load(movieImgURL).into(viewHolder.itemView.myOpinionImageView)
 
-            viewHolder.itemView.deleteOpinionImageButton.setOnClickListener {
-
-                ////POSAR AVIS DE QUE ES BORRARA LA LLISTA
-                db.collection("opinions").document(opinionId).delete()
-                //adapter.notifyItemRemoved(position)
-                //myOpinionsRecyclerView.adapter = adapter
-                getOpinions(FirebaseAuth.getInstance().uid)
-
-            }
-
-            viewHolder.itemView.editOpinionImageButton.setOnClickListener {
-                val editOpinionItemIntent = Intent(viewHolder.itemView.myOpinionImageView.context, EditOpinionActivity::class.java)
-                editOpinionItemIntent.putExtra("opinionId", opinionId)
-                viewHolder.itemView.myOpinionImageView.context.startActivity(editOpinionItemIntent)
-                adapter.notifyItemChanged(position)
-                adapter.notifyDataSetChanged()
-            }
 
             viewHolder.itemView.setOnClickListener {
 
@@ -112,13 +79,13 @@ class MyOpinionsActivity : AppCompatActivity() {
         }
 
         override fun getLayout(): Int {
-            return R.layout.my_opinions_item
+            return R.layout.contact_opinions_item
         }
     }
 
-    private fun getOpinions(userId: String?) {
+    private fun getOpinions(contactId: String) {
 
-        db.collection("opinions").whereEqualTo("creator", userId).get().addOnSuccessListener {
+        db.collection("opinions").whereEqualTo("creator", contactId).get().addOnSuccessListener {
                 results ->
             adapter = GroupAdapter<GroupieViewHolder>()
 
@@ -132,20 +99,8 @@ class MyOpinionsActivity : AppCompatActivity() {
                 adapter.add(OpinionsItem(movieName,moviePoster,movieOpinion,movieRating.toInt(),document.id))
             }
 
-            /*adapter.setOnItemClickListener{ item,view ->
-                val contactItem = item as MyContactsActivity.ContactItem
-
-                val intentChatLog = Intent(view.context, ContactChatLogActivity::class.java)
-                intentChatLog.putExtra("contactId",item.userId)
-                intentChatLog.putExtra("contactUsername",item.username)
-                startActivity(intentChatLog)
-
-
-            }
-            */
             myOpinionsRecyclerView.adapter = adapter
         }
 
     }
-
 }

@@ -12,8 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphaTest">
         <activity
-            android:name=".opinions.EditOpinionActivity"
+            android:name=".opinions.ContactOpinionsActivity"
             android:exported="false" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".profileAndHome.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".opinions.EditOpinionActivity"
+            android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".opinions.MyOpinionsActivity" />
@@ -21,7 +28,6 @@
         <activity
             android:name=".opinions.CreateOpinionActivity"
             android:exported="false" />
-
         <activity
             android:name=".opinions.MyOpinionsActivity"
             android:exported="false">
@@ -29,13 +35,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".profileAndHome.ProfileActivity" />
         </activity>
-
         <activity
             android:name=".lists.OneOfMyContactListsActivity"
             android:exported="false" />
         <activity
             android:name=".lists.ContactListsActivity"
-            android:exported="false" />
+            android:exported="false" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".profileAndHome.HomeActivity" />
+        </activity>
         <activity
             android:name=".lists.EditMyListActivity"
             android:exported="false" />

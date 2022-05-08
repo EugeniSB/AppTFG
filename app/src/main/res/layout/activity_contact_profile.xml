@@ -141,7 +141,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/round_button"
                     android:text="Contact opinions"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
