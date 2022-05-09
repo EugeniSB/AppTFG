@@ -61,9 +61,12 @@ class ContactRecommendationActivity : AppCompatActivity() {
                 "Date" to time
             )
 
-            db.collection("user-recommendations").document(userId).collection(contactId).add(recommendation)
-            db.collection("user-recommendations").document(contactId).collection(userId).add(recommendation)
+            //db.collection("user-recommendations").document(userId).collection(contactId).add(recommendation)
+            //db.collection("user-recommendations").document(contactId).collection(userId).add(recommendation)
 
+            db.collection("user-recommendations").document(userId).collection(contactId).add(recommendation).addOnSuccessListener {
+                db.collection("user-recommendations").document(contactId).collection(userId).document(it.id).set(recommendation)
+            }
 
             val chatIntent = Intent(this, ContactChatLogActivity::class.java)
             //chatIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)

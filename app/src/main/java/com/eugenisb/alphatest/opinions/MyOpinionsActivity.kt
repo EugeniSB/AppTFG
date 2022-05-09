@@ -82,8 +82,9 @@ class MyOpinionsActivity : AppCompatActivity() {
                 val editOpinionItemIntent = Intent(viewHolder.itemView.myOpinionImageView.context, EditOpinionActivity::class.java)
                 editOpinionItemIntent.putExtra("opinionId", opinionId)
                 viewHolder.itemView.myOpinionImageView.context.startActivity(editOpinionItemIntent)
-                adapter.notifyItemChanged(position)
+                adapter.notifyItemRemoved(position)
                 adapter.notifyDataSetChanged()
+
             }
 
             viewHolder.itemView.setOnClickListener {

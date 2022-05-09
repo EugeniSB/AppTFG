@@ -78,7 +78,7 @@ class GroupChatLogActivity : AppCompatActivity() {
                         Log.d(ContentValues.TAG, "New message: ${dc.document.data}")
                         if (dc.document.data["from"] as String == userId) {
                             adapter.add(ChatFromItem(dc.document.data["name"] as String,
-                            dc.document.data["comment"] as String, userId))
+                            dc.document.data["comment"] as String, userId, dc.document.id))
                         }else{
                             adapter.add(ChatToItem(dc.document.data["name"] as String,
                                 dc.document.data["comment"] as String, dc.document.data["from"] as String))
@@ -112,7 +112,9 @@ class GroupChatLogActivity : AppCompatActivity() {
         }
     }
 
-    class ChatFromItem(private val movieName: String, private val movieComment: String, val userId: String): Item<GroupieViewHolder>(){
+    inner class ChatFromItem(private val movieName: String, private val movieComment: String,
+                       val userId: String, val messageId: String): Item<GroupieViewHolder>(){
+
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
             viewHolder.itemView.toTitleTextView.text = "$movieName:"
             viewHolder.itemView.toTitleTextView.paintFlags =
@@ -124,6 +126,13 @@ class GroupChatLogActivity : AppCompatActivity() {
                 Picasso.get().load(it).into(viewHolder.itemView.toImageView)
             }.addOnFailureListener {
                 Picasso.get().load(R.drawable.profile).into(viewHolder.itemView.toImageView)
+            }
+
+            viewHolder.itemView.deleteChatRowImageButton.setOnClickListener {
+                db.collection("group-recommendations/$groupId/" +
+                        "$groupId").document("$messageId").delete()
+                adapter.removeGroupAtAdapterPosition(position)
+
             }
 
         }

@@ -20,6 +20,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_contact_chat_log.*
+import kotlinx.android.synthetic.main.activity_my_opinions.*
 import kotlinx.android.synthetic.main.chat_from_row.view.*
 import kotlinx.android.synthetic.main.chat_to_row.view.*
 import kotlinx.android.synthetic.main.my_contacts_item.view.*
@@ -79,7 +80,7 @@ class ContactChatLogActivity : AppCompatActivity() {
                         Log.d(TAG, "New message: ${dc.document.data}")
                         if (dc.document.data["from"] as String == FirebaseAuth.getInstance().uid) {
                             adapter.add(ChatFromItem(dc.document.data["name"] as String,
-                            dc.document.data["comment"] as String, userId!!))
+                            dc.document.data["comment"] as String, userId!!, dc.document.id))
                         }else{
                             adapter.add(ChatToItem(dc.document.data["name"] as String,
                                 dc.document.data["comment"] as String, contactId!!))
@@ -113,7 +114,8 @@ class ContactChatLogActivity : AppCompatActivity() {
         }
     }
 
-    class ChatFromItem(private val movieName: String, private val movieComment: String, val userId: String): Item<GroupieViewHolder>(){
+    inner class ChatFromItem(private val movieName: String, private val movieComment: String, val userId: String,
+    val messageId: String): Item<GroupieViewHolder>(){
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
             viewHolder.itemView.toTitleTextView.text = "$movieName:"
             viewHolder.itemView.toTitleTextView.paintFlags =
@@ -125,6 +127,13 @@ class ContactChatLogActivity : AppCompatActivity() {
                 Picasso.get().load(it).into(viewHolder.itemView.toImageView)
             }.addOnFailureListener {
                 Picasso.get().load(R.drawable.profile).into(viewHolder.itemView.toImageView)
+            }
+
+            viewHolder.itemView.deleteChatRowImageButton.setOnClickListener {
+                db.collection("user-recommendations/$userId/$contactId").document("$messageId").delete()
+                db.collection("user-recommendations/$contactId/$userId").document("$messageId").delete()
+                adapter.removeGroupAtAdapterPosition(position)
+
             }
 
         }

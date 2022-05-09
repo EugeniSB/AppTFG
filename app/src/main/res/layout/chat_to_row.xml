@@ -6,17 +6,29 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp">
 
+    <ImageButton
+        android:id="@+id/deleteChatRowImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:srcCompat="@drawable/ic_delete" />
+
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
         android:background="@drawable/round_edittext"
+        android:maxWidth="200dp"
         android:orientation="vertical"
         android:padding="12dp"
         app:layout_constraintEnd_toStartOf="@+id/toImageView"
-        app:layout_constraintTop_toTopOf="parent"
-        android:maxWidth="200dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/toTitleTextView"
@@ -26,9 +38,9 @@
             android:fontFamily="@font/abeezee"
             android:maxWidth="200dp"
             android:text="MOVIE NAME"
+            android:textColor="#373434"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#373434"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/toCommentTextView"
@@ -36,7 +48,7 @@
             android:layout_height="wrap_content"
             android:maxWidth="200dp"
             android:text="Movie comment"
-            android:textColor="#373434"/>
+            android:textColor="#373434" />
     </LinearLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
