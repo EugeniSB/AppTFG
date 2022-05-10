@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#AAA7A7"
-    tools:context=".contacts.ContactChatLogActivity">
+    tools:context=".contacts.ContactChatLogActivity"
+    android:id="@+id/myChatLayout">
 
     <android.widget.Button
         android:id="@+id/chatLogContactRecommendButton"

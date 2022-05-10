@@ -21,20 +21,21 @@ class GroupRecommendationActivity : AppCompatActivity() {
         val movieName = intent.extras?.getString("movieName")
         val groupId = intent.extras?.getString("groupId")
         val groupName =  intent.extras?.getString("contactUsername")
+        val moviePoster = intent.extras?.getString("moviePoster")
 
         title = "Recommend Group"
 
         movieNameGroupEditText.setText(movieName)
 
         finishGroupRecommendationButton.setOnClickListener {
-            if(groupId != null && groupName != null) {
-                createRecommendation(groupId,groupName)
+            if(groupId != null && groupName != null && moviePoster != null) {
+                createRecommendation(groupId,groupName,moviePoster)
             }
         }
 
     }
 
-    private fun createRecommendation(groupId: String, groupName: String) {
+    private fun createRecommendation(groupId: String, groupName: String, moviePoster: String) {
 
         val movieName = movieNameGroupEditText.text.toString()
         val movieComment = movieCommentGroupMultiline.text.toString()
@@ -47,9 +48,9 @@ class GroupRecommendationActivity : AppCompatActivity() {
             val recommendation = hashMapOf(
                 "name" to movieName,
                 "comment" to movieComment,
+                "poster" to moviePoster,
                 "from" to userId,
                 "to" to groupId,
-                "itsGroup" to true,
                 "Date" to time
             )
 

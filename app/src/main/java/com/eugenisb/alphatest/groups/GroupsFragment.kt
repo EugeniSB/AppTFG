@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.auth.AuthActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -19,10 +21,12 @@ import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_my_groups.*
 import kotlinx.android.synthetic.main.fragment_groups.*
 import kotlinx.android.synthetic.main.my_contacts_item.view.*
+import java.text.SimpleDateFormat
 
 class GroupsFragment : Fragment() {
 
     private val db = FirebaseFirestore.getInstance()
+    private val sdf = SimpleDateFormat("dd/MM/YY HH:mm")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,11 +56,54 @@ class GroupsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_groups, container, false)
     }
 
-    class GroupItem(val groupId: String, val groupName: String, val groupImg: String): Item<GroupieViewHolder>(){
+    inner class GroupItem(val groupId: String, val groupName: String, val groupImg: String): Item<GroupieViewHolder>(){
 
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
             viewHolder.itemView.contactTextView.text = groupName
             Picasso.get().load(groupImg).into(viewHolder.itemView.contactImageView)
+
+            val ref = db.collection("group-recommendations/$groupId/$groupId").orderBy("Date",
+                Query.Direction.ASCENDING)
+
+            ref.addSnapshotListener { value, error ->
+                if (error != null){
+                    Log.w(ContentValues.TAG, "Listen failed.", error);
+                    return@addSnapshotListener
+                }
+
+                for ( dc in value!!.documentChanges) {
+                    when (dc.type){
+                        DocumentChange.Type.ADDED -> {
+                            viewHolder.itemView.lastMessageTextView.text =
+                                dc.document.data["name"] as String
+                            val date = dc.document.data["Date"] as com.google.firebase.Timestamp
+                            val finalDate = date.toDate()
+                            viewHolder.itemView.lastMessageTimeTextView.text =
+                                sdf.format(finalDate).toString()
+                        }
+
+                        DocumentChange.Type.MODIFIED -> {
+                            viewHolder.itemView.lastMessageTextView.text =
+                                dc.document.data["name"] as String
+                            val date = dc.document.data["Date"] as com.google.firebase.Timestamp
+                            val finalDate = date.toDate()
+                            viewHolder.itemView.lastMessageTimeTextView.text =
+                                sdf.format(finalDate).toString()
+                        }
+
+                        DocumentChange.Type.REMOVED -> {
+                            viewHolder.itemView.lastMessageTextView.text =
+                                dc.document.data["name"] as String
+                            val date = dc.document.data["Date"] as com.google.firebase.Timestamp
+                            val finalDate = date.toDate()
+                            viewHolder.itemView.lastMessageTimeTextView.text =
+                                sdf.format(finalDate).toString()
+                        }
+                    }
+                }
+            }
+
+
         }
 
         override fun getLayout(): Int {

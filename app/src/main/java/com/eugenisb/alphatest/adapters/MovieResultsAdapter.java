@@ -65,6 +65,8 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
 
+
+
             if (result_list.get(position).getOriginal_title() != "") {
                 holder.movie_item_title.setText(result_list.get(position).getOriginal_title());
             } else {
@@ -80,6 +82,7 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
             holder.movie_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    String posterPath = "https://image.tmdb.org/t/p/original/" + result_list.get(position).getPoster_path();
                     String moviename = holder.movie_item_title.getText().toString();
                     System.out.println(moviename);
 
@@ -88,6 +91,7 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
                         recommendIntent.putExtra("movieName", moviename.replace("."," "));
                         recommendIntent.putExtra("contactId", contactId);
                         recommendIntent.putExtra("contactUsername", contactUsername);
+                        recommendIntent.putExtra("moviePoster", posterPath);
                         context.startActivity(recommendIntent);
 
                     }else if(screen.equals("group")){
@@ -95,6 +99,7 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
                         recommendIntent.putExtra("movieName", moviename.replace("."," "));
                         recommendIntent.putExtra("groupId", contactId);
                         recommendIntent.putExtra("contactUsername", contactUsername);
+                        recommendIntent.putExtra("moviePoster", posterPath);
                         context.startActivity(recommendIntent);
 
                     }else if(screen.equals("list")){

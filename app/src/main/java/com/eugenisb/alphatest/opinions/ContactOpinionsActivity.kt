@@ -90,13 +90,16 @@ class ContactOpinionsActivity : AppCompatActivity() {
             adapter = GroupAdapter<GroupieViewHolder>()
 
             for(document in results.documents){
+                if(document["public"] as Boolean) {
+                    val movieName = document["movie"] as String
+                    val moviePoster = document["moviePoster"] as String
+                    val movieOpinion = document["opinionComment"] as String
+                    val movieRating = document["rating"] as Double
 
-                val movieName = document["movie"] as String
-                val moviePoster = document ["moviePoster"] as String
-                val movieOpinion = document["opinionComment"] as String
-                val movieRating = document["rating"] as Double
-
-                adapter.add(OpinionsItem(movieName,moviePoster,movieOpinion,movieRating.toInt(),document.id))
+                    adapter.add(
+                        OpinionsItem(movieName,moviePoster,
+                            movieOpinion, movieRating.toInt(), document.id))
+                }
             }
 
             myOpinionsRecyclerView.adapter = adapter

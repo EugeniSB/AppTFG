@@ -26,19 +26,20 @@ class ContactRecommendationActivity : AppCompatActivity() {
         val movieName = intent.extras?.getString("movieName")
         val contactId = intent.extras?.getString("contactId")
         val contactUsername = intent.extras?.getString("contactUsername")
+        val moviePoster = intent.extras?.getString("moviePoster")
 
         movieNameEditText.text = movieName
 
         title = "Recommend to $contactUsername"
 
         finishContactRecommendationButton.setOnClickListener {
-            if(contactId != null && contactUsername != null) {
-                createRecommendation(contactId,contactUsername)
+            if(contactId != null && contactUsername != null && moviePoster != null) {
+                createRecommendation(contactId,contactUsername, moviePoster)
             }
         }
     }
 
-    private fun createRecommendation(contactId: String, contactUsername: String) {
+    private fun createRecommendation(contactId: String, contactUsername: String, moviePoster: String) {
 
         val movieName = movieNameEditText.text.toString()
         val movieComment = movieCommentMultiline.text.toString()
@@ -55,9 +56,9 @@ class ContactRecommendationActivity : AppCompatActivity() {
             val recommendation = hashMapOf(
                 "name" to movieName,
                 "comment" to movieComment,
+                "poster" to moviePoster,
                 "from" to userId,
                 "to" to contactId,
-                "itsGroup" to false,
                 "Date" to time
             )
 

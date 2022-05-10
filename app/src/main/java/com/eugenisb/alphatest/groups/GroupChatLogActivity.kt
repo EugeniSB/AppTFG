@@ -6,6 +6,10 @@ import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.PopupWindow
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.SearchMovieAPIActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -17,8 +21,10 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
+import kotlinx.android.synthetic.main.activity_contact_chat_log.*
 import kotlinx.android.synthetic.main.activity_group_chat_log.*
 import kotlinx.android.synthetic.main.chat_from_row.view.*
+import kotlinx.android.synthetic.main.chat_popup.view.*
 import kotlinx.android.synthetic.main.chat_to_row.view.*
 
 class GroupChatLogActivity : AppCompatActivity() {
@@ -26,6 +32,9 @@ class GroupChatLogActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val adapter = GroupAdapter<GroupieViewHolder>()
     private var groupId : String? = null
+
+    private lateinit var popUp : PopupWindow
+    private lateinit var layoutInf : LayoutInflater
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,10 +87,13 @@ class GroupChatLogActivity : AppCompatActivity() {
                         Log.d(ContentValues.TAG, "New message: ${dc.document.data}")
                         if (dc.document.data["from"] as String == userId) {
                             adapter.add(ChatFromItem(dc.document.data["name"] as String,
-                            dc.document.data["comment"] as String, userId, dc.document.id))
+                            dc.document.data["comment"] as String, userId, dc.document.id
+                                ,dc.document.data["poster"] as String))
                         }else{
                             adapter.add(ChatToItem(dc.document.data["name"] as String,
-                                dc.document.data["comment"] as String, dc.document.data["from"] as String))
+                                dc.document.data["comment"] as String,
+                                dc.document.data["from"] as String,
+                                dc.document.data["poster"] as String))
                         }
                     }
                     DocumentChange.Type.MODIFIED -> ""
@@ -92,7 +104,8 @@ class GroupChatLogActivity : AppCompatActivity() {
 
     }
 
-    class ChatToItem(val movieName: String, val movieComment: String, val userId: String): Item<GroupieViewHolder>(){
+    inner class ChatToItem(val movieName: String, val movieComment: String,
+                     val userId: String, val moviePoster: String): Item<GroupieViewHolder>(){
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
             viewHolder.itemView.fromTitleTextView.text = "$movieName:"
             viewHolder.itemView.fromTitleTextView.paintFlags =
@@ -105,6 +118,27 @@ class GroupChatLogActivity : AppCompatActivity() {
             }.addOnFailureListener {
                 Picasso.get().load(R.drawable.profile).into(viewHolder.itemView.fromImageView)
             }
+
+            viewHolder.itemView.fromLayout.setOnClickListener {
+                layoutInf =
+                    applicationContext.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                var container = layoutInf.inflate(R.layout.chat_popup, null) as ViewGroup
+
+                Picasso.get().load(moviePoster).into(container.popUpChatImageView)
+                container.movieChatNamePopUpTextView.text = movieName
+
+                popUp = PopupWindow(container, 800, 1350, true)
+                popUp.showAtLocation(myGroupChatLayout, Gravity.CENTER, 0, 0)
+                popUp.elevation = 100F
+                myGroupChatLayout.alpha = 0.5F
+                //myOpinionsLayout.setBackgroundColor(Color.GRAY)
+
+                popUp.setOnDismissListener {
+                    myGroupChatLayout.alpha = 1F
+                    //myOpinionsLayout.setBackgroundColor(Color.WHITE)
+                }
+
+            }
         }
 
         override fun getLayout(): Int {
@@ -113,7 +147,7 @@ class GroupChatLogActivity : AppCompatActivity() {
     }
 
     inner class ChatFromItem(private val movieName: String, private val movieComment: String,
-                       val userId: String, val messageId: String): Item<GroupieViewHolder>(){
+                       val userId: String, val messageId: String, val moviePoster: String): Item<GroupieViewHolder>(){
 
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
             viewHolder.itemView.toTitleTextView.text = "$movieName:"
@@ -132,6 +166,27 @@ class GroupChatLogActivity : AppCompatActivity() {
                 db.collection("group-recommendations/$groupId/" +
                         "$groupId").document("$messageId").delete()
                 adapter.removeGroupAtAdapterPosition(position)
+
+            }
+
+            viewHolder.itemView.toLayout.setOnClickListener {
+                layoutInf =
+                    applicationContext.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                var container = layoutInf.inflate(R.layout.chat_popup, null) as ViewGroup
+
+                Picasso.get().load(moviePoster).into(container.popUpChatImageView)
+                container.movieChatNamePopUpTextView.text = movieName
+
+                popUp = PopupWindow(container, 800, 1350, true)
+                popUp.showAtLocation(myGroupChatLayout, Gravity.CENTER, 0, 0)
+                popUp.elevation = 100F
+                myGroupChatLayout.alpha = 0.5F
+                //myOpinionsLayout.setBackgroundColor(Color.GRAY)
+
+                popUp.setOnDismissListener {
+                    myGroupChatLayout.alpha = 1F
+                    //myOpinionsLayout.setBackgroundColor(Color.WHITE)
+                }
 
             }
 

@@ -14,11 +14,11 @@
         android:layout_marginBottom="4dp"
         android:background="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toStartOf="@+id/toLayout"
         app:srcCompat="@drawable/ic_delete" />
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/toLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"

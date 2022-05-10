@@ -101,7 +101,7 @@ class MyOpinionsActivity : AppCompatActivity() {
                 popUp = PopupWindow(container,925,1550,true)
                 popUp.showAtLocation(myOpinionsLayout, Gravity.CENTER, 0,50)
                 popUp.elevation = 100F
-                myOpinionsRecyclerView.alpha = 0.5F
+                myOpinionsRecyclerView.alpha = 0.5F //TODO AQUI PROVAR DE POSAR EL LAYOUT
                 myOpinionsLayout.setBackgroundColor(Color.GRAY)
 
                 popUp.setOnDismissListener {
