@@ -143,6 +143,10 @@ class EditProfileActivity : AppCompatActivity() {
                         storageReference.putFile(URIimage).addOnSuccessListener {
                             Toast.makeText(this, "Successfuly uploaded image", Toast.LENGTH_SHORT).show()
 
+                            storageReference.downloadUrl.addOnSuccessListener {
+                                db.collection("users").document(userId).update("userImg",it.toString())
+                            }
+
                         }.addOnFailureListener {
                             Toast.makeText(this, "Upload failed", Toast.LENGTH_SHORT).show()
                         }
