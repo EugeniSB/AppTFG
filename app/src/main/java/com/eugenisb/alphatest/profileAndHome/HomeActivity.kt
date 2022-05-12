@@ -40,8 +40,6 @@ class HomeActivity : AppCompatActivity() {
 
         setUpTabs()
 
-
-
         /*
         homerecommendButton.setOnClickListener {
             val profileIntent = Intent(this, FragmentActivity::class.java)

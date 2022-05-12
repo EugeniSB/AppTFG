@@ -35,7 +35,8 @@ class GroupsFragment : Fragment() {
 
         val userId = FirebaseAuth.getInstance().uid
 
-        getGroups(userId!!)
+        if(userId != null)
+            getGroups(userId!!)
 
     }
 
@@ -112,7 +113,7 @@ class GroupsFragment : Fragment() {
     }
 
     private fun getGroups(userId: String){
-        db.collection("groups").whereArrayContains("membersId",userId).get()
+        db.collection("groups").whereArrayContains("members",userId).get()
             .addOnSuccessListener {
                 val adapter = GroupAdapter<GroupieViewHolder>()
                 for(document in it.documents){

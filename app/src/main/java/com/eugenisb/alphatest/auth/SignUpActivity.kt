@@ -66,7 +66,8 @@ class SignUpActivity : AppCompatActivity() {
                         "email" to email,
                         "name" to name,
                         "username" to name,
-                        "contacts" to mapOf<String,String>(),
+                        "userImg" to "",
+                        "contacts" to listOf<String>(),
                         "contactRequestsSent" to mapOf<String,String>(),
                         "contactRequests" to mapOf<String,String>()
                      )

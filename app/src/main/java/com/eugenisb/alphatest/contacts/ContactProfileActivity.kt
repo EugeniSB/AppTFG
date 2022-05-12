@@ -5,8 +5,12 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.eugenisb.alphatest.R
+import com.eugenisb.alphatest.groups.GroupChatLogActivity
 import com.eugenisb.alphatest.lists.ContactListsActivity
 import com.eugenisb.alphatest.opinions.ContactOpinionsActivity
+import com.eugenisb.alphatest.profileAndHome.HomeActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_contact_profile.*
@@ -28,6 +32,11 @@ class ContactProfileActivity : AppCompatActivity() {
 
         if (contactId != null){
             getUser(contactId)
+        }
+
+        deleteContactButton.setOnClickListener {
+            if(contactId != null)
+                deleteContact(contactId)
         }
 
         contactListsButton.setOnClickListener {
@@ -69,5 +78,21 @@ class ContactProfileActivity : AppCompatActivity() {
             contactProfileImage.alpha = 0f
         }
 
+    }
+
+    private fun deleteContact(contactId: String){
+
+        val userId = FirebaseAuth.getInstance().uid
+
+        if(userId != null) {
+            db.collection("users").document(contactId)
+                .update("contacts", FieldValue.arrayRemove(userId))
+            db.collection("users").document(userId)
+                .update("contacts", FieldValue.arrayRemove(contactId))
+
+            val homeIntent = Intent(this, HomeActivity::class.java)
+            //chatIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(homeIntent)
+        }
     }
 }

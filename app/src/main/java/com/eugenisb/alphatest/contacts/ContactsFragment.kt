@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_contacts.addContactsFloatingActionButton
 import kotlinx.android.synthetic.main.my_contacts_item.view.*
 import kotlinx.coroutines.tasks.await
+import java.sql.Array
 import java.sql.Date
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
@@ -38,12 +39,11 @@ class ContactsFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
 
-
-
         verifyUserLoggedIn()
 
         val userId = FirebaseAuth.getInstance().uid
-        getContacts(userId!!)
+        if(userId != null)
+            getContacts(userId!!)
 
 
 
@@ -132,11 +132,21 @@ class ContactsFragment : Fragment() {
         db.collection("users").document(userId).get().addOnSuccessListener {
                 document -> Log.d("User","Users contacts: " + document.data?.get("contacts"))
             val adapter = GroupAdapter<GroupieViewHolder>()
-            val usersMap = document.data?.get("contacts") as Map<String,String>
-            for (key in usersMap.keys){
-                if(usersMap[key] != null){
-                    adapter.add(ContactItem(key, usersMap[key]!!, userId))
+            //val usersMap = document.data?.get("contacts") as Map<String,String>
+            val contactsArray = document.data?.get("contacts") as List<String>
+
+            for (contactId in contactsArray){
+                db.collection("users").document(contactId).get().addOnSuccessListener {
+                    if(it.data?.get("username") as String != null)
+                        adapter.add(ContactItem(contactId, it.data?.get("username") as String, userId))
                 }
+                /*
+                if(usersMap[key] != null){
+                    adapter.add(ContactItem())
+                    //adapter.add(ContactItem(key, usersMap[key]!!, userId))
+                }
+
+                 */
             }
             adapter.setOnItemClickListener{ item,view ->
                 val contactItem = item as ContactItem

@@ -100,6 +100,7 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
     public void sendRequest(String stringUserClicked){
 
         String stringUserIdClicked = (String) usersMap.get(stringUserClicked);
+        //String stringUserIdClicked =
 
 
         db.collection("users").document(stringUserIdClicked).update(

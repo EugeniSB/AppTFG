@@ -133,8 +133,8 @@ class CreateGroupNameActivity : AppCompatActivity() {
                     val group = hashMapOf(
                         "name" to groupName,
                         "creator" to userId,
-                        "members" to groupContacts,
-                        "membersId" to groupIds,
+                        //"members" to groupContacts,
+                        "members" to groupIds,
                         "image" to groupImageUrl
                     )
 
@@ -148,8 +148,8 @@ class CreateGroupNameActivity : AppCompatActivity() {
             val group = hashMapOf(
                 "name" to groupName,
                 "creator" to userId,
-                "members" to groupContacts,
-                "membersId" to groupIds,
+                //"members" to groupContacts,
+                "members" to groupIds,
                 "image" to groupImageUrl
             )
 

@@ -16,6 +16,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.activity_add_contact.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.util.ArrayList
 
 class AddContactActivity : AppCompatActivity() {
 
@@ -32,7 +33,7 @@ class AddContactActivity : AppCompatActivity() {
         var userId = ""
         var username = ""
         var usersMap = mutableMapOf<String,String>()
-        var usersAddedMap = mapOf<String,String>()
+        var usersAddedMap : Set<String>
 
 
         if(logged){
@@ -41,11 +42,12 @@ class AddContactActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             username = getUsername(userId)
-            usersMap = getUsernames(username)
-            usersAddedMap = getUsersAddedSnapshot(userId)
-            usersMap.keys.removeAll(usersAddedMap.values)
-            val keys = usersMap.keys.toTypedArray()
-            val usernames = keys.toMutableList()
+            usersMap = getUsernames(username) //Pillar tots els users
+            usersAddedMap = getUsersAddedSnapshot(userId) //Pillar tots els users agregats o en solicitud
+            usersMap.keys.removeAll(usersAddedMap)// Treure els agregats de la llista de tots per ID
+            val names = usersMap.values.toTypedArray()
+            usersMap = usersMap.entries.associate { (k,v)-> v to k } as MutableMap<String, String>
+            val usernames = names.toMutableList()
             adapterFun(usernames, usersMap, username)
         }
 
@@ -86,17 +88,19 @@ class AddContactActivity : AppCompatActivity() {
         val usersMap = mutableMapOf<String,String>()
 
         for(document in usersDoc.documents){
-            usersMap[document.getString("username").toString()] = document.id
+            //usersMap[document.getString("username").toString()] = document.id
+            usersMap[document.id] = document.getString("username").toString()
         }
         return usersMap
     }
 
-    private suspend fun getUsersAddedSnapshot(userId: String): Map<String,String> {
+    private suspend fun getUsersAddedSnapshot(userId: String): Set<String> {
         val userDoc = getUserSnapshot(userId)
         val requests = userDoc.get("contactRequestsSent") as Map<String, String>
-        val contacts = userDoc.get("contacts") as Map<String, String>
-        //////////////////AFEGIR LES PETICIONS DE CONTACTE REBUDES////////////
-        return requests + contacts
+        val contacts = userDoc.get("contacts") as ArrayList<String>
+        val requestsRecived = userDoc.get("contactRequests") as Map<String, String>
+
+        return requests.keys + contacts + requestsRecived.keys
     }
 
 

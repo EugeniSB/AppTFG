@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.create_group_add.*
 import kotlinx.android.synthetic.main.create_group_add.view.*
 import kotlinx.android.synthetic.main.create_group_delete.view.*
 import kotlinx.android.synthetic.main.my_contacts_item.view.*
+import java.util.ArrayList
 
 class CreateGroupMembersActivity : AppCompatActivity() {
 
@@ -69,6 +70,7 @@ class CreateGroupMembersActivity : AppCompatActivity() {
 
 
             viewHolder.itemView.groupAddImageButton.setOnClickListener {
+                //TODO AL FER EL REMOVE I EL ADD MIRAR DE COM ES VA FER A LES OPINIONS
                 usersGroupMap[userId] = username
                 usersMap.remove(userId)
                 getContactsAfter()
@@ -93,6 +95,7 @@ class CreateGroupMembersActivity : AppCompatActivity() {
             }
 
             viewHolder.itemView.groupDeleteImageButton.setOnClickListener {
+                println(usersMap)
                 usersMap[userId] = username
                 usersGroupMap.remove(userId)
                 getContactsAfter()
@@ -110,12 +113,22 @@ class CreateGroupMembersActivity : AppCompatActivity() {
         db.collection("users").document(userId).get().addOnSuccessListener { document ->
             Log.d("User", "Users contacts: " + document.data?.get("contacts"))
             val adapter = GroupAdapter<GroupieViewHolder>()
-            usersMap = document.data?.get("contacts") as MutableMap<String, String>
+            val contactsArray = document["contacts"] as ArrayList<String>
+            for(id in contactsArray){
+                db.collection("users").document(id).get().addOnSuccessListener {
+                    usersMap[id] = it["username"] as String
+                    adapter.add(GroupContactItem(id, it["username"] as String))
+                }
+            }
+            //usersMap = document.data?.get("contacts") as MutableMap<String, String>
+            /*
             for (key in usersMap.keys) {
                 if (usersMap[key] != null) {
                     adapter.add(GroupContactItem(key, usersMap[key]!!))
                 }
             }
+
+             */
 
             groupAddContactRecyclerView.adapter = adapter
         }

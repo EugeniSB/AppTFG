@@ -108,9 +108,17 @@ public class RequestsAdapter extends BaseAdapter implements Filterable {
         String stringUserIdClicked = (String) usersMap.get(stringUserClicked);
 
         db.collection("users").document(stringUserIdClicked).update(
+                "contacts", FieldValue.arrayUnion(userId));
+        db.collection("users").document(userId).update(
+                "contacts", FieldValue.arrayUnion(stringUserIdClicked));
+
+        /*
+        db.collection("users").document(stringUserIdClicked).update(
                 "contacts." + userId, username);
         db.collection("users").document(userId).update(
                 "contacts." + stringUserIdClicked, stringUserClicked);
+
+         */
 
         db.collection("users").document(stringUserIdClicked).update(
                 "contactRequestsSent." + userId, FieldValue.delete());
