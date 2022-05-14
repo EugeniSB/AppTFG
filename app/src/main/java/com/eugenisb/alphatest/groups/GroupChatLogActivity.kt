@@ -6,12 +6,11 @@ import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.*
 import android.widget.PopupWindow
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.SearchMovieAPIActivity
+import com.eugenisb.alphatest.contacts.ContactProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,7 +20,6 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import kotlinx.android.synthetic.main.activity_contact_chat_log.*
 import kotlinx.android.synthetic.main.activity_group_chat_log.*
 import kotlinx.android.synthetic.main.chat_from_row.view.*
 import kotlinx.android.synthetic.main.chat_popup.view.*
@@ -31,7 +29,8 @@ class GroupChatLogActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     private val adapter = GroupAdapter<GroupieViewHolder>()
-    private var groupId : String? = null
+    private lateinit var groupId : String
+    private lateinit var groupAdmin: String
 
     private lateinit var popUp : PopupWindow
     private lateinit var layoutInf : LayoutInflater
@@ -44,11 +43,13 @@ class GroupChatLogActivity : AppCompatActivity() {
         groupChatLogRecyclerView.adapter = adapter
         val userId = FirebaseAuth.getInstance().uid
 
-        groupId = intent.extras?.getString("groupId")
+        groupId = intent.extras?.getString("groupId")!!
         val groupName = intent.extras?.getString("groupName")
         val groupImg =  intent.extras?.getString("groupImg")
 
         title = groupName
+
+        getGroupAdmin()
 
         listenForMessages(userId!!)
 
@@ -64,16 +65,22 @@ class GroupChatLogActivity : AppCompatActivity() {
         }
     }
 
+    private fun getGroupAdmin() {
+        db.collection("groups").document(groupId).get().addOnSuccessListener {
+            groupAdmin = it["creator"] as String
+        }
+    }
+
     private fun listenForMessages(userId: String){
         val ref = db.collection("group-recommendations/$groupId/$groupId").orderBy("Date",
             Query.Direction.ASCENDING)
 
-        /*
+
         groupChatLogRecyclerView.postDelayed({
             groupChatLogRecyclerView.scrollToPosition(adapter.itemCount - 1)
         }, 1000)
 
-         */
+
 
         ref.addSnapshotListener { value, error ->
             if (error != null){
@@ -195,6 +202,29 @@ class GroupChatLogActivity : AppCompatActivity() {
         override fun getLayout(): Int {
             return R.layout.chat_to_row
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.group_chat_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //val contactId = intent.extras?.getString("contactId")
+        val contactUsername = intent.extras?.getString("contactUsername")
+        when (item.itemId){
+            R.id.group_options ->{
+                val groupConfigIntent = Intent(this, GroupConfigActivity::class.java)
+                groupConfigIntent.putExtra("groupId", groupId)
+                groupConfigIntent.putExtra("groupAdmin", groupAdmin)
+                groupConfigIntent.putExtra("groupName", intent.extras?.getString("groupName"))
+                groupConfigIntent.putExtra("groupImage", intent.extras?.getString("groupImg"))
+                startActivity(groupConfigIntent)
+
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

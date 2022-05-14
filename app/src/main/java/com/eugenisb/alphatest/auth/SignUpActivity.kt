@@ -66,7 +66,9 @@ class SignUpActivity : AppCompatActivity() {
                         "email" to email,
                         "name" to name,
                         "username" to name,
-                        "userImg" to "",
+                        "userImg" to "https://firebasestorage.googleapis.com/v0/b/alphatest" +
+                                "-58fe9.appspot.com/o/images%2FProfile.png?alt=media&token=" +
+                                "37a92d5b-ee2d-46b0-83a7-f72dc8db1e77",
                         "contacts" to listOf<String>(),
                         "contactRequestsSent" to mapOf<String,String>(),
                         "contactRequests" to mapOf<String,String>()

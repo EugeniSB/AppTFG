@@ -3,10 +3,9 @@ package com.eugenisb.alphatest.groups
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.eugenisb.alphatest.R
-import com.eugenisb.alphatest.auth.AuthActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
@@ -18,7 +17,7 @@ import kotlinx.android.synthetic.main.create_group_add.view.*
 import kotlinx.android.synthetic.main.create_group_delete.view.*
 import java.util.ArrayList
 
-class CreateGroupMembersActivity : AppCompatActivity() {
+class AddMembersActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     private var usersMap = mutableMapOf<String,String>()
@@ -28,27 +27,44 @@ class CreateGroupMembersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_group_members)
 
-        title = "Group Members"
-
-        verifyUserLoggedIn()
         val userId = FirebaseAuth.getInstance().uid
+        val groupId = intent.extras?.getString("groupId")
+        val groupMembers = intent.extras?.getStringArrayList("groupMembers")
+        val groupImage = intent.extras?.getString("groupImage")
+        val groupName = intent.extras?.getString("groupName")
+
 
         if(userId != null){
-            getContacts(userId)
+            getContacts(userId, groupMembers!!)
         }
 
         nextGroupButton.setOnClickListener {
             if(usersGroupMap.isNotEmpty()){
-                val nextGroupIntent = Intent(this, CreateGroupNameActivity::class.java).apply {
-                    putExtra("usersGroupMap", usersGroupMap as HashMap<String,String>)
+                for(id in usersGroupMap.keys){
+                    db.collection("groups").document(groupId!!).update("members",
+                        FieldValue.arrayUnion(id))
                 }
-                startActivity(nextGroupIntent)
+
+
+                val groupConfig = Intent(this, GroupConfigActivity::class.java).apply {
+                    putExtra("groupId", groupId)
+                    putExtra("groupAdmin", userId)
+                    putExtra("groupName", groupName)
+                    putExtra("groupImage", groupImage)
+                }
+                startActivity(groupConfig)
+
+
+                //onBackPressed()
             }
+
         }
 
         cancelGroupButton.setOnClickListener {
             onBackPressed()
         }
+
+
     }
 
     inner class GroupContactItem(val userId: String, val username: String): Item<GroupieViewHolder>(){
@@ -102,27 +118,22 @@ class CreateGroupMembersActivity : AppCompatActivity() {
         }
     }
 
-    private fun getContacts(userId: String) {
+
+    private fun getContacts(userId: String, groupMembers: ArrayList<String>) {
 
         db.collection("users").document(userId).get().addOnSuccessListener { document ->
-            Log.d("User", "Users contacts: " + document.data?.get("contacts"))
+
             val adapter = GroupAdapter<GroupieViewHolder>()
             val contactsArray = document["contacts"] as ArrayList<String>
+
+            contactsArray.removeAll(groupMembers)
+
             for(id in contactsArray){
                 db.collection("users").document(id).get().addOnSuccessListener {
                     usersMap[id] = it["username"] as String
                     adapter.add(GroupContactItem(id, it["username"] as String))
                 }
             }
-            //usersMap = document.data?.get("contacts") as MutableMap<String, String>
-            /*
-            for (key in usersMap.keys) {
-                if (usersMap[key] != null) {
-                    adapter.add(GroupContactItem(key, usersMap[key]!!))
-                }
-            }
-
-             */
 
             groupAddContactRecyclerView.adapter = adapter
         }
@@ -150,13 +161,4 @@ class CreateGroupMembersActivity : AppCompatActivity() {
         groupAddedRecyclerView.adapter = adapterAdded
     }
 
-
-    private fun verifyUserLoggedIn(){
-        val uid = FirebaseAuth.getInstance().uid
-        if(uid == null){
-            val intentAuth = Intent(this, AuthActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intentAuth)
-        }
-    }
 }
