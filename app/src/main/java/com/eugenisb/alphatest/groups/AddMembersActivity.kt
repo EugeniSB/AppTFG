@@ -3,6 +3,7 @@ package com.eugenisb.alphatest.groups
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View.GONE
 import com.eugenisb.alphatest.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -30,7 +31,7 @@ class AddMembersActivity : AppCompatActivity() {
         val userId = FirebaseAuth.getInstance().uid
         val groupId = intent.extras?.getString("groupId")
         val groupMembers = intent.extras?.getStringArrayList("groupMembers")
-        val groupImage = intent.extras?.getString("groupImage")
+        val groupImage = intent.extras?.getString("groupImg")
         val groupName = intent.extras?.getString("groupName")
 
 
@@ -38,6 +39,7 @@ class AddMembersActivity : AppCompatActivity() {
             getContacts(userId, groupMembers!!)
         }
 
+        nextGroupButton.setText("Add members")
         nextGroupButton.setOnClickListener {
             if(usersGroupMap.isNotEmpty()){
                 for(id in usersGroupMap.keys){
@@ -46,12 +48,13 @@ class AddMembersActivity : AppCompatActivity() {
                 }
 
 
-                val groupConfig = Intent(this, GroupConfigActivity::class.java).apply {
+                val groupConfig = Intent(this, GroupChatLogActivity::class.java).apply {
                     putExtra("groupId", groupId)
-                    putExtra("groupAdmin", userId)
+                    //putExtra("groupAdmin", userId)
                     putExtra("groupName", groupName)
-                    putExtra("groupImage", groupImage)
+                    putExtra("groupImg", groupImage)
                 }
+                groupConfig.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(groupConfig)
 
 
@@ -96,6 +99,7 @@ class AddMembersActivity : AppCompatActivity() {
     inner class GroupAddedContactItem(val userId: String, val username: String): Item<GroupieViewHolder>(){
 
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
+            viewHolder.itemView.groupPromoteImageButton.visibility = GONE
             viewHolder.itemView.groupDeleteContactTextView.text = username
             FirebaseStorage.getInstance().reference.child(
                 "images/profile_pics/Profile_picture_of: " + userId).downloadUrl.addOnSuccessListener {

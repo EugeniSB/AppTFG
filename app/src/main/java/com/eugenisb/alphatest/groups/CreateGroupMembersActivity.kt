@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View.GONE
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.auth.AuthActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -80,6 +81,7 @@ class CreateGroupMembersActivity : AppCompatActivity() {
     inner class GroupAddedContactItem(val userId: String, val username: String): Item<GroupieViewHolder>(){
 
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
+            viewHolder.itemView.groupPromoteImageButton.visibility = GONE
             viewHolder.itemView.groupDeleteContactTextView.text = username
             FirebaseStorage.getInstance().reference.child(
                 "images/profile_pics/Profile_picture_of: " + userId).downloadUrl.addOnSuccessListener {

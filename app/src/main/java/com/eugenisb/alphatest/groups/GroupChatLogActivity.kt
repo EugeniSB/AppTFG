@@ -218,7 +218,7 @@ class GroupChatLogActivity : AppCompatActivity() {
                 groupConfigIntent.putExtra("groupId", groupId)
                 groupConfigIntent.putExtra("groupAdmin", groupAdmin)
                 groupConfigIntent.putExtra("groupName", intent.extras?.getString("groupName"))
-                groupConfigIntent.putExtra("groupImage", intent.extras?.getString("groupImg"))
+                groupConfigIntent.putExtra("groupImg", intent.extras?.getString("groupImg"))
                 startActivity(groupConfigIntent)
 
 

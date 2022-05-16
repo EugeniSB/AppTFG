@@ -33,10 +33,31 @@
         app:layout_constraintBottom_toTopOf="@+id/groupConfigRecyclerView"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <ImageButton
+        android:id="@+id/editGroupNameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/groupConfigNameTextView"
+        app:layout_constraintStart_toEndOf="@+id/groupConfigNameTextView"
+        app:layout_constraintTop_toTopOf="@+id/groupConfigNameTextView"
+        app:srcCompat="@drawable/ic_edit" />
+
+    <ImageButton
+        android:id="@+id/editGroupImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/groupConfigImage"
+        app:layout_constraintTop_toTopOf="@+id/groupConfigImage"
+        app:srcCompat="@drawable/ic_edit" />
+
     <TextView
         android:id="@+id/groupConfigNameTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:paddingLeft="8dp"
@@ -45,8 +66,39 @@
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupConfigImage" />
+
+    <ImageButton
+        android:id="@+id/acceptEditedGroupName"
+        android:layout_width="43dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/round_button"
+        android:backgroundTint="@color/grey"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/editGroupNameEditText"
+        app:layout_constraintStart_toEndOf="@+id/editGroupNameEditText"
+        app:layout_constraintTop_toTopOf="@+id/editGroupNameEditText"
+        app:layout_constraintVertical_bias="0.666"
+        app:srcCompat="@drawable/ic_tick" />
+
+    <EditText
+        android:id="@+id/editGroupNameEditText"
+        android:layout_width="120dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/groupConfigImage" />
 
@@ -65,24 +117,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="92dp"
         android:text="Group members:"
         android:textColor="#373434"
         android:textSize="22dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/groupConfigNameTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/groupConfigImage" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/groupConfigRecyclerView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginEnd="16dp"
         android:layout_weight="1"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/leaveGroupButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/groupMembersTextView">
+        app:layout_constraintTop_toBottomOf="@+id/groupMembersTextView"
+        app:layout_constraintVertical_bias="0.0">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <android.widget.Button
+        android:id="@+id/leaveGroupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_red_button"
+        android:text="Leave group"
+        android:textColor="@color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import com.eugenisb.alphatest.R
+import com.eugenisb.alphatest.profileAndHome.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -156,7 +157,7 @@ class CreateGroupNameActivity : AppCompatActivity() {
             db.collection("groups").add(group)
         }
 
-        val groupsIntent = Intent(this, MyGroupsActivity::class.java)
+        val groupsIntent = Intent(this, HomeActivity::class.java)
         groupsIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(groupsIntent)
 

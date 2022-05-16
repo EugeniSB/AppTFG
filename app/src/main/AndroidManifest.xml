@@ -16,7 +16,11 @@
             android:exported="false" />
         <activity
             android:name=".groups.GroupConfigActivity"
-            android:exported="false" />
+            android:exported="false" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".groups.GroupChatLogActivity" />
+        </activity>
         <activity
             android:name=".opinions.ContactOpinionsActivity"
             android:exported="false">
@@ -83,6 +87,7 @@
         </activity>
         <activity
             android:name=".groups.GroupChatLogActivity"
+            android:launchMode="singleTop"
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
