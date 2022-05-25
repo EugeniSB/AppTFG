@@ -14,4 +14,26 @@
         android:title="Profile"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/home_contacts_lists"
+        android:orderInCategory="100"
+        android:title="Contacts Lists"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/home_contacts_opinions"
+        android:orderInCategory="100"
+        android:title="Contacts Opinions"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/home_multiple_recommendation"
+        android:orderInCategory="100"
+        android:title="Multiple Recommendation"
+        app:showAsAction="never"
+        />
+
+
 </menu>

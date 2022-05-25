@@ -33,19 +33,19 @@ class ContactRecommendationActivity : AppCompatActivity() {
         title = "Recommend to $contactUsername"
 
         finishContactRecommendationButton.setOnClickListener {
-            if(contactId != null && contactUsername != null && moviePoster != null) {
-                createRecommendation(contactId,contactUsername, moviePoster)
+            if(contactId != null && contactUsername != null && moviePoster != null && movieName != null) {
+                createRecommendation(contactId,contactUsername, moviePoster, movieName)
             }
         }
     }
 
-    private fun createRecommendation(contactId: String, contactUsername: String, moviePoster: String) {
+    private fun createRecommendation(contactId: String, contactUsername: String, moviePoster: String,
+        movieName: String) {
 
-        val movieName = movieNameEditText.text.toString()
         val movieComment = movieCommentMultiline.text.toString()
         val userId = FirebaseAuth.getInstance().uid!!
 
-        if(movieName.isNotEmpty() && movieComment.isNotEmpty()){
+        if(movieComment.isNotEmpty()){
 
             val time = java.sql.Timestamp(System.currentTimeMillis())
             //val time2 = Date()

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.eugenisb.alphatest.MultipleRecommednationContactsActivity;
 import com.eugenisb.alphatest.R;
 import com.eugenisb.alphatest.clases.Movies;
 import com.eugenisb.alphatest.contacts.ContactRecommendationActivity;
@@ -110,18 +111,27 @@ public class MovieResultsAdapter extends RecyclerView.Adapter<HomeViewHolder> {
                         myListIntent.putExtra("listId", contactId);
                         context.startActivity(myListIntent);
 
-                    }else if (screen.equals("createList")){
-                        createList(contactUsername,
-                                "https://image.tmdb.org/t/p/original/" + result_list.get(position).getPoster_path(),
-                                moviename, isPublic);
-                        Intent myListsIntent = new Intent(context, MyListsActivity.class);
-                        context.startActivity(myListsIntent);
                     }else if (screen.equals("opinion")){
                         Intent createOpinionIntent = new Intent(context, CreateOpinionActivity.class);
                         createOpinionIntent.putExtra("movieName", moviename);
                         createOpinionIntent.putExtra("moviePoster", "https://image.tmdb.org/t/p/original/" +
                                 result_list.get(position).getPoster_path());
                         context.startActivity(createOpinionIntent);
+
+
+                    }else if (screen.equals("multiple")){
+                        Intent multipleRecommendIntent = new Intent(context, MultipleRecommednationContactsActivity.class);
+                        multipleRecommendIntent.putExtra("movieName", moviename);
+                        multipleRecommendIntent.putExtra("moviePoster", "https://image.tmdb.org/t/p/original/" +
+                                result_list.get(position).getPoster_path());
+                        context.startActivity(multipleRecommendIntent);
+
+                    } else if (screen.equals("createList")){
+                        createList(contactUsername,
+                                "https://image.tmdb.org/t/p/original/" + result_list.get(position).getPoster_path(),
+                                moviename, isPublic);
+                        Intent myListsIntent = new Intent(context, MyListsActivity.class);
+                        context.startActivity(myListsIntent);
                     }
 
                 }

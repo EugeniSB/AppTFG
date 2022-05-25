@@ -12,11 +12,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphaTest">
         <activity
+            android:name=".MultipleRecommendationCommentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MultipleRecommednationContactsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".opinions.AllContactsOpinionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".lists.AllContactsListsActivity"
+            android:exported="false" />
+        <activity
             android:name=".groups.AddMembersActivity"
             android:exported="false" />
         <activity
             android:name=".groups.GroupConfigActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".groups.GroupChatLogActivity" />
@@ -87,8 +99,8 @@
         </activity>
         <activity
             android:name=".groups.GroupChatLogActivity"
-            android:launchMode="singleTop"
-            android:exported="false">
+            android:exported="false"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".profileAndHome.HomeActivity" />

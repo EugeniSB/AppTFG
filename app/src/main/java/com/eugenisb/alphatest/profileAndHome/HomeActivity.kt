@@ -13,6 +13,8 @@ import com.eugenisb.alphatest.adapters.ViewPagerAdapter
 import com.eugenisb.alphatest.auth.AuthActivity
 import com.eugenisb.alphatest.contacts.ContactsFragment
 import com.eugenisb.alphatest.groups.GroupsFragment
+import com.eugenisb.alphatest.lists.AllContactsListsActivity
+import com.eugenisb.alphatest.opinions.AllContactsOpinionsActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -39,14 +41,6 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar!!.elevation = 0F
 
         setUpTabs()
-
-        /*
-        homerecommendButton.setOnClickListener {
-            val profileIntent = Intent(this, FragmentActivity::class.java)
-            startActivity(profileIntent)
-        }
-
-         */
 
 
     }
@@ -94,6 +88,20 @@ class HomeActivity : AppCompatActivity() {
                 intentAuth.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intentAuth)
             }
+            R.id.home_contacts_lists ->{
+                val listsIntent = Intent(this, AllContactsListsActivity::class.java)
+                startActivity(listsIntent)
+            }
+            R.id.home_contacts_opinions ->{
+                val opinionsIntent = Intent(this, AllContactsOpinionsActivity::class.java)
+                startActivity(opinionsIntent)
+            }
+            R.id.home_multiple_recommendation ->{
+                val multipleRecommendIntent = Intent(this, SearchMovieAPIActivity::class.java)
+                multipleRecommendIntent.putExtra("screen", "multiple")
+                startActivity(multipleRecommendIntent)
+            }
+
         }
         return super.onOptionsItemSelected(item)
     }
