@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AAA7A7"
+    android:background="@color/light_grey"
     tools:context=".auth.SignUpActivity">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="398dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +29,7 @@
             android:fontFamily="sans-serif"
             android:text="@string/signUpTitle"
             android:textAllCaps="false"
-            android:textColor="#373434"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             android:typeface="normal" />
@@ -37,12 +38,12 @@
             android:id="@+id/fullnameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext"
             android:ems="10"
             android:hint="Full name"
-            android:padding="10dp"
-            android:background="@drawable/round_edittext"
             android:inputType="textEmailAddress"
-            android:textColorHint="#A9393838"/>
+            android:padding="10dp"
+            android:textColorHint="#A9393838" />
 
         <Space
             android:layout_width="match_parent"
@@ -52,12 +53,12 @@
             android:id="@+id/usernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext"
             android:ems="10"
             android:hint="Username"
             android:inputType="textEmailAddress"
             android:padding="10dp"
-            android:background="@drawable/round_edittext"
-            android:textColorHint="#A9393838"/>
+            android:textColorHint="#A9393838" />
 
         <Space
             android:layout_width="match_parent"
@@ -67,12 +68,12 @@
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext"
             android:ems="10"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:padding="10dp"
-            android:background="@drawable/round_edittext"
-            android:textColorHint="#A9393838"/>
+            android:textColorHint="#A9393838" />
 
         <Space
             android:layout_width="match_parent"
@@ -82,16 +83,16 @@
             android:id="@+id/passEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
             android:padding="10dp"
-            android:background="@drawable/round_edittext"
-            android:textColorHint="#A9393838"/>
+            android:textColorHint="#A9393838" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="35dp" />
+            android:layout_height="50dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,18 +105,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="Cancel"
                 android:background="@drawable/round_red_button"
-                android:textColor="@color/white"/>
+                android:text="Cancel"
+                android:textColor="@color/white" />
 
             <android.widget.Button
                 android:id="@+id/loginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Sign Up"
                 android:background="@drawable/round_button"
-                android:textColor="@color/white"/>
+                android:text="Sign Up"
+                android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

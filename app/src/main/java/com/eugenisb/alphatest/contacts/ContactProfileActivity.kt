@@ -63,9 +63,9 @@ class ContactProfileActivity : AppCompatActivity() {
     private fun getUser(contactId: String) {
 
         db.collection("users").document(contactId).get().addOnSuccessListener {
-            contactFullNameTextView.text = it.get("name") as String
-            contactUsernameTextView.text = it.get("username") as String
-            contactEmailTextView.text = it.get("email") as String
+            contactFullNameTextView.text = it.get("username") as String
+            contactUsernameTextView.text = it.get("name") as String
+            contactEmailTextView.text = "Email: " + it.get("email") as String
         }
 
         val imgReference = storageReference.child("images/profile_pics/Profile_picture_of: " + contactId)

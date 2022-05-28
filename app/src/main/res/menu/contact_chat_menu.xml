@@ -5,6 +5,7 @@
     <item
         android:id="@+id/contact_profile"
         android:title="Contact Profile"
+        android:icon="@drawable/profile_icon_white"
         app:showAsAction="ifRoom" />
 
 </menu>

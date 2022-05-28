@@ -10,15 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
-        tools:context=".contacts.ContactProfileActivity"
-        tools:layout_editor_absoluteX="204dp"
-        tools:layout_editor_absoluteY="121dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".contacts.ContactProfileActivity">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/contactCircleProfileImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:civ_border_width="4dp"
+            app:civ_border_color="@color/dark_blue"
             app:layout_constraintBottom_toBottomOf="@+id/contactProfileImage"
             app:layout_constraintEnd_toEndOf="@+id/contactProfileImage"
             app:layout_constraintStart_toStartOf="@+id/contactProfileImage"
@@ -26,39 +29,40 @@
 
         <ImageView
             android:id="@+id/contactProfileImage"
-            android:layout_width="161dp"
-            android:layout_height="142dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.877"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/profile" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
-            android:layout_height="395dp"
+            android:layout_height="300dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="64dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.923">
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/contactFullNameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="29dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:gravity="center|center_horizontal|center_vertical"
+                android:gravity="center"
                 android:text="Full name"
-                android:textColor="#070707"
-                android:textSize="20sp" />
+                android:textColor="@color/green"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <Space
                 android:layout_width="match_parent"
@@ -66,67 +70,43 @@
 
             <TextView
                 android:id="@+id/contactUsernameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="28dp"
-                android:gravity="center|center_horizontal|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Username"
-                android:textColor="#070707"
+                android:textColor="@color/dark_blue"
                 android:textSize="16sp" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="13dp" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="35dp">
-
-                <TextView
-                    android:id="@+id/preEmailTextView"
-                    android:layout_width="87dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="Email:"
-                    android:textColor="#070707"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/contactEmailTextView"
-                    android:layout_width="222dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:paddingLeft="5dp"
-                    android:text="UsersEmail"
-                    android:textColor="#070707"
-                    android:textSize="16sp" />
-
-            </TableRow>
+            <TextView
+                android:id="@+id/contactEmailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="UsersEmail"
+                android:textColor="@color/dark_blue"
+                android:textSize="16sp" />
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="36dp" />
 
             <ImageButton
                 android:id="@+id/deleteContactButton"
                 android:layout_width="49dp"
                 android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/ic_delete"
                 app:maxImageSize="10dp" />
 
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:layout_marginTop="10dp"
-                android:background="#494545" />
-
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="77dp" />
+                android:layout_height="36dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

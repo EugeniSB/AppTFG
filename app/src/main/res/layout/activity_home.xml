@@ -12,12 +12,12 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/light_blue"
         app:tabGravity="fill"
-        app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/white"
         app:tabIndicatorColor="@color/white"
-        android:background="@color/grey"
-        app:tabMode="fixed"/>
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/white" />
 
 
     <!--<androidx.fragment.app.FragmentContainerView

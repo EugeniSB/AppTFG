@@ -69,9 +69,9 @@ class ProfileActivity : AppCompatActivity() {
     private fun getUser(userId: String){
 
         db.collection("users").document(userId).get().addOnSuccessListener {
-            findViewById<TextView>(R.id.fullnameTextView).setText(it.get("name") as String)
-            findViewById<TextView>(R.id.usernameTextView).setText(it.get("username") as String)
-            findViewById<TextView>(R.id.emailTextView).setText(it.get("email") as String)
+            findViewById<TextView>(R.id.fullnameTextView).setText(it.get("username") as String)
+            findViewById<TextView>(R.id.usernameTextView).setText(it.get("name") as String)
+            findViewById<TextView>(R.id.emailTextView).setText("Email: " + it.get("email") as String)
         }
 
         Thread.sleep(1100)
