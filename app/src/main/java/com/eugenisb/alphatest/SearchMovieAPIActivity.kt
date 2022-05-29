@@ -25,6 +25,7 @@ class SearchMovieAPIActivity : AppCompatActivity(), OnMovieClickListener {
 
         val screen = intent.extras?.getString("screen")!!
 
+
         title = "Search movie/series"
         if(screen == "createList"){
             title = "Add first movie/series to list"

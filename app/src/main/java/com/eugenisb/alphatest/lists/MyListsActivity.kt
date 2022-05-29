@@ -3,9 +3,12 @@ package com.eugenisb.alphatest.lists
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.eugenisb.alphatest.R
+import com.eugenisb.alphatest.SearchMovieAPIActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
@@ -28,10 +31,6 @@ class MyListsActivity : AppCompatActivity() {
 
         getLists(userId!!)
 
-        createListfloatingActionButton.setOnClickListener {
-            val createListIntent = Intent(this, CreateListActivity::class.java)
-            startActivity(createListIntent)
-        }
     }
 
     inner class ListsItem(val listName: String, val listImgURL: String, val listNumberOfMovies: Int, val listId: String): Item<GroupieViewHolder>(){
@@ -104,5 +103,20 @@ class MyListsActivity : AppCompatActivity() {
             myListsRecyclerView.adapter = adapter
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.mylists_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.create_list ->{
+                val createListIntent = Intent(this, CreateListActivity::class.java)
+                startActivity(createListIntent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

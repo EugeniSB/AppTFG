@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,7 +76,7 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Button addBtn = (Button)convertView.findViewById(R.id.add_btn);
+        ImageButton addBtn = (ImageButton)convertView.findViewById(R.id.add_btn);
         TextView usernameClicked = (TextView)convertView.findViewById(R.id.list_item_string);
 
         addBtn.setOnClickListener(new View.OnClickListener(){

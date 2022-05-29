@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.eugenisb.alphatest.R;
@@ -69,8 +70,8 @@ public class RequestsAdapter extends BaseAdapter implements Filterable {
             holder = (RequestsAdapter.ViewHolder) convertView.getTag();
         }
 
-        Button acceptBtn = (Button)convertView.findViewById(R.id.accept_btn);
-        Button declineBtn = (Button)convertView.findViewById(R.id.decline_btn);
+        ImageButton acceptBtn = (ImageButton)convertView.findViewById(R.id.accept_btn);
+        ImageButton declineBtn = (ImageButton)convertView.findViewById(R.id.decline_btn);
         TextView usernameClicked = (TextView)convertView.findViewById(R.id.request_list_item_string);
 
 
