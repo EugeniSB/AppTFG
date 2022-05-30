@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@drawable/round_background">
 
     <TextView
         android:id="@+id/movieNamePopUpTextView"
@@ -27,9 +27,14 @@
 
     <ImageView
         android:id="@+id/popUpOpinionImageView"
-        android:layout_width="140dp"
-        android:layout_height="185dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="250dp"
+        android:maxWidth="250dp"
         android:layout_marginTop="24dp"
+        android:background="@drawable/round_image"
+        android:clipToOutline="true"
+        android:adjustViewBounds="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

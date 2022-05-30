@@ -2,6 +2,7 @@ package com.eugenisb.alphatest.opinions
 
 
 import android.graphics.Color
+import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -16,6 +17,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_my_opinions.*
+import kotlinx.android.synthetic.main.chat_to_row.view.*
 import kotlinx.android.synthetic.main.my_opinions_item.view.*
 import kotlinx.android.synthetic.main.opinion_popup.view.*
 
@@ -48,6 +50,8 @@ class ContactOpinionsActivity : AppCompatActivity() {
 
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
             viewHolder.itemView.myOpinionMovieTitle.text = movieName
+            viewHolder.itemView.myOpinionMovieTitle.paintFlags =
+                viewHolder.itemView.myOpinionMovieTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG
             viewHolder.itemView.myOpinionText.text = movieOpinion
             viewHolder.itemView.myOpinionRating.text = "$movieRating/10"
             Picasso.get().load(movieImgURL).into(viewHolder.itemView.myOpinionImageView)
@@ -60,6 +64,8 @@ class ContactOpinionsActivity : AppCompatActivity() {
 
                 Picasso.get().load(movieImgURL).into(container.popUpOpinionImageView)
                 container.movieNamePopUpTextView.text = movieName
+                container.movieNamePopUpTextView.paintFlags =
+                    container.movieNamePopUpTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
                 container.popUpRatingTextView.text =  "$movieRating /10"
                 container.myOpinionPopUpText.text = movieOpinion
                 container.myOpinionPopUpText.movementMethod = ScrollingMovementMethod()
