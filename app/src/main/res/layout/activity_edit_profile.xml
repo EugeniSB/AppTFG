@@ -12,6 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,19 +20,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.177">
-
-        <TextView
-            android:id="@+id/titleEditProfile"
-            android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/editProfileTitle"
-            android:textAllCaps="false"
-            android:textColor="#373434"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:typeface="normal" />
+        app:layout_constraintVertical_bias="0.094">
 
         <EditText
             android:id="@+id/fullnameEditProfileEditText"
@@ -63,77 +52,82 @@
             android:layout_width="match_parent"
             android:layout_height="30dp" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="35dp">
-
-            <TextView
-                android:id="@+id/profileavatarTextView"
-                android:layout_width="209dp"
-                android:layout_height="35dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginBottom="2dp"
-                android:gravity="bottom"
-                android:text="Profile Avatar"
-                android:textColor="#8F333232"
-                android:textSize="18sp" />
-
-            <android.widget.Button
-                android:id="@+id/uploadImageProfileButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/outlinedbutton"
-                android:backgroundTint="@null"
-                android:elegantTextHeight="false"
-                android:foregroundGravity="top"
-                android:paddingTop="15dp"
-                android:text="Upload Image"
-                android:textAlignment="center"
-                android:textSize="12sp"
-                tools:layout_editor_absoluteY="-1dp" />
-        </TableRow>
-
-        <View
-            android:id="@+id/divider3"
-            android:layout_width="376dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="3dp"
-            android:background="#494545" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="25dp" />
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/profileavatarTextView"
+        android:layout_width="209dp"
+        android:layout_height="35dp"
+        android:gravity="bottom"
+        android:text="Profile Avatar"
+        android:textColor="#8F333232"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+    <android.widget.Button
+        android:id="@+id/uploadImageProfileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/round_button"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="Upload image"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#494545"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileavatarTextView" />
 
     <ImageView
         android:id="@+id/editprofileAvatar"
-        android:layout_width="172dp"
-        android:layout_height="152dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:clipToOutline="true"
+        android:maxWidth="225dp"
+        android:maxHeight="225dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/linearLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-        app:layout_constraintVertical_bias="0.112"
+        app:layout_constraintTop_toBottomOf="@+id/profileavatarTextView"
+        app:layout_constraintVertical_bias="0.234"
         app:srcCompat="@drawable/profile" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleAvatarEditProfile"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:civ_border_width="4dp"
         app:civ_border_color="@color/dark_blue"
+        app:civ_border_width="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/editprofileAvatar"
         app:layout_constraintEnd_toEndOf="@+id/editprofileAvatar"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/editprofileAvatar"
-        app:layout_constraintTop_toTopOf="@+id/editprofileAvatar" />150dp" />
+        app:layout_constraintTop_toTopOf="@+id/editprofileAvatar"
+        app:layout_constraintVertical_bias="1.0" />
 
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
@@ -160,4 +154,5 @@
             android:text="Edit"
             android:textColor="@color/white" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,6 @@ package com.eugenisb.alphatest
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.eugenisb.alphatest.contacts.ContactChatLogActivity
 import com.eugenisb.alphatest.profileAndHome.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,7 +22,7 @@ class MultipleRecommendationCommentActivity : AppCompatActivity() {
         val moviePoster = intent.extras?.getString("moviePoster")
         var usersToRecommend = intent.extras?.getSerializable("usersGroupMap") as Map<String, String>
 
-        movieNameEditText.text = movieName
+        movieTitleTextView.text = movieName
 
         finishContactRecommendationButton.setOnClickListener {
             if(movieName != null && moviePoster != null && usersToRecommend.isNotEmpty()) {

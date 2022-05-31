@@ -29,13 +29,13 @@ class CreateOpinionActivity : AppCompatActivity() {
 
         ratingBar()
 
-        cancelOpinionButton.setOnClickListener {
+        cancelListButton.setOnClickListener {
             val profileIntent = Intent(this, ProfileActivity::class.java)
             profileIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(profileIntent)
         }
 
-        createOpinionButton.setOnClickListener {
+        nextListbutton.setOnClickListener {
             createOpinion(movieName, moviePoster, userId)
         }
 

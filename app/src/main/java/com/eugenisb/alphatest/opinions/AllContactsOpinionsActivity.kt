@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.lifecycle.lifecycleScope
@@ -19,7 +20,12 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_my_opinions.*
+import kotlinx.android.synthetic.main.contact_opinions_item.view.*
 import kotlinx.android.synthetic.main.my_opinions_item.view.*
+import kotlinx.android.synthetic.main.my_opinions_item.view.myOpinionImageView
+import kotlinx.android.synthetic.main.my_opinions_item.view.myOpinionMovieTitle
+import kotlinx.android.synthetic.main.my_opinions_item.view.myOpinionRating
+import kotlinx.android.synthetic.main.my_opinions_item.view.myOpinionText
 import kotlinx.android.synthetic.main.opinion_popup.view.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -96,11 +102,14 @@ class AllContactsOpinionsActivity : AppCompatActivity() {
 
 
     inner class OpinionsItem(val movieName: String, val movieImgURL: String, val movieOpinion: String,
-                             val movieRating: Int, val creatorId: String): Item<GroupieViewHolder>(){
+                             val movieRating: Int, val creator: String): Item<GroupieViewHolder>(){
 
 
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
             viewHolder.itemView.myOpinionMovieTitle.text = movieName
+            viewHolder.itemView.opinionCreatorTextView.visibility = VISIBLE
+            viewHolder.itemView.opinionCreatorTextView.text = "By: $creator"
+
             viewHolder.itemView.myOpinionText.text = movieOpinion
             viewHolder.itemView.myOpinionRating.text = "$movieRating/10"
             Picasso.get().load(movieImgURL).into(viewHolder.itemView.myOpinionImageView)

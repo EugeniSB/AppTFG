@@ -1,17 +1,16 @@
 package com.eugenisb.alphatest.contacts
 
 import android.content.Intent
+import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import com.eugenisb.alphatest.R
-import com.eugenisb.alphatest.profileAndHome.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_contact_chat_log.*
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_contact_recommendation.*
+import kotlinx.android.synthetic.main.opinion_popup.view.*
 import java.text.SimpleDateFormat
-import java.util.*
 
 
 class ContactRecommendationActivity : AppCompatActivity() {
@@ -28,7 +27,14 @@ class ContactRecommendationActivity : AppCompatActivity() {
         val contactUsername = intent.extras?.getString("contactUsername")
         val moviePoster = intent.extras?.getString("moviePoster")
 
-        movieNameEditText.text = movieName
+        movieTitleTextView.paintFlags =
+            movieTitleTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+        movieTitleTextView.text = movieName
+
+
+        Picasso.get().load(moviePoster).into(recommendationPosterImageView)
+
 
         title = "Recommend to $contactUsername"
 

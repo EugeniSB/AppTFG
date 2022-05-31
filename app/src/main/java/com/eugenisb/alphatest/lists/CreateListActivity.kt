@@ -31,6 +31,10 @@ class CreateListActivity : AppCompatActivity() {
 
         }
 
+        cancelListButton.setOnClickListener {
+            onBackPressed()
+        }
+
 
     }
 

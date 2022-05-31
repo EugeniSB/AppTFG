@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"
             android:clickable="true"
-            app:backgroundTint="@color/light_green"
+            app:backgroundTint="#38C83E"
             app:layout_constraintBottom_toBottomOf="@+id/fragmentRecyclerView"
             app:layout_constraintEnd_toEndOf="@+id/fragmentRecyclerView"
             app:layout_constraintHorizontal_bias="0.863"

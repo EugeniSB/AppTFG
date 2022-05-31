@@ -3,6 +3,7 @@ package com.eugenisb.alphatest.lists
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View.VISIBLE
 import androidx.recyclerview.widget.GridLayoutManager
 import com.eugenisb.alphatest.R
 import com.google.firebase.auth.FirebaseAuth
@@ -37,6 +38,8 @@ class AllContactsListsActivity : AppCompatActivity() {
             viewHolder.itemView.contactListTextView.text = listName
             viewHolder.itemView.contactMovieNumberTextView.text =
                 "Movies/series: " + listNumberOfMovies.toString()
+            viewHolder.itemView.listCreatorTextView.visibility = VISIBLE
+            viewHolder.itemView.listCreatorTextView.text = "By: $listCreator"
             Picasso.get().load(listImgURL).into(viewHolder.itemView.contactListsImageView)
         }
 

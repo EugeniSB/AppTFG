@@ -131,7 +131,7 @@
         app:layout_constraintVertical_bias="0.115">
 
         <android.widget.Button
-            android:id="@+id/cancelOpinionButton"
+            android:id="@+id/cancelListButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -141,7 +141,7 @@
             android:textColor="@color/white" />
 
         <android.widget.Button
-            android:id="@+id/createOpinionButton"
+            android:id="@+id/nextListbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

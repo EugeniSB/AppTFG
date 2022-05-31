@@ -1,12 +1,14 @@
 package com.eugenisb.alphatest.groups
 
 import android.content.Intent
+import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.contacts.ContactChatLogActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_contact_recommendation.*
 import kotlinx.android.synthetic.main.activity_group_recommendation.*
 
@@ -16,18 +18,23 @@ class GroupRecommendationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_group_recommendation)
+        setContentView(R.layout.activity_contact_recommendation)
 
         val movieName = intent.extras?.getString("movieName")
         val groupId = intent.extras?.getString("groupId")
         val groupName =  intent.extras?.getString("contactUsername")
         val moviePoster = intent.extras?.getString("moviePoster")
 
+
         title = "Recommend Group"
 
-        movieNameGroupEditText.setText(movieName)
+        Picasso.get().load(moviePoster).into(recommendationPosterImageView)
+        movieTitleTextView.paintFlags =
+            movieTitleTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
-        finishGroupRecommendationButton.setOnClickListener {
+        movieTitleTextView.text = movieName
+
+        finishContactRecommendationButton.setOnClickListener {
             if(groupId != null && groupName != null && moviePoster != null) {
                 createRecommendation(groupId,groupName,moviePoster)
             }
@@ -37,8 +44,8 @@ class GroupRecommendationActivity : AppCompatActivity() {
 
     private fun createRecommendation(groupId: String, groupName: String, moviePoster: String) {
 
-        val movieName = movieNameGroupEditText.text.toString()
-        val movieComment = movieCommentGroupMultiline.text.toString()
+        val movieName = movieTitleTextView.text.toString()
+        val movieComment = movieCommentMultiline.text.toString()
         val userId = FirebaseAuth.getInstance().uid!!
 
         if(movieName.isNotEmpty() && movieComment.isNotEmpty()){

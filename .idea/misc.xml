@@ -35,7 +35,7 @@
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_fragment.xml" value="0.1" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_group_chat_log.xml" value="0.13125" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_group_config.xml" value="0.264" />
-        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_group_recommendation.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_group_recommendation.xml" value="0.2" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_home.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_my_contacts.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_my_groups.xml" value="0.25416666666666665" />
@@ -45,7 +45,7 @@
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_one_of_my_lists.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_profile.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_searchmovieapi.xml" value="0.19444444444444445" />
-        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_sign_up.xml" value="0.17180616740088106" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_sign_up.xml" value="0.16" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/activity_testapiactivity.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/add_contact_item.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/chat_from_row.xml" value="0.4" />
@@ -61,7 +61,7 @@
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/fragment_blank.xml" value="0.2" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/fragment_blank2.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/fragment_contacts.xml" value="0.1111111111111111" />
-        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/fragment_groups.xml" value="0.1111111111111111" />
+        <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/fragment_groups.xml" value="0.1" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/movie_list_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/my_contacts_item.xml" value="0.264" />
         <entry key="..\:/Users/Trabajo/AndroidStudioProjects/AlphaTest/app/src/main/res/layout/my_lists_item.xml" value="0.264" />
