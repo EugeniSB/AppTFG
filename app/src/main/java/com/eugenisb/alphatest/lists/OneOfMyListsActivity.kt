@@ -56,7 +56,7 @@ class OneOfMyListsActivity : AppCompatActivity() {
                             "movies." + movieName,
                             FieldValue.delete()
                         )
-                        getListItems(listId)
+                        adapter.removeGroupAtAdapterPosition(position)
                     } else {
                         ///POTSER POSAR UN AVIS DE QUE ES BORRARA LA LLISTA
                         db.collection("lists").document(listId).delete()

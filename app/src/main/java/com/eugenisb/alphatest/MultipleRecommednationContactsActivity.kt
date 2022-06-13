@@ -121,11 +121,17 @@ class MultipleRecommednationContactsActivity : AppCompatActivity() {
             Log.d("User", "Users contacts: " + document.data?.get("contacts"))
             val adapter = GroupAdapter<GroupieViewHolder>()
             val contactsArray = document["contacts"] as ArrayList<String>
-            for(id in contactsArray){
-                db.collection("users").document(id).get().addOnSuccessListener {
-                    usersMap[id] = it["username"] as String
-                    adapter.add(GroupContactItem(id, it["username"] as String))
+
+            if(contactsArray.isNotEmpty()) {
+                for (id in contactsArray) {
+                    db.collection("users").document(id).get().addOnSuccessListener {
+                        usersMap[id] = it["username"] as String
+                        adapter.add(GroupContactItem(id, it["username"] as String))
+                    }
                 }
+                groupAddContactRecyclerView.adapter = adapter
+            }else{
+                noContactsGroupTextView.visibility = View.VISIBLE
             }
             //usersMap = document.data?.get("contacts") as MutableMap<String, String>
             /*
@@ -137,7 +143,7 @@ class MultipleRecommednationContactsActivity : AppCompatActivity() {
 
              */
 
-            groupAddContactRecyclerView.adapter = adapter
+
         }
 
     }
@@ -147,10 +153,14 @@ class MultipleRecommednationContactsActivity : AppCompatActivity() {
         val adapter = GroupAdapter<GroupieViewHolder>()
         val adapterAdded = GroupAdapter<GroupieViewHolder>()
 
-        for (key in usersMap.keys) {
-            if (usersMap[key] != null) {
-                adapter.add(GroupContactItem(key, usersMap[key]!!))
+        if(usersMap.isNotEmpty()) {
+            for (key in usersMap.keys) {
+                if (usersMap[key] != null) {
+                    adapter.add(GroupContactItem(key, usersMap[key]!!))
+                }
             }
+        }else{
+            noContactsGroupTextView.visibility = View.VISIBLE
         }
 
         for (key in usersGroupMap.keys) {

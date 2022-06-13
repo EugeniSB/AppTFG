@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.PopupWindow
@@ -47,6 +48,8 @@ class AllContactsOpinionsActivity : AppCompatActivity() {
 
         val userId = FirebaseAuth.getInstance().uid!!
 
+        noAllOpinionsTextView.visibility = VISIBLE
+
         lifecycleScope.launch {
             val map = getOpinions(userId)
             printOpinions(map.toSortedMap())
@@ -80,22 +83,31 @@ class AllContactsOpinionsActivity : AppCompatActivity() {
         val contactsMap = getContactsNames(contactsIds)
         val opinionsMap = mutableMapOf<String,ArrayList<Opinion>>()
 
-        for (id in contactsIds){
-            val opinionsDocs = getOpinionsSnapshot(id)
-            for (document in opinionsDocs.documents){
-                val isPublic = document["public"] as Boolean
-                if(isPublic){
-                    val rating = document["rating"] as Double
-                    val opinion = Opinion(contactsMap[id]!!, document["moviePoster"] as String, document["opinionComment"] as String,
-                        document["public"] as Boolean, rating.toInt())
-                    if(opinionsMap[document["movie"] as String].isNullOrEmpty())
-                        opinionsMap[document["movie"] as String] = ArrayList<Opinion>()
-                    opinionsMap[document["movie"] as String]?.add(opinion)
-                }
+        if(contactsIds.isNotEmpty()) {
+            for (id in contactsIds) {
+                val opinionsDocs = getOpinionsSnapshot(id)
+                    for (document in opinionsDocs.documents) {
+                        val isPublic = document["public"] as Boolean
+                        if (isPublic) {
+                            noAllOpinionsTextView.visibility = GONE
+                            val rating = document["rating"] as Double
+                            val opinion = Opinion(
+                                contactsMap[id]!!,
+                                document["moviePoster"] as String,
+                                document["opinionComment"] as String,
+                                document["public"] as Boolean,
+                                rating.toInt()
+                            )
+                            if (opinionsMap[document["movie"] as String].isNullOrEmpty())
+                                opinionsMap[document["movie"] as String] = ArrayList<Opinion>()
+                            opinionsMap[document["movie"] as String]?.add(opinion)
+                        }
+                    }
             }
-
+        }else{
+            noContactsAllOpinions.visibility = VISIBLE
+            noAllOpinionsTextView.visibility = GONE
         }
-
         return opinionsMap
     }
 

@@ -19,6 +19,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_my_groups.*
+import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_groups.*
 import kotlinx.android.synthetic.main.my_contacts_item.view.*
 import java.text.SimpleDateFormat
@@ -116,24 +117,31 @@ class GroupsFragment : Fragment() {
         db.collection("groups").whereArrayContains("members",userId).get()
             .addOnSuccessListener {
                 val adapter = GroupAdapter<GroupieViewHolder>()
-                for(document in it.documents){
-                    var groupId = document.id
-                    var groupName = document.get("name") as String
-                    var groupImg = document.get("image") as String
-                    adapter.add(GroupItem(groupId,groupName, groupImg))
-                    Log.d(ContentValues.TAG, "MyGroups: $groupName")
-                }
-                adapter.setOnItemClickListener { item, view ->
-                    val groupItem = item as GroupItem
 
-                    val intentGroupChat = Intent(view.context, GroupChatLogActivity::class.java)
-                    intentGroupChat.putExtra("groupId",item.groupId)
-                    intentGroupChat.putExtra("groupName",item.groupName)
-                    intentGroupChat.putExtra("groupImg",item.groupImg)
-                    startActivity(intentGroupChat)
+                if(it.documents.isNotEmpty()){
+                    for(document in it.documents){
+                        var groupId = document.id
+                        var groupName = document.get("name") as String
+                        var groupImg = document.get("image") as String
+                        adapter.add(GroupItem(groupId,groupName, groupImg))
+                        Log.d(ContentValues.TAG, "MyGroups: $groupName")
+                    }
+                    adapter.setOnItemClickListener { item, view ->
+                        val groupItem = item as GroupItem
+
+                        val intentGroupChat = Intent(view.context, GroupChatLogActivity::class.java)
+                        intentGroupChat.putExtra("groupId",item.groupId)
+                        intentGroupChat.putExtra("groupName",item.groupName)
+                        intentGroupChat.putExtra("groupImg",item.groupImg)
+                        startActivity(intentGroupChat)
+                    }
+
+                    fragment2RecyclerView.adapter = adapter
+                }else{
+                    fragment2RecyclerView.visibility = View.GONE
+                    noGroupsTextView.visibility = View.VISIBLE
                 }
 
-                fragment2RecyclerView.adapter = adapter
             }
     }
 

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import com.eugenisb.alphatest.R
@@ -91,24 +92,30 @@ class ContactOpinionsActivity : AppCompatActivity() {
 
     private fun getOpinions(contactId: String) {
 
-        db.collection("opinions").whereEqualTo("creator", contactId).get().addOnSuccessListener {
-                results ->
+        db.collection("opinions").whereEqualTo("creator", contactId).get().addOnSuccessListener { results ->
             adapter = GroupAdapter<GroupieViewHolder>()
 
-            for(document in results.documents){
-                if(document["public"] as Boolean) {
-                    val movieName = document["movie"] as String
-                    val moviePoster = document["moviePoster"] as String
-                    val movieOpinion = document["opinionComment"] as String
-                    val movieRating = document["rating"] as Double
+            if (results.documents.isNotEmpty()) {
+                for (document in results.documents) {
+                    if (document["public"] as Boolean) {
+                        val movieName = document["movie"] as String
+                        val moviePoster = document["moviePoster"] as String
+                        val movieOpinion = document["opinionComment"] as String
+                        val movieRating = document["rating"] as Double
 
-                    adapter.add(
-                        OpinionsItem(movieName,moviePoster,
-                            movieOpinion, movieRating.toInt(), document.id))
+                        adapter.add(
+                            OpinionsItem(
+                                movieName, moviePoster,
+                                movieOpinion, movieRating.toInt(), document.id
+                            )
+                        )
+                    }
                 }
-            }
 
-            myOpinionsRecyclerView.adapter = adapter
+                myOpinionsRecyclerView.adapter = adapter
+            }else{
+                noContactOpinionsTextView.visibility = VISIBLE
+            }
         }
 
     }

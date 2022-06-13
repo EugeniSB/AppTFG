@@ -47,9 +47,11 @@ class CreateGroupNameActivity : AppCompatActivity() {
             ActivityResultContracts.GetContent(),
             ActivityResultCallback {
 
-                circleAvatarGroup.setImageURI(it)
-                URIimage = it
-                imageUpdated = true
+                if(it != null) {
+                    circleAvatarGroup.setImageURI(it)
+                    URIimage = it
+                    imageUpdated = true
+                }
 
             }
         )

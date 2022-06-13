@@ -7,6 +7,23 @@
     android:layout_gravity="center"
     tools:context=".lists.MyListsActivity">
 
+    <TextView
+        android:id="@+id/noListsTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="You do not have any lists yet. Try creating one with the button on the top right of the screen!"
+        android:textAlignment="center"
+        android:textColor="@color/green"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myListsRecyclerView"
         android:layout_width="0dp"

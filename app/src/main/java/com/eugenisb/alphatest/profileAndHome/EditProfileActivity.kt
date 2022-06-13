@@ -59,10 +59,11 @@ class EditProfileActivity : AppCompatActivity() {
         val getImage = registerForActivityResult(
             ActivityResultContracts.GetContent(),
             ActivityResultCallback {
-
-                findViewById<ImageView>(R.id.circleAvatarEditProfile).setImageURI(it)
-                URIimage = it
-                imageUpdated = true
+                if(it != null) {
+                    findViewById<ImageView>(R.id.circleAvatarEditProfile).setImageURI(it)
+                    URIimage = it
+                    imageUpdated = true
+                }
 
             }
         )

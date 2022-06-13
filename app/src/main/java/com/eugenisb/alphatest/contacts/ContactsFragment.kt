@@ -7,6 +7,8 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.auth.AuthActivity
@@ -135,28 +137,35 @@ class ContactsFragment : Fragment() {
             //val usersMap = document.data?.get("contacts") as Map<String,String>
             val contactsArray = document.data?.get("contacts") as List<String>
 
-            for (contactId in contactsArray){
-                db.collection("users").document(contactId).get().addOnSuccessListener {
-                    if(it.data?.get("username") as String != null)
-                        adapter.add(ContactItem(contactId, it.data?.get("username") as String, userId))
-                }
-                /*
-                if(usersMap[key] != null){
-                    adapter.add(ContactItem())
-                    //adapter.add(ContactItem(key, usersMap[key]!!, userId))
-                }
+            if(contactsArray.isNotEmpty()){
+                for (contactId in contactsArray){
+                    db.collection("users").document(contactId).get().addOnSuccessListener {
+                        if(it.data?.get("username") as String != null)
+                            adapter.add(ContactItem(contactId, it.data?.get("username") as String, userId))
+                    }
+                    /*
+                    if(usersMap[key] != null){
+                        adapter.add(ContactItem())
+                        //adapter.add(ContactItem(key, usersMap[key]!!, userId))
+                    }
 
-                 */
-            }
-            adapter.setOnItemClickListener{ item,view ->
-                val contactItem = item as ContactItem
+                     */
+                }
+                adapter.setOnItemClickListener{ item,view ->
+                    val contactItem = item as ContactItem
 
-                val intentChatLog = Intent(view.context, ContactChatLogActivity::class.java)
-                intentChatLog.putExtra("contactId",item.contactId)
-                intentChatLog.putExtra("contactUsername",item.username)
-                startActivity(intentChatLog)
+                    val intentChatLog = Intent(view.context, ContactChatLogActivity::class.java)
+                    intentChatLog.putExtra("contactId",item.contactId)
+                    intentChatLog.putExtra("contactUsername",item.username)
+                    startActivity(intentChatLog)
+                }
+                fragmentRecyclerView.adapter = adapter
             }
-            fragmentRecyclerView.adapter = adapter
+            else{
+                fragmentRecyclerView.visibility = GONE
+                noContactsTextView.visibility = VISIBLE
+            }
+
         }
 
     }

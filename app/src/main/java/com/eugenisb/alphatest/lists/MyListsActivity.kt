@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View.VISIBLE
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.eugenisb.alphatest.R
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.my_lists_item.view.*
 class MyListsActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
+    private val adapter = GroupAdapter<GroupieViewHolder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +55,11 @@ class MyListsActivity : AppCompatActivity() {
 
                 ////POSAR AVIS DE QUE ES BORRARA LA LLISTA
                 db.collection("lists").document(listId).delete()
-                getLists(FirebaseAuth.getInstance().uid!!)
+                adapter.removeGroupAtAdapterPosition(position)
+                if(adapter.itemCount == 0){
+                    noListsTextView.visibility = VISIBLE
+                }
+
             }
 
             viewHolder.itemView.editListImageButton.setOnClickListener {
@@ -72,35 +78,38 @@ class MyListsActivity : AppCompatActivity() {
 
     private fun getLists(userId: String) {
 
-        db.collection("lists").whereEqualTo("creator", userId).get().addOnSuccessListener {
-                results ->
-            val adapter = GroupAdapter<GroupieViewHolder>()
+        db.collection("lists").whereEqualTo("creator", userId).get().addOnSuccessListener { results ->
+
 
             myListsRecyclerView.apply {
-                layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL,false)
+                layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             }
 
-            for(document in results.documents){
-                val getMovieMap = document["movies"] as Map<String,String>
-                val listName = document["name"] as String
-                val listImage = getMovieMap[getMovieMap.keys.elementAt(0)] as String
-                val listNumberOfMovies = getMovieMap.keys.size
-                adapter.add(ListsItem(listName,listImage,listNumberOfMovies, document.id))
+            if(results.documents.isNotEmpty()){
+                for (document in results.documents) {
+                    val getMovieMap = document["movies"] as Map<String, String>
+                    val listName = document["name"] as String
+                    val listImage = getMovieMap[getMovieMap.keys.elementAt(0)] as String
+                    val listNumberOfMovies = getMovieMap.keys.size
+                    adapter.add(ListsItem(listName, listImage, listNumberOfMovies, document.id))
 
                 }
 
-            /*adapter.setOnItemClickListener{ item,view ->
-                val contactItem = item as MyContactsActivity.ContactItem
+                /*adapter.setOnItemClickListener{ item,view ->
+                    val contactItem = item as MyContactsActivity.ContactItem
 
-                val intentChatLog = Intent(view.context, ContactChatLogActivity::class.java)
-                intentChatLog.putExtra("contactId",item.userId)
-                intentChatLog.putExtra("contactUsername",item.username)
-                startActivity(intentChatLog)
+                    val intentChatLog = Intent(view.context, ContactChatLogActivity::class.java)
+                    intentChatLog.putExtra("contactId",item.userId)
+                    intentChatLog.putExtra("contactUsername",item.username)
+                    startActivity(intentChatLog)
 
 
+                }
+                */
+                myListsRecyclerView.adapter = adapter
+             }else{
+                 noListsTextView.visibility = VISIBLE
             }
-            */
-            myListsRecyclerView.adapter = adapter
         }
 
     }

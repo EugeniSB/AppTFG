@@ -47,6 +47,7 @@
         android:ellipsize="end"
         android:maxLines="8"
         android:text="TextView"
+        android:justificationMode="inter_word"
         android:textAlignment="textStart"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,13 +80,15 @@
 
     <ImageButton
         android:id="@+id/editOpinionImageButton"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         android:background="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/deleteOpinionImageButton"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/myOpinionRating"
         app:srcCompat="@drawable/ic_edit" />
 
     <ImageButton

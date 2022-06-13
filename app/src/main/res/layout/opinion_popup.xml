@@ -78,7 +78,7 @@
         android:maxLines="12"
         android:scrollbars="vertical"
         android:text="TextView"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

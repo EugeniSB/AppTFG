@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.*
+import android.view.View.VISIBLE
 import android.widget.PopupWindow
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.SearchMovieAPIActivity
@@ -16,6 +17,7 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
+import kotlinx.android.synthetic.main.activity_my_lists.*
 import kotlinx.android.synthetic.main.activity_my_opinions.*
 import kotlinx.android.synthetic.main.my_opinions_item.view.*
 import kotlinx.android.synthetic.main.opinion_popup.view.*
@@ -75,9 +77,10 @@ class MyOpinionsActivity : AppCompatActivity() {
 
                 ////POSAR AVIS DE QUE ES BORRARA LA LLISTA
                 db.collection("opinions").document(opinionId).delete()
-                //adapter.notifyItemRemoved(position)
-                //myOpinionsRecyclerView.adapter = adapter
-                getOpinions(FirebaseAuth.getInstance().uid)
+                adapter.removeGroupAtAdapterPosition(position)
+                if(adapter.itemCount == 0){
+                    noOpinionsTextView.visibility = VISIBLE
+                }
 
             }
 
@@ -128,28 +131,32 @@ class MyOpinionsActivity : AppCompatActivity() {
                 results ->
             adapter = GroupAdapter<GroupieViewHolder>()
 
-            for(document in results.documents){
+            if(results.documents.isNotEmpty()){
+                for(document in results.documents){
 
-                val movieName = document["movie"] as String
-                val moviePoster = document ["moviePoster"] as String
-                val movieOpinion = document["opinionComment"] as String
-                val movieRating = document["rating"] as Double
+                    val movieName = document["movie"] as String
+                    val moviePoster = document ["moviePoster"] as String
+                    val movieOpinion = document["opinionComment"] as String
+                    val movieRating = document["rating"] as Double
 
-                adapter.add(OpinionsItem(movieName,moviePoster,movieOpinion,movieRating.toInt(),document.id))
+                    adapter.add(OpinionsItem(movieName,moviePoster,movieOpinion,movieRating.toInt(),document.id))
+                }
+
+                /*adapter.setOnItemClickListener{ item,view ->
+                    val contactItem = item as MyContactsActivity.ContactItem
+
+                    val intentChatLog = Intent(view.context, ContactChatLogActivity::class.java)
+                    intentChatLog.putExtra("contactId",item.userId)
+                    intentChatLog.putExtra("contactUsername",item.username)
+                    startActivity(intentChatLog)
+
+
+                }
+                */
+                myOpinionsRecyclerView.adapter = adapter
+            }else{
+                noOpinionsTextView.visibility = VISIBLE
             }
-
-            /*adapter.setOnItemClickListener{ item,view ->
-                val contactItem = item as MyContactsActivity.ContactItem
-
-                val intentChatLog = Intent(view.context, ContactChatLogActivity::class.java)
-                intentChatLog.putExtra("contactId",item.userId)
-                intentChatLog.putExtra("contactUsername",item.username)
-                startActivity(intentChatLog)
-
-
-            }
-            */
-            myOpinionsRecyclerView.adapter = adapter
         }
 
     }

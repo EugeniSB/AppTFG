@@ -12,6 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphaTest">
         <activity
+            android:name=".auth.RecoverPasswordActivity"
+            android:exported="false">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".groups.GroupChatLogActivity" />
+        </activity>
+        <activity
             android:name=".MultipleRecommendationCommentActivity"
             android:exported="false" />
         <activity
@@ -128,7 +135,8 @@
         </activity>
         <activity
             android:name=".contacts.ContactChatLogActivity"
-            android:exported="false">
+            android:exported="false"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".profileAndHome.HomeActivity" />
@@ -138,7 +146,7 @@
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".profileAndHome.HomeActivity" />
+                android:value=".contacts.ContactChatLogActivity" />
         </activity>
         <activity
             android:name=".contacts.ContactRequests"
@@ -190,6 +198,10 @@
         <activity
             android:name=".auth.AuthActivity"
             android:exported="true" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

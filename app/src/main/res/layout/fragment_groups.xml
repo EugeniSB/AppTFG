@@ -10,6 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/noGroupsTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="You are not part of a group yet? Try creating one with the button on the bottom right of the screen!"
+            android:textColor="@color/green"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment2RecyclerView"
             android:layout_width="0dp"
@@ -24,20 +40,19 @@
             android:id="@+id/createGroupFloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
             android:clickable="true"
-            app:backgroundTint="#38C83E"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment2RecyclerView"
-            app:layout_constraintEnd_toEndOf="@+id/fragment2RecyclerView"
-            app:layout_constraintHorizontal_bias="0.863"
-            app:layout_constraintStart_toStartOf="@+id/fragment2RecyclerView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/creategroupuicon"
-            app:tint="@color/white"
             android:scaleX="1.2"
             android:scaleY="1.2"
-            app:maxImageSize="35dp"/>
+            app:backgroundTint="#38C83E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.875"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.915"
+            app:maxImageSize="35dp"
+            app:srcCompat="@drawable/creategroupuicon"
+            app:tint="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,6 +3,7 @@ package com.eugenisb.alphatest.lists
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View.VISIBLE
 import androidx.recyclerview.widget.GridLayoutManager
 import com.eugenisb.alphatest.R
 import com.google.firebase.auth.FirebaseAuth
@@ -51,37 +52,48 @@ class ContactListsActivity : AppCompatActivity() {
 
     private fun getContactLists(contactId: String) {
 
-        db.collection("lists").whereEqualTo("creator", contactId).get().addOnSuccessListener {
-                results ->
+        db.collection("lists").whereEqualTo("creator", contactId).get().addOnSuccessListener { results ->
             val adapter = GroupAdapter<GroupieViewHolder>()
 
             contactListsRecyclerView.apply {
-                layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL,false)
+                layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             }
 
-            for(document in results.documents){
-                val isPublic = document["public"] as Boolean
-                if(isPublic){
-                    val getMovieMap = document["movies"] as Map<String,String>
-                    val listName = document["name"] as String
-                    val listImage = getMovieMap[getMovieMap.keys.elementAt(0)] as String
-                    val listNumberOfMovies = getMovieMap.keys.size
-                    adapter.add(contactListsItem(listName,listImage,listNumberOfMovies, document.id))
+            if (results.documents.isNotEmpty()) {
+                for (document in results.documents) {
+                    val isPublic = document["public"] as Boolean
+                    if (isPublic) {
+                        val getMovieMap = document["movies"] as Map<String, String>
+                        val listName = document["name"] as String
+                        val listImage = getMovieMap[getMovieMap.keys.elementAt(0)] as String
+                        val listNumberOfMovies = getMovieMap.keys.size
+                        adapter.add(
+                            contactListsItem(
+                                listName,
+                                listImage,
+                                listNumberOfMovies,
+                                document.id
+                            )
+                        )
+                    }
+
                 }
 
+                adapter.setOnItemClickListener { item, view ->
+                    val contactListItem = item as contactListsItem
+
+                    val intentContactList =
+                        Intent(view.context, OneOfMyContactListsActivity::class.java)
+                    intentContactList.putExtra("listId", item.listId)
+                    intentContactList.putExtra("listName", item.listName)
+                    startActivity(intentContactList)
+
+                }
+
+                contactListsRecyclerView.adapter = adapter
+            }else{
+                noContactsListsTextView.visibility = VISIBLE
             }
-
-            adapter.setOnItemClickListener{ item,view ->
-                val contactListItem = item as contactListsItem
-
-                val intentContactList = Intent(view.context, OneOfMyContactListsActivity::class.java)
-                intentContactList.putExtra("listId",item.listId)
-                intentContactList.putExtra("listName",item.listName)
-                startActivity(intentContactList)
-
-            }
-
-            contactListsRecyclerView.adapter = adapter
         }
 
     }

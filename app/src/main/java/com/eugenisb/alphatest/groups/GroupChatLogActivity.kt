@@ -146,6 +146,13 @@ class GroupChatLogActivity : AppCompatActivity() {
                 }
 
             }
+
+            viewHolder.itemView.fromImageView.setOnClickListener {
+                val contactProfileIntent = Intent(it.context, ContactProfileActivity::class.java)
+                contactProfileIntent.putExtra("contactId", userId)
+                startActivity(contactProfileIntent)
+            }
+
         }
 
         override fun getLayout(): Int {

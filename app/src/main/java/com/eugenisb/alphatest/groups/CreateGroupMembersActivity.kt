@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import com.eugenisb.alphatest.R
 import com.eugenisb.alphatest.auth.AuthActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -110,12 +111,19 @@ class CreateGroupMembersActivity : AppCompatActivity() {
             Log.d("User", "Users contacts: " + document.data?.get("contacts"))
             val adapter = GroupAdapter<GroupieViewHolder>()
             val contactsArray = document["contacts"] as ArrayList<String>
-            for(id in contactsArray){
-                db.collection("users").document(id).get().addOnSuccessListener {
-                    usersMap[id] = it["username"] as String
-                    adapter.add(GroupContactItem(id, it["username"] as String))
+            if(contactsArray.isNotEmpty()){
+                for(id in contactsArray){
+                    db.collection("users").document(id).get().addOnSuccessListener {
+                        usersMap[id] = it["username"] as String
+                        adapter.add(GroupContactItem(id, it["username"] as String))
+                    }
                 }
+                groupAddContactRecyclerView.adapter = adapter
+            }else{
+                noContactsGroupTextView.visibility = VISIBLE
             }
+
+
             //usersMap = document.data?.get("contacts") as MutableMap<String, String>
             /*
             for (key in usersMap.keys) {
@@ -126,7 +134,6 @@ class CreateGroupMembersActivity : AppCompatActivity() {
 
              */
 
-            groupAddContactRecyclerView.adapter = adapter
         }
 
     }
@@ -136,11 +143,18 @@ class CreateGroupMembersActivity : AppCompatActivity() {
         val adapter = GroupAdapter<GroupieViewHolder>()
         val adapterAdded = GroupAdapter<GroupieViewHolder>()
 
-        for (key in usersMap.keys) {
-            if (usersMap[key] != null) {
-                adapter.add(GroupContactItem(key, usersMap[key]!!))
+        if(usersMap.isNotEmpty()){
+            noContactsGroupTextView.visibility = GONE
+            for (key in usersMap.keys) {
+                if (usersMap[key] != null) {
+                    adapter.add(GroupContactItem(key, usersMap[key]!!))
+                }
             }
+
+        }else{
+            noContactsGroupTextView.visibility = VISIBLE
         }
+
 
         for (key in usersGroupMap.keys) {
             if (usersGroupMap[key] != null) {

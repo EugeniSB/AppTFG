@@ -11,6 +11,7 @@ import com.eugenisb.alphatest.profileAndHome.HomeActivity
 import com.eugenisb.alphatest.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_auth.*
 
 class AuthActivity : AppCompatActivity() {
 
@@ -28,6 +29,10 @@ class AuthActivity : AppCompatActivity() {
             login()
         }
 
+        recoverPassText.setOnClickListener {
+            val resPassIntent = Intent(this, RecoverPasswordActivity::class.java)
+            startActivity(resPassIntent)
+        }
 
 
     }
