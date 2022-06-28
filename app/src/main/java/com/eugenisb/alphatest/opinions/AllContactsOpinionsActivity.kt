@@ -1,17 +1,16 @@
 package com.eugenisb.alphatest.opinions
 
-import android.graphics.Color
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
-import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View.GONE
-import android.view.View.VISIBLE
-import android.view.ViewGroup
+import android.view.View.*
 import android.widget.PopupWindow
+import androidx.core.view.marginTop
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import com.eugenisb.alphatest.R
+import com.eugenisb.alphatest.clases.Opinion
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -51,7 +50,7 @@ class AllContactsOpinionsActivity : AppCompatActivity() {
         noAllOpinionsTextView.visibility = VISIBLE
 
         lifecycleScope.launch {
-            val map = getOpinions(userId)
+            var map = getOpinions(userId)
             printOpinions(map.toSortedMap())
         }
     }
@@ -112,42 +111,29 @@ class AllContactsOpinionsActivity : AppCompatActivity() {
     }
 
 
-
     inner class OpinionsItem(val movieName: String, val movieImgURL: String, val movieOpinion: String,
-                             val movieRating: Int, val creator: String): Item<GroupieViewHolder>(){
+                             val movieRating: Float, val creator: String, val array: ArrayList<Opinion> ): Item<GroupieViewHolder>(){
 
 
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
             viewHolder.itemView.myOpinionMovieTitle.text = movieName
             viewHolder.itemView.opinionCreatorTextView.visibility = VISIBLE
-            viewHolder.itemView.opinionCreatorTextView.text = "By: $creator"
-
-            viewHolder.itemView.myOpinionText.text = movieOpinion
+            viewHolder.itemView.allOpinionsText.visibility = VISIBLE
+            viewHolder.itemView.myOpinionText.visibility = GONE
+            viewHolder.itemView.opinionCreatorTextView.text = "$creator"
             viewHolder.itemView.myOpinionRating.text = "$movieRating/10"
             Picasso.get().load(movieImgURL).into(viewHolder.itemView.myOpinionImageView)
 
 
             viewHolder.itemView.setOnClickListener {
 
-                layoutInf = applicationContext.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-                var container = layoutInf.inflate(R.layout.opinion_popup,null) as ViewGroup
+                val opinionsIntent = Intent(it.context, AllOpinionsOpinionActivity::class.java)
 
-                Picasso.get().load(movieImgURL).into(container.popUpOpinionImageView)
-                container.movieNamePopUpTextView.text = movieName
-                container.popUpRatingTextView.text =  "$movieRating /10"
-                container.myOpinionPopUpText.text = movieOpinion
-                container.myOpinionPopUpText.movementMethod = ScrollingMovementMethod()
+                opinionsIntent.putExtra("opinions", array)
+                opinionsIntent.putExtra("movieName", movieName)
+                opinionsIntent.putExtra("moviePoster", movieImgURL)
+                startActivity(opinionsIntent)
 
-                popUp = PopupWindow(container,925,1550,true)
-                popUp.showAtLocation(myOpinionsLayout, Gravity.CENTER, 0,50)
-                popUp.elevation = 100F
-                myOpinionsRecyclerView.alpha = 0.5F
-                myOpinionsLayout.setBackgroundColor(Color.GRAY)
-
-                popUp.setOnDismissListener {
-                    myOpinionsRecyclerView.alpha = 1F
-                    myOpinionsLayout.setBackgroundColor(Color.WHITE)
-                }
             }
 
         }
@@ -162,11 +148,18 @@ class AllContactsOpinionsActivity : AppCompatActivity() {
         adapter = GroupAdapter<GroupieViewHolder>()
 
         for(movie in opinionsMap.keys){
+            var sumaRatings = 0F
+            var moviePoster = ""
             for(opinion in opinionsMap[movie]!!){
-                adapter.add(
-                    OpinionsItem(movie,opinion.moviePoster,
-                        opinion.opinionComment, opinion.rating, opinion.creator))
+                sumaRatings += opinion.rating
+                moviePoster = opinion.moviePoster
             }
+
+            sumaRatings /= opinionsMap[movie]!!.size
+            adapter.add(
+                OpinionsItem(movie,moviePoster,
+                    "Click to see all the opinions",
+                    sumaRatings, "", opinionsMap[movie]!!))
 
         }
 
@@ -179,9 +172,5 @@ class AllContactsOpinionsActivity : AppCompatActivity() {
 
 
 
-class Opinion (val creator: String, val moviePoster: String, val opinionComment: String,
-               val public: Boolean, val rating: Int){
-    constructor() : this("","","",false,0)
 
-}
 

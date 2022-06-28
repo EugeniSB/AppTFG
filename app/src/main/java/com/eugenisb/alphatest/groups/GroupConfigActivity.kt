@@ -73,23 +73,29 @@ class GroupConfigActivity : AppCompatActivity() {
             ActivityResultContracts.GetContent(),
             ActivityResultCallback {
 
-                groupConfigImage.setImageURI(it)
-                groupImage = it.toString()
-                val imageName =  UUID.randomUUID().toString()
-                val storageReference = FirebaseStorage.getInstance().getReference("images/group_pics/$imageName")
+                if (it != null) {
+                    groupConfigImage.setImageURI(it)
+                    groupImage = it.toString()
+                    val imageName = UUID.randomUUID().toString()
+                    val storageReference =
+                        FirebaseStorage.getInstance().getReference("images/group_pics/$imageName")
 
-                storageReference.putFile(it).addOnSuccessListener {
-                    Toast.makeText(this, "Successfuly uploaded image", Toast.LENGTH_SHORT).show()
+                    storageReference.putFile(it).addOnSuccessListener {
+                        Toast.makeText(this, "Successfuly uploaded image", Toast.LENGTH_SHORT)
+                            .show()
 
-                    storageReference.downloadUrl.addOnSuccessListener {
-                        db.collection("groups").document(groupId).update("image",
-                            it.toString())
+                        storageReference.downloadUrl.addOnSuccessListener {
+                            db.collection("groups").document(groupId).update(
+                                "image",
+                                it.toString()
+                            )
+                        }
+
+                    }.addOnFailureListener {
+                        Toast.makeText(this, "Upload failed", Toast.LENGTH_SHORT).show()
                     }
 
-                }.addOnFailureListener {
-                    Toast.makeText(this, "Upload failed", Toast.LENGTH_SHORT).show()
                 }
-
             }
         )
 

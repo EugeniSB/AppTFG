@@ -104,6 +104,7 @@ class AllContactsListsActivity : AppCompatActivity() {
                                     )
                                     intentContactList.putExtra("listId", item.listId)
                                     intentContactList.putExtra("listName", item.listName)
+                                    intentContactList.putExtra("contactName", item.listCreator)
                                     startActivity(intentContactList)
 
                                 }

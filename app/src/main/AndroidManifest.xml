@@ -12,11 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphaTest">
         <activity
+            android:name=".opinions.AllOpinionsOpinionActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".opinions.AllContactsOpinionsActivity" />
+        </activity>
+        <activity
             android:name=".auth.RecoverPasswordActivity"
             android:exported="false">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".groups.GroupChatLogActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".auth.AuthActivity" />
         </activity>
         <activity
             android:name=".MultipleRecommendationCommentActivity"
@@ -26,10 +33,19 @@
             android:exported="false" />
         <activity
             android:name=".opinions.AllContactsOpinionsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".profileAndHome.HomeActivity" />
+        </activity>
         <activity
             android:name=".lists.AllContactsListsActivity"
-            android:exported="false" />
+            android:exported="false" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".profileAndHome.HomeActivity" />
+        </activity>
         <activity
             android:name=".groups.AddMembersActivity"
             android:exported="false" />
@@ -45,7 +61,7 @@
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".profileAndHome.HomeActivity" />
+                android:value=".contacts.ContactProfileActivity" />
         </activity>
         <activity
             android:name=".opinions.EditOpinionActivity"
@@ -66,17 +82,26 @@
         </activity>
         <activity
             android:name=".lists.OneOfMyContactListsActivity"
-            android:exported="false" />
+            android:exported="false">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".lists.ContactListsActivity" />
+        </activity>
         <activity
             android:name=".lists.ContactListsActivity"
-            android:exported="false">
+            android:exported="false"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".profileAndHome.HomeActivity" />
+                android:value=".contacts.ContactProfileActivity" />
         </activity>
         <activity
             android:name=".lists.EditMyListActivity"
-            android:exported="false" />
+            android:exported="false" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".lists.MyListsActivity" />
+        </activity>
         <activity
             android:name=".lists.OneOfMyListsActivity"
             android:exported="false">
@@ -86,7 +111,11 @@
         </activity>
         <activity
             android:name=".lists.CreateListActivity"
-            android:exported="false" />
+            android:exported="false" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".lists.MyListsActivity" />
+        </activity>
         <activity
             android:name=".lists.MyListsActivity"
             android:exported="false">
@@ -96,13 +125,18 @@
         </activity>
         <activity
             android:name=".SearchMovieAPIActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".groups.GroupChatLogActivity" />
+        </activity>
         <activity
             android:name=".groups.GroupRecommendationActivity"
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".profileAndHome.HomeActivity" />
+                android:value=".SearchMovieAPIActivity" />
         </activity>
         <activity
             android:name=".groups.GroupChatLogActivity"
@@ -131,7 +165,7 @@
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".profileAndHome.HomeActivity" />
+                android:value=".SearchMovieAPIActivity" />
         </activity>
         <activity
             android:name=".contacts.ContactChatLogActivity"
@@ -143,10 +177,12 @@
         </activity>
         <activity
             android:name=".contacts.ContactProfileActivity"
-            android:exported="false">
+            android:exported="false"
+            android:launchMode = "singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".contacts.ContactChatLogActivity" />
+                android:value=".contacts.ContactChatLogActivity"
+                />
         </activity>
         <activity
             android:name=".contacts.ContactRequests"
@@ -194,7 +230,11 @@
         </activity>
         <activity
             android:name=".auth.SignUpActivity"
-            android:exported="false" />
+            android:exported="false" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".auth.AuthActivity" />
+        </activity>
         <activity
             android:name=".auth.AuthActivity"
             android:exported="true" />

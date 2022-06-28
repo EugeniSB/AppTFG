@@ -74,6 +74,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/myOpinionRating" />
 
+    <TextView
+        android:id="@+id/allOpinionsText"
+        android:layout_width="96dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="Click to see all the opinions"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/myOpinionRating"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/myOpinionImageView"
+        app:layout_constraintTop_toTopOf="@+id/myOpinionText" />
+
     <RatingBar
         android:id="@+id/opinionStar"
         android:layout_width="49dp"

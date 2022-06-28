@@ -10,24 +10,21 @@
         android:id="@+id/groupNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="Group Name:"
         android:textColor="#373434"
-        android:textSize="22dp"
-        app:layout_constraintBottom_toTopOf="@+id/groupNameEditText"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/groupNameEditText"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/groupNameEditText"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/groupNameEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
         android:ems="10"
         android:hint="Enter group name"
         android:inputType="textPersonName"
@@ -36,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="@+id/groupAdded2RecyclerView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/groupAdded2RecyclerView"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupNameTextView"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -82,12 +79,11 @@
         android:layout_width="146dp"
         android:layout_height="125dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/groupAdded2RecyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/contactsAddedGroupTextView2"
         app:layout_constraintEnd_toEndOf="@+id/groupAdded2RecyclerView"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/groupAdded2RecyclerView"
         app:layout_constraintTop_toTopOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.16"
         app:srcCompat="@drawable/profile" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -108,7 +104,7 @@
         android:layout_marginBottom="8dp"
         android:text="Group contacts:"
         android:textColor="#373434"
-        android:textSize="22dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/groupAdded2RecyclerView"
         app:layout_constraintStart_toStartOf="parent" />
 

@@ -6,16 +6,13 @@ import android.os.Bundle
 import android.view.View.VISIBLE
 import androidx.recyclerview.widget.GridLayoutManager
 import com.eugenisb.alphatest.R
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_contact_lists.*
-import kotlinx.android.synthetic.main.activity_my_lists.*
 import kotlinx.android.synthetic.main.contact_lists_item.view.*
-import kotlinx.android.synthetic.main.my_lists_item.view.*
 
 class ContactListsActivity : AppCompatActivity() {
 
@@ -30,8 +27,8 @@ class ContactListsActivity : AppCompatActivity() {
 
         title = contactUsername + " lists"
 
-        if(contactId != null)
-            getContactLists(contactId)
+        if(contactId != null && contactUsername != null)
+            getContactLists(contactId, contactUsername)
     }
 
 
@@ -50,7 +47,7 @@ class ContactListsActivity : AppCompatActivity() {
     }
 
 
-    private fun getContactLists(contactId: String) {
+    private fun getContactLists(contactId: String, contactUsername: String) {
 
         db.collection("lists").whereEqualTo("creator", contactId).get().addOnSuccessListener { results ->
             val adapter = GroupAdapter<GroupieViewHolder>()
@@ -86,6 +83,7 @@ class ContactListsActivity : AppCompatActivity() {
                         Intent(view.context, OneOfMyContactListsActivity::class.java)
                     intentContactList.putExtra("listId", item.listId)
                     intentContactList.putExtra("listName", item.listName)
+                    intentContactList.putExtra("contactName", contactUsername)
                     startActivity(intentContactList)
 
                 }

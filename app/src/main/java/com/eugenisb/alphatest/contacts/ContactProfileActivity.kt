@@ -66,7 +66,7 @@ class ContactProfileActivity : AppCompatActivity() {
             contactFullNameTextView.text = contactUsername
             contactUsernameTextView.text = it.get("name") as String
             title = "Profile of $contactUsername"
-            contactEmailTextView.text = "Email: " + it.get("email") as String
+            //contactEmailTextView.text = "Email: " + it.get("email") as String
         }
 
         val imgReference = storageReference.child("images/profile_pics/Profile_picture_of: " + contactId)

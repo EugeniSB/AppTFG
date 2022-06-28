@@ -31,7 +31,7 @@
             android:id="@+id/contactProfileImage"
             android:layout_width="200dp"
             android:layout_height="0dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="@+id/linearLayout"
@@ -45,7 +45,7 @@
             android:layout_height="300dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="64dp"
+            android:layout_marginBottom="32dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,21 +79,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="13dp" />
-
-            <TextView
-                android:id="@+id/contactEmailTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="UsersEmail"
-                android:textColor="@color/dark_blue"
-                android:textSize="16sp" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="36dp" />
+                android:layout_height="38dp" />
 
             <ImageButton
                 android:id="@+id/deleteContactButton"
@@ -106,7 +92,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="36dp" />
+                android:layout_height="38dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
