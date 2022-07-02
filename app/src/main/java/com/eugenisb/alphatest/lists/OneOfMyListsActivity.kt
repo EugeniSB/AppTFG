@@ -40,8 +40,10 @@ class OneOfMyListsActivity : AppCompatActivity() {
 
         title = listName
 
-        if(listId != null)
+        if(listId != null) {
+            Thread.sleep(1000)
             getListItems(listId)
+        }
 
         addToListFloatingActionButton.setOnClickListener {
             val addToListIntent = Intent(this, SearchMovieAPIActivity::class.java)

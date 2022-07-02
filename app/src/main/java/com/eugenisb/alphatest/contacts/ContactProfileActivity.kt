@@ -20,7 +20,7 @@ class ContactProfileActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     private val storageReference = FirebaseStorage.getInstance().getReference()
-    private val contactUsername : String = ""
+    private var contactUsername : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +62,7 @@ class ContactProfileActivity : AppCompatActivity() {
     private fun getUser(contactId: String) {
 
         db.collection("users").document(contactId).get().addOnSuccessListener {
-            val contactUsername = it.get("username") as String
+            contactUsername = it.get("username") as String
             contactFullNameTextView.text = contactUsername
             contactUsernameTextView.text = it.get("name") as String
             title = "Profile of $contactUsername"

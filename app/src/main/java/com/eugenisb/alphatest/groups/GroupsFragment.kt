@@ -36,8 +36,9 @@ class GroupsFragment : Fragment() {
 
         val userId = FirebaseAuth.getInstance().uid
 
-        if(userId != null)
+        if(userId != null) {
             getGroups(userId!!)
+        }
 
     }
 

@@ -14,6 +14,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_create_group_members.*
+import kotlinx.android.synthetic.main.activity_group_chat_log.*
 import kotlinx.android.synthetic.main.create_group_add.view.*
 import kotlinx.android.synthetic.main.create_group_delete.view.*
 import java.util.ArrayList
@@ -50,13 +51,12 @@ class AddMembersActivity : AppCompatActivity() {
 
                 val groupConfig = Intent(this, GroupChatLogActivity::class.java).apply {
                     putExtra("groupId", groupId)
-                    //putExtra("groupAdmin", userId)
+                    putExtra("groupAdmin", userId)
                     putExtra("groupName", groupName)
                     putExtra("groupImg", groupImage)
                 }
-                groupConfig.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(groupConfig)
-
+                finish()
 
                 //onBackPressed()
             }

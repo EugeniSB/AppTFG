@@ -48,8 +48,9 @@ class EditOpinionActivity : AppCompatActivity() {
         db.collection("opinions").document(opinionId).update("public", publicEditOpinionCheckBox.isChecked)
 
         val myOpinionsIntent = Intent(this, MyOpinionsActivity::class.java)
-        myOpinionsIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        Thread.sleep(800)
         startActivity(myOpinionsIntent)
+        finish()
     }
 
     private fun getOpinion(opinionId: String) {

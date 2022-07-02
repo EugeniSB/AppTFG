@@ -60,8 +60,8 @@ class CreateOpinionActivity : AppCompatActivity() {
 
 
         val myOpinionsIntent = Intent(this, MyOpinionsActivity::class.java)
-        myOpinionsIntent.flags = FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(myOpinionsIntent)
+        finish()
     }
 
     private fun ratingBar() {

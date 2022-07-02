@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.eugenisb.alphatest.profileAndHome.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_contact_recommendation.*
 
 class MultipleRecommendationCommentActivity : AppCompatActivity() {
@@ -23,6 +24,7 @@ class MultipleRecommendationCommentActivity : AppCompatActivity() {
         var usersToRecommend = intent.extras?.getSerializable("usersGroupMap") as Map<String, String>
 
         movieTitleTextView.text = movieName
+        Picasso.get().load(moviePoster).into(recommendationPosterImageView)
 
         finishContactRecommendationButton.setOnClickListener {
             if(movieName != null && moviePoster != null && usersToRecommend.isNotEmpty()) {

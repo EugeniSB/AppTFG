@@ -1,11 +1,13 @@
 package com.eugenisb.alphatest.lists
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.eugenisb.alphatest.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit_my_list.*
+import kotlinx.android.synthetic.main.my_lists_item.view.*
 import kotlinx.android.synthetic.main.one_of_my_lists_item.view.*
 
 class EditMyListActivity : AppCompatActivity() {
@@ -42,7 +44,10 @@ class EditMyListActivity : AppCompatActivity() {
             "name",  editListNameEditText.text.toString(),
             "public", editListCheckBox.isChecked
         )
-        onBackPressed()
+
+        val myListsIntent = Intent(this,MyListsActivity::class.java)
+        startActivity(myListsIntent)
+        finish()
     }
 
     private fun getList(listId: String) {

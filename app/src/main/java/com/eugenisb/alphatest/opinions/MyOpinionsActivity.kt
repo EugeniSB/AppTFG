@@ -39,6 +39,7 @@ class MyOpinionsActivity : AppCompatActivity() {
 
         val userId = FirebaseAuth.getInstance().uid
 
+
         getOpinions(userId)
 
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AlphaTest</string>
+    <string name="app_name">App TFG</string>
     <string name="signUpTitle"><u>Enter your credentials:</u></string>
     <string name="editProfileTitle"><u>Edit Profile:</u></string>
     <string name="forgotPass"><u>Forgot Your Password?</u></string>

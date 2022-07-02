@@ -31,6 +31,7 @@ class MyListsActivity : AppCompatActivity() {
         title = "My lists"
         val userId = FirebaseAuth.getInstance().uid
 
+        //Thread.sleep(1000)
         getLists(userId!!)
 
     }
@@ -67,6 +68,7 @@ class MyListsActivity : AppCompatActivity() {
                 editListItemIntent.putExtra("listName", listName)
                 editListItemIntent.putExtra("listId", listId)
                 viewHolder.itemView.myListsImageView.context.startActivity(editListItemIntent)
+                finish()
             }
 
         }

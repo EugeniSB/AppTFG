@@ -156,7 +156,9 @@ class EditProfileActivity : AppCompatActivity() {
                     val profileIntent = Intent(this, ProfileActivity::class.java).apply {
                         putExtra("userId", userId)
                     }
+                    Thread.sleep(800)
                     startActivity(profileIntent)
+                    finish()
                 }else{
                     val alertUsernameAlreadyExists = AlertDialog.Builder(this)
                     alertUsernameAlreadyExists.setTitle("Username error")

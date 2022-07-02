@@ -54,7 +54,7 @@
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".groups.GroupChatLogActivity" />
+                android:value=".profileAndHome.HomeActivity" />
         </activity>
         <activity
             android:name=".opinions.ContactOpinionsActivity"
@@ -65,17 +65,23 @@
         </activity>
         <activity
             android:name=".opinions.EditOpinionActivity"
-            android:exported="false">
+            android:exported="false"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".opinions.MyOpinionsActivity" />
         </activity>
         <activity
             android:name=".opinions.CreateOpinionActivity"
-            android:exported="false" />
+            android:exported="false" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SearchMovieAPIActivity" />
+        </activity>
         <activity
             android:name=".opinions.MyOpinionsActivity"
-            android:exported="false">
+            android:exported="false"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".profileAndHome.ProfileActivity" />
@@ -223,7 +229,8 @@
         </activity>
         <activity
             android:name=".profileAndHome.ProfileActivity"
-            android:exported="false">
+            android:exported="false"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".profileAndHome.HomeActivity" />

@@ -161,6 +161,7 @@ class CreateGroupNameActivity : AppCompatActivity() {
 
         val groupsIntent = Intent(this, HomeActivity::class.java)
         groupsIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        Thread.sleep(1200)
         startActivity(groupsIntent)
 
     }
